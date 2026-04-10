@@ -1,0 +1,278 @@
+# Phase 3 — Full-stack lakehouse compose
+# Topology mirrors ../../../../dataeng/docker-compose.yml (L1-L243).
+# Usage: copy .env.example to .env, then `docker compose up -d`.
+# RAM budget: ~14-16 GB. For 8 GB machines use ../light-profile/.
+#
+# Service map:
+#   MinIO                -> S3-compatible object store (raw + Iceberg data)
+#   metastore-db (pg)    -> Hive Metastore JDBC backend
+#   hive-metastore       -> Iceberg HMS catalog (Thrift :9083)
+#   trino                -> SQL query engine over Iceberg
+#   spark                -> Batch engine for PySpark labs (writes Iceberg)
+#   dagster-db (pg)      -> Dagster run storage
+#   dagster-webserver    -> Dagster UI :3000
+#   dagster-daemon       -> Dagster schedules/sensors
+#   metabase-db (pg)     -> Metabase app DB
+#   metabase             -> BI frontend :3001
+#
+# No `version:` key — modern Docker Compose ignores it.
+
+services:
+  # ---------------------------------------------------------------------------
+  # MinIO — S3-compatible object store
+  # Release tags: https://github.com/minio/minio/releases
+  # verify against https://github.com/minio/minio/releases
+  # ---------------------------------------------------------------------------
+  minio:
+    image: minio/minio:RELEASE.2025-02-07T23-21-09Z
+    container_name: lh_minio
+    ports:
+      - "${MINIO_API_PORT:-9000}:9000"
+      - "${MINIO_CONSOLE_PORT:-9001}:9001"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-minioadmin}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-minioadmin}
+    command: server /data --console-address ":9001"
+    volumes:
+      - minio_data:/data
+    mem_limit: 1g
+    healthcheck:
+      # MinIO health endpoint: https://min.io/docs/minio/linux/operations/monitoring/healthcheck-probe.html
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ---------------------------------------------------------------------------
+  # metastore-db — Postgres backend for Hive Metastore
+  # https://www.postgresql.org/support/versioning/  (16 is current stable)
+  # ---------------------------------------------------------------------------
+  metastore-db:
+    image: postgres:16-alpine
+    container_name: lh_metastore_db
+    environment:
+      POSTGRES_USER: ${HMS_DB_USER:-hive}
+      POSTGRES_PASSWORD: ${HMS_DB_PASSWORD:-hive}
+      POSTGRES_DB: metastore
+    volumes:
+      - metastore_db_data:/var/lib/postgresql/data
+    mem_limit: 256m
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${HMS_DB_USER:-hive} -d metastore"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # ---------------------------------------------------------------------------
+  # Hive Metastore — Iceberg catalog service (Thrift 9083)
+  # Release notes: https://hive.apache.org/general/downloads/
+  # Image: https://hub.docker.com/r/apache/hive
+  # ---------------------------------------------------------------------------
+  hive-metastore:
+    image: apache/hive:4.0.1
+    container_name: lh_hms
+    ports:
+      - "${HMS_PORT:-9083}:9083"
+    depends_on:
+      metastore-db:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+    environment:
+      SERVICE_NAME: metastore
+      DB_DRIVER: postgres
+      # metastore-site.xml mounted below carries the S3A + Iceberg settings.
+      SERVICE_OPTS: >-
+        -Djavax.jdo.option.ConnectionDriverName=org.postgresql.Driver
+        -Djavax.jdo.option.ConnectionURL=jdbc:postgresql://metastore-db:5432/metastore
+        -Djavax.jdo.option.ConnectionUserName=${HMS_DB_USER:-hive}
+        -Djavax.jdo.option.ConnectionPassword=${HMS_DB_PASSWORD:-hive}
+    volumes:
+      - ./conf/metastore-site.xml:/opt/hive/conf/metastore-site.xml:ro
+    mem_limit: 1g
+    healthcheck:
+      test: ["CMD-SHELL", "nc -z localhost 9083 || exit 1"]
+      interval: 15s
+      timeout: 10s
+      retries: 10
+      start_period: 60s
+
+  # ---------------------------------------------------------------------------
+  # Trino — distributed SQL query engine
+  # Releases: https://github.com/trinodb/trino/releases
+  # Iceberg connector: https://trino.io/docs/current/connector/iceberg.html
+  # ---------------------------------------------------------------------------
+  trino:
+    image: trinodb/trino:470
+    container_name: lh_trino
+    ports:
+      - "${TRINO_PORT:-8080}:8080"
+    depends_on:
+      hive-metastore:
+        condition: service_healthy
+    volumes:
+      - ./conf/trino/catalog:/etc/trino/catalog:ro
+      - ./conf/trino/config.properties:/etc/trino/config.properties:ro
+      - ./conf/trino/jvm.config:/etc/trino/jvm.config:ro
+    environment:
+      JAVA_TOOL_OPTIONS: "-Xmx${TRINO_HEAP:-4g}"
+    mem_limit: 5g
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8080/v1/info | grep -q '\"starting\":false' || exit 1"]
+      interval: 15s
+      timeout: 10s
+      retries: 10
+      start_period: 30s
+
+  # ---------------------------------------------------------------------------
+  # Spark — PySpark batch engine (Spark 3.5.x line)
+  # Releases: https://spark.apache.org/releases/
+  # Image: https://hub.docker.com/r/apache/spark
+  # Scala 2.12 is the default for Spark 3.5; jar names must match that.
+  # Iceberg runtime: https://iceberg.apache.org/releases/
+  # hadoop-aws 3.3.4 matches Spark 3.5.x bundled Hadoop — see 00_stack_overview.
+  # ---------------------------------------------------------------------------
+  spark:
+    image: apache/spark:3.5.3
+    container_name: lh_spark
+    depends_on:
+      minio:
+        condition: service_healthy
+      hive-metastore:
+        condition: service_healthy
+    # `spark-submit --packages` pulls jars the first time; cached in ivy_cache.
+    # Iceberg 1.5.2: https://github.com/apache/iceberg/releases/tag/apache-iceberg-1.5.2
+    # hadoop-aws 3.3.4: https://mvnrepository.com/artifact/org.apache.hadoop/hadoop-aws/3.3.4
+    # aws-java-sdk-bundle 1.12.262 paired with hadoop-aws 3.3.4 per Hadoop S3A docs:
+    # https://hadoop.apache.org/docs/r3.3.4/hadoop-aws/tools/hadoop-aws/index.html
+    entrypoint: ["/opt/spark/bin/spark-shell"]
+    command: >-
+      --packages org.apache.iceberg:iceberg-spark-runtime-3.5_2.12:1.5.2,org.apache.hadoop:hadoop-aws:3.3.4,com.amazonaws:aws-java-sdk-bundle:1.12.262
+      --conf spark.sql.extensions=org.apache.iceberg.spark.extensions.IcebergSparkSessionExtensions
+      --conf spark.sql.catalog.lakehouse=org.apache.iceberg.spark.SparkCatalog
+      --conf spark.sql.catalog.lakehouse.type=hive
+      --conf spark.sql.catalog.lakehouse.uri=thrift://hive-metastore:9083
+      --conf spark.sql.catalog.lakehouse.warehouse=s3a://${LAKEHOUSE_BUCKET:-lakehouse}/
+      --conf spark.hadoop.fs.s3a.endpoint=http://minio:9000
+      --conf spark.hadoop.fs.s3a.path.style.access=true
+      --conf spark.hadoop.fs.s3a.access.key=${MINIO_ROOT_USER:-minioadmin}
+      --conf spark.hadoop.fs.s3a.secret.key=${MINIO_ROOT_PASSWORD:-minioadmin}
+      --conf spark.hadoop.fs.s3a.impl=org.apache.hadoop.fs.s3a.S3AFileSystem
+      --conf spark.driver.memory=${SPARK_DRIVER_MEM:-2g}
+      --conf spark.executor.memory=${SPARK_EXECUTOR_MEM:-2g}
+    volumes:
+      - ./notebooks:/opt/spark/work-dir
+      - spark_ivy_cache:/root/.ivy2
+    mem_limit: 5g
+
+  # ---------------------------------------------------------------------------
+  # Dagster backend + webserver + daemon
+  # Releases: https://github.com/dagster-io/dagster/releases
+  # Uses the 1.9.x line — see .env.example for the exact pinned minor.
+  # ---------------------------------------------------------------------------
+  dagster-db:
+    image: postgres:16-alpine
+    container_name: lh_dagster_db
+    environment:
+      POSTGRES_USER: ${DAGSTER_DB_USER:-dagster}
+      POSTGRES_PASSWORD: ${DAGSTER_DB_PASSWORD:-dagster}
+      POSTGRES_DB: dagster
+    volumes:
+      - dagster_db_data:/var/lib/postgresql/data
+    mem_limit: 256m
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DAGSTER_DB_USER:-dagster} -d dagster"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  dagster-webserver:
+    # Built from ./dagster with pinned dagster==1.9.* — see dagster/Dockerfile.
+    image: ${DAGSTER_IMAGE:-lakehouse-dagster:1.9}
+    container_name: lh_dagster_web
+    ports:
+      - "${DAGSTER_PORT:-3000}:3000"
+    depends_on:
+      dagster-db:
+        condition: service_healthy
+    entrypoint: ["dagster-webserver", "-h", "0.0.0.0", "-p", "3000", "-w", "workspace.yaml"]
+    environment:
+      DAGSTER_POSTGRES_USER: ${DAGSTER_DB_USER:-dagster}
+      DAGSTER_POSTGRES_PASSWORD: ${DAGSTER_DB_PASSWORD:-dagster}
+      DAGSTER_POSTGRES_HOSTNAME: dagster-db
+      DAGSTER_POSTGRES_DB: dagster
+    volumes:
+      - ./dagster_home:/opt/dagster/dagster_home
+    mem_limit: 1g
+
+  dagster-daemon:
+    image: ${DAGSTER_IMAGE:-lakehouse-dagster:1.9}
+    container_name: lh_dagster_daemon
+    depends_on:
+      dagster-db:
+        condition: service_healthy
+    entrypoint: ["dagster-daemon", "run"]
+    environment:
+      DAGSTER_POSTGRES_USER: ${DAGSTER_DB_USER:-dagster}
+      DAGSTER_POSTGRES_PASSWORD: ${DAGSTER_DB_PASSWORD:-dagster}
+      DAGSTER_POSTGRES_HOSTNAME: dagster-db
+      DAGSTER_POSTGRES_DB: dagster
+    volumes:
+      - ./dagster_home:/opt/dagster/dagster_home
+    mem_limit: 512m
+
+  # ---------------------------------------------------------------------------
+  # Metabase — BI frontend
+  # Releases: https://github.com/metabase/metabase/releases
+  # v0.51.x is the current OSS line; verify against the release page.
+  # ---------------------------------------------------------------------------
+  metabase-db:
+    image: postgres:16-alpine
+    container_name: lh_metabase_db
+    environment:
+      POSTGRES_USER: ${METABASE_DB_USER:-metabase}
+      POSTGRES_PASSWORD: ${METABASE_DB_PASSWORD:-metabase}
+      POSTGRES_DB: metabase
+    volumes:
+      - metabase_db_data:/var/lib/postgresql/data
+    mem_limit: 256m
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${METABASE_DB_USER:-metabase} -d metabase"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  metabase:
+    image: metabase/metabase:v0.51.10  # verify against https://github.com/metabase/metabase/releases
+    container_name: lh_metabase
+    ports:
+      - "${METABASE_PORT:-3001}:3000"
+    depends_on:
+      metabase-db:
+        condition: service_healthy
+      trino:
+        condition: service_healthy
+    environment:
+      JAVA_OPTS: "-Xmx1g"
+      MB_DB_TYPE: postgres
+      MB_DB_HOST: metabase-db
+      MB_DB_PORT: 5432
+      MB_DB_USER: ${METABASE_DB_USER:-metabase}
+      MB_DB_PASS: ${METABASE_DB_PASSWORD:-metabase}
+      MB_DB_DBNAME: metabase
+    volumes:
+      - metabase_data:/metabase-data
+    mem_limit: 1536m
+
+volumes:
+  minio_data:
+  metastore_db_data:
+  dagster_db_data:
+  metabase_db_data:
+  metabase_data:
+  spark_ivy_cache:
+
+# Single default bridge network — all services resolve each other by service name.
+networks:
+  default:
+    name: lakehouse_net

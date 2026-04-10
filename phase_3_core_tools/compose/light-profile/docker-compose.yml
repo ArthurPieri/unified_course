@@ -1,0 +1,143 @@
+# Phase 3 — Light-profile lakehouse compose (8 GB RAM target)
+# Drops Hive Metastore + Spark. Trino uses its JDBC Iceberg catalog backed by
+# a tiny Postgres. Covers ~80% of Phase 3 objectives (MinIO + Iceberg + Trino
+# + dbt + Dagster + Metabase). No PySpark labs on this profile.
+#
+# Trino Iceberg JDBC catalog docs:
+# https://trino.io/docs/current/connector/iceberg.html#jdbc-catalog
+#
+# Usage: copy .env.example from ../full-stack/.env.example (same vars apply,
+# minus HMS/Spark) and `docker compose up -d`.
+
+services:
+  # ---------------------------------------------------------------------------
+  # MinIO — S3-compatible object store
+  # Release tags: https://github.com/minio/minio/releases
+  # ---------------------------------------------------------------------------
+  minio:
+    image: minio/minio:RELEASE.2025-02-07T23-21-09Z
+    container_name: lh_minio
+    ports:
+      - "${MINIO_API_PORT:-9000}:9000"
+      - "${MINIO_CONSOLE_PORT:-9001}:9001"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-minioadmin}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-minioadmin}
+    command: server /data --console-address ":9001"
+    volumes:
+      - minio_data:/data
+    mem_limit: 768m
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ---------------------------------------------------------------------------
+  # iceberg-catalog-db — tiny Postgres for Trino's JDBC Iceberg catalog.
+  # Replaces the HMS + metastore-db pair in the full stack.
+  # https://trino.io/docs/current/connector/iceberg.html#jdbc-catalog
+  # ---------------------------------------------------------------------------
+  iceberg-catalog-db:
+    image: postgres:16-alpine
+    container_name: lh_iceberg_cat_db
+    environment:
+      POSTGRES_USER: ${ICEBERG_CAT_USER:-iceberg}
+      POSTGRES_PASSWORD: ${ICEBERG_CAT_PASSWORD:-iceberg}
+      POSTGRES_DB: iceberg_catalog
+    volumes:
+      - iceberg_cat_data:/var/lib/postgresql/data
+    mem_limit: 256m
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${ICEBERG_CAT_USER:-iceberg} -d iceberg_catalog"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # ---------------------------------------------------------------------------
+  # Trino — single-engine query layer (no Spark on this profile).
+  # Releases: https://github.com/trinodb/trino/releases
+  # ---------------------------------------------------------------------------
+  trino:
+    image: trinodb/trino:470
+    container_name: lh_trino
+    ports:
+      - "${TRINO_PORT:-8080}:8080"
+    depends_on:
+      minio:
+        condition: service_healthy
+      iceberg-catalog-db:
+        condition: service_healthy
+    volumes:
+      # iceberg.properties must set:
+      #   iceberg.catalog.type=jdbc
+      #   iceberg.jdbc-catalog.driver-class=org.postgresql.Driver
+      #   iceberg.jdbc-catalog.connection-url=jdbc:postgresql://iceberg-catalog-db:5432/iceberg_catalog
+      #   iceberg.jdbc-catalog.connection-user=${ICEBERG_CAT_USER}
+      #   iceberg.jdbc-catalog.connection-password=${ICEBERG_CAT_PASSWORD}
+      #   iceberg.jdbc-catalog.default-warehouse-dir=s3://lakehouse/
+      #   fs.native-s3.enabled=true
+      #   s3.endpoint=http://minio:9000
+      #   s3.path-style-access=true
+      #   s3.region=us-east-1
+      #   s3.aws-access-key=${MINIO_ROOT_USER}
+      #   s3.aws-secret-key=${MINIO_ROOT_PASSWORD}
+      - ./conf/trino/catalog:/etc/trino/catalog:ro
+      - ./conf/trino/config.properties:/etc/trino/config.properties:ro
+      - ./conf/trino/jvm.config:/etc/trino/jvm.config:ro
+    environment:
+      JAVA_TOOL_OPTIONS: "-Xmx${TRINO_HEAP:-2g}"
+    mem_limit: 3g
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8080/v1/info | grep -q '\"starting\":false' || exit 1"]
+      interval: 15s
+      timeout: 10s
+      retries: 10
+      start_period: 30s
+
+  # ---------------------------------------------------------------------------
+  # Dagster — single-container variant using SQLite storage.
+  # For an 8 GB box we skip dagster-db Postgres and let Dagster write to its
+  # default SQLite inside DAGSTER_HOME. Docs:
+  # https://docs.dagster.io/deployment/dagster-instance
+  # ---------------------------------------------------------------------------
+  dagster:
+    image: ${DAGSTER_IMAGE:-lakehouse-dagster:1.9}
+    container_name: lh_dagster
+    ports:
+      - "${DAGSTER_PORT:-3000}:3000"
+    entrypoint: ["dagster", "dev", "-h", "0.0.0.0", "-p", "3000", "-w", "workspace.yaml"]
+    environment:
+      DAGSTER_HOME: /opt/dagster/dagster_home
+    volumes:
+      - ./dagster_home:/opt/dagster/dagster_home
+    mem_limit: 1g
+
+  # ---------------------------------------------------------------------------
+  # Metabase — BI frontend
+  # Releases: https://github.com/metabase/metabase/releases
+  # Uses H2 (embedded) on the light profile — fine for single-user dev only:
+  # https://www.metabase.com/docs/latest/installation-and-operation/configuring-application-database
+  # ---------------------------------------------------------------------------
+  metabase:
+    image: metabase/metabase:v0.51.10
+    container_name: lh_metabase
+    ports:
+      - "${METABASE_PORT:-3001}:3000"
+    depends_on:
+      trino:
+        condition: service_healthy
+    environment:
+      JAVA_OPTS: "-Xmx768m"
+    volumes:
+      - metabase_data:/metabase-data
+    mem_limit: 1g
+
+volumes:
+  minio_data:
+  iceberg_cat_data:
+  metabase_data:
+
+networks:
+  default:
+    name: lakehouse_net_light
