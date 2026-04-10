@@ -1,0 +1,48 @@
+
+# Module 05: dbt — References
+
+## Primary reuse (sibling source)
+- `../dataeng/dbt_project/dbt_project.yml:L1-L27` — canonical project wiring: layer-to-schema mapping (`staging → silver`, `marts → gold`), layer-specific materializations.
+- `../dataeng/dbt_project/profiles.yml:L1-L12` — `dbt-trino` profile targeting the local compose Trino (`type: trino`, `method: none`, catalog `iceberg`).
+- `../dataeng/dbt_project/models/sources.yml:L1-L27` — `sources:` declaration with freshness SLA on the `_dlt_load_id` load marker.
+- `../dataeng/dbt_project/models/staging/stg_taxi_trips.sql:L1-L20` — incremental staging pattern: `config(materialized='incremental', unique_key='trip_id', on_schema_change='append_new_columns')` + `is_incremental()` guard.
+- `../dataeng/dbt_project/models/staging/stg_taxi_trips.sql:L23-L56` — rename/cast-only staging body.
+- `../dataeng/dbt_project/models/staging/stg_taxi_zones.sql` — staging for a small reference dim (pattern reference).
+- `../dataeng/dbt_project/models/intermediate/int_trips_enriched.sql:L1-L52` — intermediate join/enrichment layer consumed by marts.
+- `../dataeng/dbt_project/models/marts/fct_trip_metrics.sql:L1-L31` — fact table reading from an intermediate via `ref()`; `group by` aggregation pattern.
+- `../dataeng/dbt_project/models/marts/fct_daily_revenue.sql` — aggregate fact, target of the singular test.
+- `../dataeng/dbt_project/models/marts/dim_zones.sql` — dimension table pattern.
+- `../dataeng/dbt_project/models/marts/_marts__models.yml:L1-L82` — generic tests attached to columns: `not_null`, `unique`, `accepted_values`.
+- `../dataeng/dbt_project/tests/assert_positive_revenue.sql:L1-L9` — canonical singular test: returns rows where `total_revenue < 0`.
+- `../dataeng/dbt_project/unit_tests/test_revenue_calculation.yml:L1-L80` — dbt 1.8 unit-test pattern (forward reference; Phase 2 Module 04 owns unit tests).
+- `../dataeng/dbt_project/macros/generate_schema_name.sql` — custom schema-naming macro (stretch-goal reference).
+
+## Official dbt docs (docs.getdbt.com)
+- [About dbt projects](https://docs.getdbt.com/docs/build/projects) — project structure and the role of `dbt_project.yml`.
+- [dbt_project.yml reference](https://docs.getdbt.com/reference/dbt_project.yml) — every key, including per-path model config.
+- [profiles.yml](https://docs.getdbt.com/docs/core/connect-data-platform/profiles.yml) — connection file layout and target selection.
+- [Models](https://docs.getdbt.com/docs/build/models) — `.sql` file semantics, Jinja, `config()`.
+- [Materializations](https://docs.getdbt.com/docs/build/materializations) — `view`, `table`, `incremental`, `ephemeral`.
+- [Incremental models](https://docs.getdbt.com/docs/build/incremental-models) — `is_incremental()`, `unique_key`, `on_schema_change`.
+- [Sources](https://docs.getdbt.com/docs/build/sources) — `source()` function and `sources.yml`.
+- [Source freshness](https://docs.getdbt.com/docs/build/sources#snapshotting-source-data-freshness) — `loaded_at_field`, `warn_after` / `error_after`.
+- [ref function](https://docs.getdbt.com/reference/dbt-jinja-functions/ref) — DAG construction rule.
+- [Data tests](https://docs.getdbt.com/docs/build/data-tests) — generic + singular tests.
+- [Unit tests](https://docs.getdbt.com/docs/build/unit-tests) — mocked-input tests introduced in dbt 1.8.
+- [Seeds](https://docs.getdbt.com/docs/build/seeds) — CSV-loaded reference tables.
+- [Snapshots](https://docs.getdbt.com/docs/build/snapshots) — SCD Type 2 captures.
+- [Packages](https://docs.getdbt.com/docs/build/packages) — `packages.yml` and `dbt deps`.
+- [dbt build](https://docs.getdbt.com/reference/commands/build) — run + test in DAG order.
+- [dbt run](https://docs.getdbt.com/reference/commands/run) — model-only execution.
+- [dbt test](https://docs.getdbt.com/reference/commands/test) — test-only execution.
+- [How we structure our dbt projects](https://docs.getdbt.com/best-practices/how-we-structure/1-guide-overview) — staging → intermediate → marts convention.
+- [Trino setup (dbt-trino)](https://docs.getdbt.com/docs/core/connect-data-platform/trino-setup) — adapter profile keys and auth methods.
+
+## Destination / engine docs
+- [Trino — Iceberg connector](https://trino.io/docs/current/connector/iceberg.html) — table properties (`format`, `partitioning`) that dbt-trino forwards.
+- [dbt-trino releases](https://github.com/starburstdata/dbt-trino/releases) — version-pinning reference for the `dbt-core` / `dbt-trino` minor match.
+
+## Compose context
+- `phase_3_core_tools/compose/full-stack/docker-compose.yml:L105-L125` — the Trino service the dbt lab connects to.
+- `phase_3_core_tools/04_dlt/` — upstream module that lands the `raw_taxi.yellow_taxi_trips` source the lab reads from.
+- `phase_2_core_domain/04_data_quality/` — owns broader data-quality theory; forward reference for unit-test patterns.

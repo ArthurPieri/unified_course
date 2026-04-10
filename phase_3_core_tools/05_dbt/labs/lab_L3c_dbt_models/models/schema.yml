@@ -1,0 +1,36 @@
+version: 2
+
+# Source declaration — the edge of the project. Lab L3b (dlt) lands this table.
+# Pattern reference: ../dataeng/dbt_project/models/sources.yml:L1-L27
+sources:
+  - name: raw_taxi
+    database: iceberg       # Trino catalog
+    schema: bronze
+    description: Raw NYC Yellow Taxi trip data landed by the dlt lab.
+    tables:
+      - name: yellow_taxi_trips
+        description: Raw yellow taxi trip records (see Phase 3 Module 04 — dlt).
+
+models:
+  - name: stg_taxi_trips
+    description: Renamed + cast staging of raw_taxi.yellow_taxi_trips.
+    columns:
+      - name: pickup_datetime
+        tests:
+          - not_null
+
+  - name: int_taxi_hourly
+    description: Trips bucketed to the hour, pre-aggregated by vendor.
+    columns:
+      - name: pickup_hour
+        tests:
+          - not_null
+
+  - name: fct_taxi_hourly
+    description: One row per pickup_hour. Fact grain for BI.
+    columns:
+      - name: pickup_hour
+        description: Hour bucket; unique mart key.
+        tests:
+          - not_null
+          - unique

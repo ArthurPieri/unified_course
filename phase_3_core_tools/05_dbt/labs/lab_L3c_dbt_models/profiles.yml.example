@@ -1,0 +1,19 @@
+
+# Copy to ~/.dbt/profiles.yml. Keeps secrets out of the project dir.
+# Pattern lifted from ../dataeng/dbt_project/profiles.yml:L1-L12.
+# Targets the Phase 3 full-stack compose Trino (docker-compose.yml L105-L125).
+# Docs: https://docs.getdbt.com/docs/core/connect-data-platform/trino-setup
+
+lakehouse_l3c:
+  target: dev
+  outputs:
+    dev:
+      type: trino
+      method: none          # no auth against local compose
+      host: localhost
+      port: 8080
+      user: dbt
+      database: iceberg     # Trino catalog name
+      schema: silver        # default schema; overridden per-layer in dbt_project.yml
+      threads: 4
+      http_scheme: http
