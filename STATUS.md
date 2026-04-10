@@ -3,7 +3,7 @@
 Last updated: 2026-04-10
 
 ## Current stage
-**Stage 5 — Phase 3 modules** (next) · Stage 9 vendor branches running in background
+**Stage 10 — Appendices + master references merge + push** (done)
 
 ## Stage tracker
 
@@ -14,12 +14,12 @@ Last updated: 2026-04-10
 | 2 | Phase 1 foundations | done | e53f357 |
 | 3 | Phase 2 core domain | done | 73e57b1 |
 | 4 | Phase 3 stack scaffolding | done | c28cdc3 |
-| 5 | Phase 3 modules | next | — |
-| 6 | Phase 4 specializations | done | (pending commit) |
-| 7 | Phase 5 advanced | done | (pending commit) |
-| 8 | Phase 6 capstone | done | (pending commit) |
-| 9 | Vendor branches | in progress | — |
-| 10 | Appendices + merge + push | pending | — |
+| 5 | Phase 3 modules | done | 7866a3f |
+| 6 | Phase 4 specializations | done | 85847db |
+| 7 | Phase 5 advanced | done | 6382d17 |
+| 8 | Phase 6 capstone | done | ea804da |
+| 9 | Vendor branches | done | 17d836a |
+| 10 | Appendices + merge + push | done | (pending commit) |
 
 ## Phase status files
 
@@ -35,7 +35,9 @@ Last updated: 2026-04-10
 - [status/vendor_snowflake.md](status/vendor_snowflake.md)
 
 ## Resume from here
-Next action: Wait for background Stage 4 agent (Phase 3 scaffolding); then launch Stage 5 (Phase 3 modules, 2 parallel batches of 4). Stages 6/7/8/9 agents already running in background. Stage 10 (appendices + master refs merge + final push) is the terminal serial step.
+All stages complete. Build tree written. Master reference indexes (references/docs.md + references/books.md) hold the deduplicated union of every module's citations. Two appendices (architecture landscape + database engines) written with primary-source citations.
+
+Push to origin main when ready (not yet pushed — user authorization required).
 
 ## Conventions
 - Max 4 concurrent agents per batch
