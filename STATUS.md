@@ -3,7 +3,7 @@
 Last updated: 2026-04-10
 
 ## Current stage
-**Stage 4 — Phase 3 stack scaffolding** (in progress, background agent)
+**Stage 5 — Phase 3 modules** (next) · Stage 9 vendor branches running in background
 
 ## Stage tracker
 
@@ -11,14 +11,14 @@ Last updated: 2026-04-10
 |---|---|---|---|
 | 0 | Scaffold build tree | done | ac0c6e3 |
 | 1 | Phase 0 content | done | 3bc95af |
-| 2 | Phase 1 foundations | done | (pending commit) |
-| 3 | Phase 2 core domain | done | (pending commit) |
-| 4 | Phase 3 stack scaffolding | pending | — |
-| 5 | Phase 3 modules | pending | — |
-| 6 | Phase 4 specializations | pending | — |
-| 7 | Phase 5 advanced | pending | — |
-| 8 | Phase 6 capstone | pending | — |
-| 9 | Vendor branches | pending | — |
+| 2 | Phase 1 foundations | done | e53f357 |
+| 3 | Phase 2 core domain | done | 73e57b1 |
+| 4 | Phase 3 stack scaffolding | done | c28cdc3 |
+| 5 | Phase 3 modules | next | — |
+| 6 | Phase 4 specializations | done | (pending commit) |
+| 7 | Phase 5 advanced | done | (pending commit) |
+| 8 | Phase 6 capstone | done | (pending commit) |
+| 9 | Vendor branches | in progress | — |
 | 10 | Appendices + merge + push | pending | — |
 
 ## Phase status files
