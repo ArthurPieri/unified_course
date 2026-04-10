@@ -233,11 +233,12 @@ By the end of this course, the learner will design, build, deploy, monitor, and 
 **Deliverables:**
 - Star schema ERD + PostgreSQL implementation with SCD Type 2
 - Written data quality assessment of a provided messy dataset
-- Architecture decision document: choose and justify an architecture for a given scenario
+- Data modeling decision document: for a given scenario, choose between normalized (3NF) and dimensional (star) modeling and justify the trade-offs
+- MinIO stack running with sample Parquet queryable via DuckDB (stack persists into Phase 3)
 
-**Estimated duration:** 40-55 hours (4-5 weeks at 10-12h/week)
+**Estimated duration:** 50-65 hours (5-6 weeks at 10-12h/week)
 
-**Exit criteria:** 15-question quiz (data modeling, pipeline paradigms, distributed systems, data quality, architectures). Pass threshold: 70%. Plus: star schema implementation reviewed and accepted.
+**Exit criteria:** 15-question quiz (data modeling, pipeline paradigms, distributed systems, data quality, file formats). Pass threshold: 70%. Plus: star schema implementation reviewed and accepted. MinIO + DuckDB lab produces a row-store-vs-columnar benchmark with documented numbers.
 
 ---
 
@@ -289,8 +290,10 @@ By the end of this course, the learner will design, build, deploy, monitor, and 
 - Docker Compose profile: `query`
 - Lab: deploy Trino, create schemas (bronze/silver/gold), run analytical queries, EXPLAIN ANALYZE
 
-*Batch Processing — PySpark (10h):*
+*Batch Processing — PySpark (12h):*
 - Why Spark matters: large-scale batch ETL, DataFrame transformations, the dominant processing engine in AWS/Azure vendor branches
+- **Deployment (provided, not invented):** use the course-provided Spark Docker image with pinned, version-matched jars — Spark 3.5.x + iceberg-spark-runtime-3.5_2.12:1.5.x + hadoop-aws-3.3.4 + aws-java-sdk-bundle-1.12.x. Configured as a Docker Compose profile extending the Phase 2 MinIO stack. Learners do NOT assemble their own jar set.
+- **Known gotchas (documented upfront, not rediscovered):** Scala version mismatch (2.12 vs 2.13) silently breaks Iceberg writes · Hadoop-AWS version drift causes `NoClassDefFoundError` at runtime · path-style access required for MinIO (`fs.s3a.path.style.access=true`) · driver/executor memory defaults too low for NYC Taxi — adjust in `spark-defaults.conf`. A troubleshooting playbook lists symptoms and fixes.
 - PySpark fundamentals: SparkSession, DataFrame API (select, filter, groupBy, agg, join), lazy evaluation (transformations vs. actions)
 - Reading from MinIO: Parquet and Iceberg via Spark-Iceberg connector
 - Shuffles: what triggers them (groupBy, join, repartition), why they're expensive
@@ -344,7 +347,7 @@ By the end of this course, the learner will design, build, deploy, monitor, and 
 - PySpark notebook demonstrating DataFrame transforms on NYC Taxi data with Spark UI analysis
 - All code in a Git repo with branching, pre-commit hooks, and CI tests (DuckDB-based)
 
-**Estimated duration:** 100-130 hours (9-12 weeks at 10-12h/week)
+**Estimated duration:** 100-140 hours (9-13 weeks at 10-12h/week). Upper bound reflects that learners running on 16GB RAM often hit Spark OOM on the NYC Taxi lab and spend real time on memory tuning.
 
 **Exit criteria:** 2-hour integration exercise: from a fresh Docker Compose stack, complete end-to-end flow (start services -> create Iceberg table -> dbt transform -> Trino query -> verify results). All dbt tests pass. PySpark notebook demonstrates DataFrame transforms with Spark UI analysis. Can explain the data flow at every step.
 
@@ -404,6 +407,8 @@ By the end of this course, the learner will design, build, deploy, monitor, and 
 - Query optimization: predicate pushdown, partition pruning, dynamic filtering, caching
 - Benchmarking: baseline (3 runs, discard cold), one variable at a time, document results
 - Lab: diagnose and fix a slow query (provided broken pipeline with skew, small files, missing partitioning)
+- **Data scale note:** skew, spill, and AQE are only observable on genuinely large inputs. A 16GB laptop running NYC Taxi will not reproduce these symptoms. For this lab, learners use one of: (a) the course-provided synthetic data generator that inflates the taxi dataset to 50–100GB with configurable skew, or (b) GitHub Codespaces with a larger machine type (or any cloud VM ≥ 32GB) for the duration of the performance lab only.
+- **Deliverable reality check:** the performance report must include at least one Spark UI screenshot showing an actual skewed stage or spill event — not just the pre-built skew example from course materials.
 
 *Observability & Monitoring (8h):*
 - Pipeline monitoring: Dagster freshness policies, data quality metric functions
@@ -462,6 +467,16 @@ By the end of this course, the learner will design, build, deploy, monitor, and 
 - Serverless vs. provisioned compute: decision framework
 - Managed vs. self-hosted: trade-off analysis (Snowflake/Databricks vs. open stack)
 
+*Cloud Identity and Access Primer (5h):*
+- Why this module exists: every vendor branch (AWS, Azure, Snowflake) requires fluency with policy documents, role assumption, and least-privilege reasoning. Treating IAM as "learn it when you get there" repeatedly blocks learners in week 1 of vendor branches. This primer front-loads the cross-vendor mental model.
+- IAM core model: principals, actions, resources, conditions — the four quadrants every cloud policy shares
+- Policy document anatomy: JSON structure, Effect/Action/Resource/Condition, explicit deny vs. absence of allow
+- Role assumption and trust policies: why a role has two policies (trust + permission), STS and temporary credentials
+- Least-privilege reasoning: starting from deny-all and adding minimum permissions, common overly-broad patterns to avoid
+- Hands-on with LocalStack: run LocalStack in Docker, create an S3 bucket, write a restrictive bucket policy, create an IAM role with an inline policy, assume the role via awslocal CLI, verify that denied actions actually fail
+- Lab: given a scenario ("a Lambda should read from bucket-A and write to bucket-B but not delete"), write the minimum IAM policy, test with LocalStack, then intentionally break it (add a wildcard) and explain the security impact
+- Mapping across vendors: how the same mental model translates to Azure RBAC (role assignments, scope inheritance) and Snowflake RBAC (role hierarchy, GRANT/REVOKE) — one-page comparison sheet
+
 *FinOps & Cost Optimization (6h):*
 - TCO comparison: self-hosted lakehouse vs. managed platforms
 - Cloud cost optimization patterns: right-sizing, spot instances, auto-scaling, auto-termination
@@ -499,7 +514,7 @@ By the end of this course, the learner will design, build, deploy, monitor, and 
 - Airflow DAG replicating the dbt pipeline, with written comparison to Dagster approach
 - Architecture decision record
 
-**Estimated duration:** 45-60 hours (4-5 weeks at 10-12h/week)
+**Estimated duration:** 50-65 hours (5-6 weeks at 10-12h/week)
 
 **Exit criteria:** CI/CD pipeline runs green. Kubernetes deployment healthy. Can present a cost estimate and architectural rationale for the full stack.
 
@@ -542,15 +557,16 @@ Build an end-to-end data lakehouse processing a realistic dataset:
 
 **Estimated duration:** 50-70 hours (4-6 weeks)
 
-**Fast-track alternative:** Learners may skip the capstone and proceed to vendor branches if their Phase 3-5 deliverables collectively demonstrate competence across all 12 capstone dimensions. A fast-track rubric checklist evaluates:
-- [ ] End-to-end pipeline (L3a-L3d): ingestion, storage, transformation, orchestration, quality checks
-- [ ] CDC pipeline (L4a): real-time data capture from source to Silver layer
-- [ ] Security implementation (L4b): PII masking, RBAC, audit trail
-- [ ] Performance optimization (L4c): diagnosis, tuning, documented before/after
-- [ ] CI/CD pipeline (L5): automated lint, test, deploy
-- [ ] Monitoring and alerting (L4 observability lab): pipeline health dashboard
-
-If all boxes are checked, the learner may proceed to vendor branches. The capstone can be completed in parallel with or after vendor studies as a portfolio project.
+> **Fast-track alternative:** Learners may skip the capstone and proceed to vendor branches only if they can produce the following self-diagnostic deliverables from their existing Phase 3–5 work. Each item is intentionally concrete so it cannot be ticked off cosmetically:
+>
+> 1. **Architecture walkthrough video (15–20 min):** screen-recorded walkthrough of the learner's Phase 3 lakehouse running end-to-end (ingestion → Silver → Gold → dashboard), explaining each component's role, why it was chosen, and one failure mode observed during development.
+> 2. **CDC runbook (1–2 pages):** written runbook for the Phase 4 CDC pipeline including: topology diagram, known failure modes, recovery procedure for consumer lag, and how to verify Silver-layer consistency after a Debezium connector restart.
+> 3. **Security decision log:** a markdown document listing every PII column in the pipeline, the masking/RLS decision made for each, the RBAC role that can see unmasked data, and the audit-log query that proves access was recorded.
+> 4. **Performance report:** the Phase 4 performance lab writeup must include *quantified* before/after numbers (wall-clock, shuffle bytes, Spark UI screenshots) — not qualitative claims.
+> 5. **CI/CD evidence:** link to a green CI run on the learner's repo showing lint + dbt test + integration test stages, plus the deployment manifest.
+> 6. **Observability evidence:** screenshot of the Phase 4 monitoring dashboard showing at least one alert rule that fired in testing, with the runbook link the alert points to.
+>
+> A mentor (or self-review with a rubric checklist) verifies each item exists and is non-trivial. If all six are produced, the learner may proceed to vendor branches and complete the capstone in parallel or after. Learners who cannot produce these artifacts from existing Phase 3–5 work should complete Phase 6 — the gap is the signal that integration competence is missing.
 
 **Exit criteria:** Completed project reviewed against rubric. Deployed, documented, and pushed to a public Git repository as a portfolio piece.
 
@@ -564,7 +580,7 @@ If all boxes are checked, the learner may proceed to vendor branches. The capsto
 
 ### Branch A: AWS Data Engineering
 
-**Assumes common core:** Phases 0-6 (data modeling, ETL/ELT patterns, Spark fundamentals, streaming concepts, Medallion architecture, security principles, orchestration, monitoring).
+**Assumes common core:** Phases 0-5 complete with Phase 6 capstone **OR** fast-track rubric met (data modeling, ETL/ELT patterns, Spark fundamentals, streaming concepts, Medallion architecture, security principles, orchestration, monitoring).
 
 **Vendor-specific topics:**
 
@@ -634,13 +650,13 @@ If all boxes are checked, the learner may proceed to vendor branches. The capsto
 - Less unified than Azure Fabric (more architectural decisions, more operational control)
 - Open-source friendly (Glue = Spark, MSK = Kafka, MWAA = Airflow)
 
-**Estimated duration:** 80-100 hours (7-9 weeks at 10-12h/week)
+**Estimated duration:** 100-130 hours (9-12 weeks at 10-12h/week)
 
 ---
 
 ### Branch B: Azure / Microsoft Fabric Data Engineering
 
-**Assumes common core:** Phases 0-6.
+**Assumes common core:** Phases 0-5 complete with Phase 6 capstone **OR** fast-track rubric met.
 
 **Vendor-specific topics:**
 
@@ -726,13 +742,13 @@ If all boxes are checked, the learner may proceed to vendor branches. The capsto
 - Stronger enterprise integration (Power BI, Purview, Entra ID)
 - DP-700 is a newer exam with less community material available
 
-**Estimated duration:** 90-110 hours (8-10 weeks at 10-12h/week)
+**Estimated duration:** 110-140 hours (10-13 weeks at 10-12h/week)
 
 ---
 
 ### Branch C: Snowflake Data Engineering
 
-**Assumes common core:** Phases 0-6.
+**Assumes common core:** Phases 0-5 complete with Phase 6 capstone **OR** fast-track rubric met.
 
 **Vendor-specific topics:**
 
@@ -825,7 +841,7 @@ If all boxes are checked, the learner may proceed to vendor branches. The capsto
 - Three certifications required for full DE credential (vs. one for AWS/Azure)
 - Highest exam cost total ($725 minimum for all three)
 
-**Estimated duration:** 80-100 hours for Platform + Core, additional 60-80 hours for DE Advanced (total 140-180 hours over 14-20 weeks)
+**Estimated duration:** 85-110 hours for Platform + Core, additional 65-90 hours for DE Advanced (total 150-200 hours over 15-22 weeks)
 
 ---
 
@@ -850,22 +866,24 @@ If all boxes are checked, the learner may proceed to vendor branches. The capsto
 
 ## VIII. Skills Matrix
 
+> **Proficiency legend (self-paced course calibration):** *Awareness* = can explain concept · *Working* = can use the tool on routine tasks with docs · *Working+* = can use the tool on non-routine tasks, diagnose common failures, and make design choices. The course does not claim to produce *Advanced* or *Expert* practitioners — those labels reflect years of production experience, not curriculum completion.
+
 | Skill / Domain | After Phase 1 | After Phase 3 | After Phase 6 | After Vendor Branch |
 |---|---|---|---|---|
-| **SQL** | Intermediate (window functions, CTEs, EXPLAIN) | Advanced (optimization, complex joins, DDL) | Expert (cross-engine, performance tuning) | Expert + vendor dialect |
-| **Python** | Intermediate (project structure, testing) | Advanced (pipelines, transforms, testing) | Advanced (API serving, CI integration) | + vendor SDK proficiency |
-| **Linux / CLI** | Proficient (navigation, scripting, processes) | Proficient | Proficient | Proficient |
-| **Docker / Containers** | Working (Compose, profiles, health checks) | Fluent (multi-service stacks) | Fluent + Kubernetes basics | + managed container services |
-| **Data Modeling** | None | Intermediate (star schema, SCD) | Advanced (multi-domain, governance-aware) | + vendor-specific optimization |
-| **ETL / ELT Pipelines** | None | Working (dlt + dbt + Dagster + PySpark) | Production-grade (CDC, monitoring, CI/CD) | + vendor service implementation |
+| **SQL** | Working (window functions, CTEs, EXPLAIN) | Working+ (optimization, complex joins, DDL) | Working+ (cross-engine, basic performance tuning) | Working+ / vendor dialect |
+| **Python** | Working (project structure, testing) | Working+ (pipelines, transforms, testing) | Working+ (API serving, CI integration) | + vendor SDK familiarity |
+| **Linux / CLI** | Working (navigation, scripting, processes) | Working | Working | Working |
+| **Docker / Containers** | Working (Compose, profiles, health checks) | Working+ (multi-service stacks) | Working+ with Kubernetes basics | + managed container services |
+| **Data Modeling** | None | Working (star schema, SCD) | Working+ (multi-domain, governance-aware) | + vendor-specific optimization |
+| **ETL / ELT Pipelines** | None | Working (dlt + dbt + Dagster + PySpark) | Working+ (CDC, monitoring, CI/CD) | + vendor service implementation |
 | **Spark/PySpark** | None | Working (DataFrames, shuffles, Iceberg I/O) | Applied (performance tuning, Spark UI) | + Glue/EMR (AWS), Synapse Spark/Databricks (Azure), Snowpark (Snowflake) |
 | **Streaming** | Conceptual | Conceptual + Kafka literacy | Applied (CDC, Kafka producer/consumer, windowed aggregation) | + vendor streaming services |
-| **Data Governance** | None | Awareness | Applied (masking, RLS, audit, contracts) | + vendor governance tools |
-| **Security** | Secret management basics | + encryption, RBAC concepts | + PII masking, multi-tenant | + vendor IAM, CMK, endpoints |
-| **Performance Tuning** | SQL EXPLAIN | + partitioning, file sizing | + skew, spill, compaction, benchmarking | + vendor-specific optimization |
-| **Cloud Architecture** | None | Conceptual | Design-level (ADRs, cost, scaling) | Implemented on target platform |
+| **Data Governance** | None | Awareness | Working (masking, RLS, audit, contracts) | + vendor governance tools |
+| **Security** | Secret management basics | + encryption, RBAC concepts | Working (PII masking, multi-tenant, IAM primer) | + vendor IAM, CMK, endpoints |
+| **Performance Tuning** | SQL EXPLAIN | + partitioning, file sizing | Working (skew, spill, compaction, benchmarking) | + vendor-specific optimization |
+| **Cloud Architecture** | None | Conceptual | Working (ADRs, cost, scaling at design level) | Implemented on target platform |
 | **Orchestration** | None | Working (Dagster) | Working (Dagster + Airflow basics) | + MWAA (AWS) or ADF (Azure) or Tasks (Snowflake) |
-| **Observability** | None | Basic (Dagster UI) | Applied (Prometheus, alerting, runbooks) | + vendor monitoring stack |
+| **Observability** | None | Basic (Dagster UI) | Working (Prometheus, alerting, runbooks) | + vendor monitoring stack |
 | **Certification Readiness** | LFCA eligible | None | None | Target cert exam-ready |
 
 ---
@@ -878,7 +896,7 @@ If all boxes are checked, the learner may proceed to vendor branches. The capsto
 |---|---|---|
 | Q0 | Phase 0 | Self-assessment: SQL, Python, Git, networking |
 | Q1 | Phase 1 | Docker Compose, bash scripting, SQL window functions, Python project structure |
-| Q2 | Phase 2 | Data modeling, ETL/ELT, distributed systems, data quality, architectures |
+| Q2 | Phase 2 | Data modeling, ETL/ELT, distributed systems, data quality, file formats |
 | Q3 | Phase 3 | Iceberg, Trino, dlt, dbt, Dagster, PySpark basics — tool mechanics and integration |
 | Q4 | Phase 4 | CDC, Kafka producer/consumer, security patterns, performance diagnosis, observability |
 | Q5 | Phase 5 | CI/CD, Kubernetes, Airflow DAG basics, cloud concepts, FinOps, architecture design |
@@ -925,20 +943,20 @@ If all boxes are checked, the learner may proceed to vendor branches. The capsto
 1. **Phase 0** — Orientation, self-assessment, hardware check (1 week)
 2. **Phase 1** — Linux, networking, Python, Docker, SQL, Git (6-7 weeks)
 3. *(Optional)* LFCA certification attempt
-4. **Phase 2** — Data modeling, ETL/ELT, distributed systems, data quality, first lakehouse contact (4-5 weeks)
-5. **Phase 3** — Build the lakehouse: MinIO, Iceberg, HMS, Trino, PySpark, dlt, dbt, Dagster, Metabase (9-12 weeks)
+4. **Phase 2** — Data modeling, ETL/ELT, distributed systems, data quality, first lakehouse contact (5-6 weeks)
+5. **Phase 3** — Build the lakehouse: MinIO, Iceberg, HMS, Trino, PySpark, dlt, dbt, Dagster, Metabase (9-13 weeks)
 6. **Phase 4** — CDC, Kafka fundamentals, semi-structured data, security, performance, observability (5-7 weeks)
-7. **Phase 5** — CI/CD, Kubernetes, Airflow bridge, cloud concepts, FinOps, data serving (4-5 weeks)
+7. **Phase 5** — CI/CD, Kubernetes, Airflow bridge, cloud concepts, FinOps, data serving, IAM primer (5-6 weeks)
 8. **Phase 6** — Vendor-agnostic capstone project (4-6 weeks, recommended)
 9. **Choose vendor branch:**
-   - **9a. AWS** — S3, Glue, Kinesis, Athena, Redshift, Step Functions, IAM/KMS (8-10 weeks) -> DEA-C01 cert
-   - **9b. Azure** — ADLS, ADF, Synapse, Databricks, Event Hubs, Purview, Fabric (9-12 weeks) -> DP-700 cert
-   - **9c. Snowflake** — Architecture, warehouses, Snowpipe, Snowpark, governance (15-20 weeks) -> SOL-C01 -> COF-C02 -> DEA-C02 certs
+   - **9a. AWS** — S3, Glue, Kinesis, Athena, Redshift, Step Functions, IAM/KMS (9-12 weeks) -> DEA-C01 cert
+   - **9b. Azure** — ADLS, ADF, Synapse, Databricks, Event Hubs, Purview, Fabric (10-13 weeks) -> DP-700 cert
+   - **9c. Snowflake** — Architecture, warehouses, Snowpipe, Snowpark, governance (15-22 weeks) -> SOL-C01 -> COF-C02 -> DEA-C02 certs
 10. **Certification preparation** — Practice exams, weak-area remediation, exam scheduling (2-4 weeks)
 
-**Standard timeline (one vendor path):** 44-60 weeks at 10-12h/week (~480-660 hours)
+**Standard timeline (one vendor path, with capstone):** ~42-64 weeks at 10-12h/week (~475-628 hours total, plus 2-4 weeks certification prep)
 
-**Fast-track timeline (skip capstone):** 40-54 weeks at 10-12h/week (~430-590 hours)
+**Fast-track timeline (skip capstone):** ~36-56 weeks at 10-12h/week (~425-558 hours total, plus 2-4 weeks certification prep)
 
 ---
 
