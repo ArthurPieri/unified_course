@@ -3,15 +3,15 @@
 Last updated: 2026-04-10
 
 ## Current stage
-**Stage 1 — Phase 0 content** (next)
+**Stage 2 — Phase 1 foundations** (next)
 
 ## Stage tracker
 
 | Stage | Name | Status | Commit |
 |---|---|---|---|
-| 0 | Scaffold build tree | done | (see git log) |
-| 1 | Phase 0 content | next | — |
-| 2 | Phase 1 foundations | pending | — |
+| 0 | Scaffold build tree | done | ac0c6e3 |
+| 1 | Phase 0 content | done | (pending commit) |
+| 2 | Phase 1 foundations | next | — |
 | 3 | Phase 2 core domain | pending | — |
 | 4 | Phase 3 stack scaffolding | pending | — |
 | 5 | Phase 3 modules | pending | — |
@@ -35,7 +35,7 @@ Last updated: 2026-04-10
 - [status/vendor_snowflake.md](status/vendor_snowflake.md)
 
 ## Resume from here
-Next action: **Stage 1** — write Phase 0 orientation (4 modules + hardware-check script + exit quiz). See `status/phase_0.md`.
+Next action: **Stage 2** — Phase 1 foundations. Spawn 4 parallel agents (A: Linux/bash + networking · B: Python · C: Docker + SQL/Postgres · D: Git) + 1 serializer for the checkpoint quiz and phase README. See `status/phase_1.md` and plan file stage 2.
 
 ## Conventions
 - Max 4 concurrent agents per batch
