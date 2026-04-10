@@ -3,16 +3,16 @@
 Last updated: 2026-04-10
 
 ## Current stage
-**Stage 2 — Phase 1 foundations** (next)
+**Stage 4 — Phase 3 stack scaffolding** (in progress, background agent)
 
 ## Stage tracker
 
 | Stage | Name | Status | Commit |
 |---|---|---|---|
 | 0 | Scaffold build tree | done | ac0c6e3 |
-| 1 | Phase 0 content | done | (pending commit) |
-| 2 | Phase 1 foundations | next | — |
-| 3 | Phase 2 core domain | pending | — |
+| 1 | Phase 0 content | done | 3bc95af |
+| 2 | Phase 1 foundations | done | (pending commit) |
+| 3 | Phase 2 core domain | done | (pending commit) |
 | 4 | Phase 3 stack scaffolding | pending | — |
 | 5 | Phase 3 modules | pending | — |
 | 6 | Phase 4 specializations | pending | — |
@@ -35,7 +35,7 @@ Last updated: 2026-04-10
 - [status/vendor_snowflake.md](status/vendor_snowflake.md)
 
 ## Resume from here
-Next action: **Stage 2** — Phase 1 foundations. Spawn 4 parallel agents (A: Linux/bash + networking · B: Python · C: Docker + SQL/Postgres · D: Git) + 1 serializer for the checkpoint quiz and phase README. See `status/phase_1.md` and plan file stage 2.
+Next action: Wait for background Stage 4 agent (Phase 3 scaffolding); then launch Stage 5 (Phase 3 modules, 2 parallel batches of 4). Stages 6/7/8/9 agents already running in background. Stage 10 (appendices + master refs merge + final push) is the terminal serial step.
 
 ## Conventions
 - Max 4 concurrent agents per batch
