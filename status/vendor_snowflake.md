@@ -4,23 +4,29 @@ Last updated: 2026-04-10
 Target certifications: **SOL-C01** → **COF-C02** → **DEA-C02**
 
 ## Modules
-- [ ] 00_exam_profile — pending
-- [ ] 01_architecture — pending
-- [ ] 02_loading — pending
-- [ ] 03_access — pending
-- [ ] 04_protection — pending
-- [ ] 05_performance — pending
-- [ ] 06_dea_advanced — pending
-
-## Labs
-- [ ] (to be defined during Stage 9 — source from `../snowflake_eng/`)
+- [x] 00_exam_profile — drafted 2026-04-10 (all 3 exams side-by-side; code/duration/Q count/pass/fees; Pearson VUE)
+- [x] 01_architecture — drafted 2026-04-10 (3-layer, micro-partitions, caches, object hierarchy)
+- [x] 02_loading — drafted 2026-04-10 (stages, COPY INTO, file formats, Snowpipe vs Streaming vs Kafka, INFER_SCHEMA)
+- [x] 03_access — drafted 2026-04-10 (system roles, hierarchy, primary/secondary, SCIM)
+- [x] 04_protection — drafted 2026-04-10 (Time Travel, Fail-safe, zero-copy clone, replication, Tri-Secret Secure)
+- [x] 05_performance — drafted 2026-04-10 (scale up/out, caches, QAS, clustering keys, SOS, Query Profile)
+- [x] 06_dea_advanced — drafted 2026-04-10 (streams, tasks, Dynamic Tables, Snowpark, UDFs, Iceberg tables)
 
 ## Artifacts
-- [ ] mock_exam_sources.md — Snowflake University practice only
+- [x] vendors/snowflake/README.md (tri-cert hub, three learning paths)
+- [x] vendors/snowflake/references.md
+- [x] vendors/snowflake/mock_exam_sources.md (first-party links only; explicit no-fabricated-questions notice)
 
 ## Decisions recorded
-- Primary source: `../snowflake_eng/` (5 SQL labs + SOL/COF/DEA exam profiles)
-- Tri-cert structure: Platform → Core → DEA Advanced (cross-cert overlap Platform→Core ~85%, Core→DEA ~50–75%)
+- Primary source: `../snowflake_eng/` phase1_platform (cited with line ranges); phases 2-3 do not exist in sibling dir — flagged in `05_performance` and `06_dea_advanced` `references.md`
+- Tri-cert structure: Platform → Core → DEA Advanced (overlap Platform→Core ~85%, Core→DEA ~50-75%)
+- SOL-C01: 65 Q / 85 min / 750/1000 / weights 35-15-40-10 verified from *Platform Guide p. 4*
+- COF-C02 and DEA-C02 duration/Q count flagged "verify on cert page" where not in the PDF
+- All exam facts cited with PDF page numbers
+- No labs/ content created — labs are out of scope per task
+
+## Blockers
+none
 
 ## Next action
-Stage 9: parallel agent with Snowflake scope
+Stage 10: appendices + master references merge
