@@ -1,4 +1,4 @@
-# Phase 2 — Core Domain (52h)
+# Phase 2 — Core Domain (50–65h)
 
 Tool-agnostic fundamentals every data engineer must own before touching a specific stack. Data modeling, ETL/ELT patterns, distributed-systems literacy, quality engineering, streaming concepts, and a hands-on bridge from abstract lakehouse concepts to a running MinIO + DuckDB sandbox.
 
@@ -16,7 +16,7 @@ Tool-agnostic fundamentals every data engineer must own before touching a specif
 | 05 | [Streaming Concepts](05_streaming_concepts/) | 6 | **GAP** — *DDIA* Ch. 11 + Kafka/Debezium docs |
 | 06 | [Lakehouse Bridge — MinIO + DuckDB + Parquet](06_lakehouse_bridge/) | 6 | primary — MinIO, DuckDB, Parquet spec |
 
-Total: 52h.
+Module hours: 52h. With buffer for data modeling exercises and lakehouse bridge setup: **50–65h** (5–6 weeks at 10–12h/week).
 
 ## Labs in this phase
 | Lab | Module | Goal |

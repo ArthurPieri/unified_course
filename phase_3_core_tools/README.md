@@ -1,4 +1,4 @@
-# Phase 3 — Core Tools, Workflows, and Applied Practice (54h)
+# Phase 3 — Core Tools, Workflows, and Applied Practice (100–140h)
 
 The hands-on phase. You stand up a local lakehouse on Docker Compose — MinIO + Iceberg + Hive Metastore + Trino + Spark + dlt + dbt + Dagster + Metabase — and drive it end-to-end from raw file to dashboard. Every module ends in a lab you run against the same stack; the exit criterion is a 2-hour integration exercise where you walk the full flow in front of an imaginary reviewer and explain each hop.
 
@@ -28,7 +28,7 @@ Start here. Every module below assumes one of these stacks is running.
 | 06 | Dagster — orchestration                         | 8     | partial-reuse — `../dataeng/dagster/`   | [06_dagster/](06_dagster/)                |
 | 07 | Metabase — BI frontend                          | 4     | primary — metabase.com/docs             | [07_metabase/](07_metabase/)              |
 
-Total: 54h. Each module has `README.md` → labs → `quiz.md` → `references.md`.
+Module hours: 54h. With realistic buffer for multi-service debugging, Spark OOM tuning, jar version mismatches, and cross-tool integration: **100–140h** (9–13 weeks at 10–12h/week). Upper bound reflects that learners on 16GB RAM often hit Spark memory issues on the NYC Taxi lab. Each module has `README.md` → labs → `quiz.md` → `references.md`.
 
 ## Labs in this phase
 

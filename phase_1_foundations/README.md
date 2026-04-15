@@ -1,6 +1,6 @@
 % 
 
-# Phase 1 — Foundations (60h)
+# Phase 1 — Foundations (60–75h)
 
 Operating-level fluency with the six tools every data engineer uses daily: Linux, networking, Python, Docker, SQL/PostgreSQL, Git. Nothing here is theoretical — each module ends in a lab you run on your own machine.
 
@@ -18,7 +18,7 @@ Operating-level fluency with the six tools every data engineer uses daily: Linux
 | 05 | [SQL Depth with PostgreSQL](05_sql_postgres/) | 10 | primary — postgresql.org/docs |
 | 06 | [Git Workflows for Data Teams](06_git/) | 4 | **GAP** — git-scm.com, Pro Git |
 
-Total: 60h. Each module has README → labs → quiz.
+Module hours: 60h. With realistic buffer for debugging, Docker troubleshooting, and integration challenges: **60–75h** (6–7 weeks at 10–12h/week). Each module has README → labs → quiz.
 
 ## Labs in this phase
 | Lab | Module | Goal |

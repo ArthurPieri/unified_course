@@ -1,4 +1,4 @@
-# Phase 5 — Advanced Architecture, Operations, and Strategy (45h)
+# Phase 5 — Advanced Architecture, Operations, and Strategy (50–65h)
 
 Phase 5 elevates individual pipeline competence to system-level thinking: shipping via CI/CD, running on Kubernetes, orchestrating with Airflow, reasoning about cloud and identity, controlling cost, and serving data to applications and models.
 

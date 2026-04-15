@@ -1,4 +1,4 @@
-# Phase 4 — Specializations (46h)
+# Phase 4 — Specializations (60–75h)
 
 Depth passes on six topics that make the difference between "the pipeline runs" and "the pipeline runs in production, under load, without leaking data": CDC, Kafka, semi-structured evolution, security/governance, performance tuning, and observability.
 
@@ -16,7 +16,7 @@ Depth passes on six topics that make the difference between "the pipeline runs" 
 | 05 | [Performance Tuning](05_performance_tuning/) | 10 | [L4c perf tuning](05_performance_tuning/labs/lab_L4c_perf_tuning/) |
 | 06 | [Observability](06_observability/) | 6 | — |
 
-Total: 46h.
+Module hours: 46h. With realistic buffer for CDC debugging, Kafka cluster setup, and performance lab iteration: **60–75h** (5–7 weeks at 10–12h/week).
 
 ## Exit criteria — Checkpoint Q4
 Before leaving Phase 4, you should be able to:
