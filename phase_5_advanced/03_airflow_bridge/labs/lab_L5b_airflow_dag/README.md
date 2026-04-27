@@ -5,7 +5,7 @@ Take the working Dagster lakehouse asset graph (dlt → dbt → quality) from `.
 
 ## Prerequisites
 - Docker + Compose v2
-- Completed [../../../phase_3_core_tools/06_dagster/](../../../phase_3_core_tools/06_dagster/) (you know the "before" asset graph)
+- Completed [../../../../phase_3_core_tools/06_dagster/](../../../../phase_3_core_tools/06_dagster/) (you know the "before" asset graph)
 - The Dagster source files, read for reference: `../../../../../dataeng/dagster/lakehouse/assets/ingestion.py:L1-L58`, `transformation.py:L1-L42`, and `quality.py`
 
 ## Setup
