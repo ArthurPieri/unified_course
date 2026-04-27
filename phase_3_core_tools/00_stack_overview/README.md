@@ -71,7 +71,7 @@ Data flow: raw file → MinIO → Iceberg table registered in HMS → Trino quer
 | `metabase-db`      | Metabase app DB (Postgres)              | internal    | —                                |
 | `metabase`         | BI frontend                             | 3001        | `metabase-db`, `trino`           |
 
-The full compose with all healthchecks and mounts lives at `../compose/full-stack/docker-compose.yml`. The sibling reference implementation is `../../../../dataeng/docker-compose.yml:L1-L243` — our version drops the Prometheus/Grafana monitoring block (that moves to Phase 4 · 06_observability) and promotes Spark from "notebook attached on demand" to a first-class compose service.
+The full compose with all healthchecks and mounts lives at `../compose/full-stack/docker-compose.yml`. Based on the companion lakehouse project, our version drops the Prometheus/Grafana monitoring block (that moves to Phase 4 · 06_observability) and promotes Spark from "notebook attached on demand" to a first-class compose service.
 
 ## Data flow walkthrough
 

@@ -20,10 +20,10 @@
 - [PostgreSQL: Data Types](https://www.postgresql.org/docs/current/datatype.html) — `timestamp`, `date`, `numeric`
 - [Docker: `docker run`](https://docs.docker.com/reference/cli/docker/container/run/) — running the Postgres container used in the lab
 
-## Sibling-dir exemplars
-- `../../../dataeng/dbt_project/models/marts/dim_zones.sql:L1-L19` — denormalized dimension (star-schema style)
-- `../../../dataeng/dbt_project/models/marts/fct_trip_metrics.sql:L1-L32` — fact table with declared grain (date × pickup_borough) and a non-additive `avg_tip_percentage`
-- `../../../dataeng/dbt_project/snapshots/snap_taxi_zones.sql:L1-L25` — dbt snapshot implementing SCD Type 2 with a timestamp strategy
+## dbt exemplar patterns (based on the companion lakehouse project)
+- Denormalized dimension (star-schema style): a `dim_zones` model selecting all zone attributes into a single flat table. See [dbt — Models](https://docs.getdbt.com/docs/build/models).
+- Fact table with declared grain (date x pickup_borough) and a non-additive `avg_tip_percentage`. See *Kimball DW Toolkit, Ch. 1* on fact additivity.
+- dbt snapshot implementing SCD Type 2 with a timestamp strategy (`dbt_valid_from` / `dbt_valid_to`). See [dbt — Snapshots](https://docs.getdbt.com/docs/build/snapshots).
 
 ## Cross-references
 - Glossary: [`../../references/glossary.md`](../../references/glossary.md) — SCD, star schema, Data Vault

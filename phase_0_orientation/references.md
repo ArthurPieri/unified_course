@@ -8,7 +8,7 @@ See the per-module `references.md` for complete lists. This file aggregates the 
 - [../docs/REUSE_POLICY.md](../docs/REUSE_POLICY.md) — citation rules
 - [../references/glossary.md](../references/glossary.md)
 - [../references/docs.md](../references/docs.md)
-- [../references/sibling_sources.md](../references/sibling_sources.md)
+- [Content provenance](../references/sibling_sources.md)
 
 ## External — Docker
 - [Docker Desktop settings](https://docs.docker.com/desktop/settings/)

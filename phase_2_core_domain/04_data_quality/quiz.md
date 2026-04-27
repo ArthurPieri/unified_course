@@ -31,7 +31,7 @@ D. Unit tests are only for Python models
 
 ---
 
-**Q4.** In the sibling test `../dataeng/dbt_project/tests/assert_positive_revenue.sql`, the SQL selects rows where `total_revenue < 0`. How does dbt decide the test passed or failed?
+**Q4.** A dbt singular test file `assert_positive_revenue.sql` selects rows where `total_revenue < 0`. How does dbt decide the test passed or failed?
 
 A. The test fails if the SQL errors out
 B. The test passes iff the query returns zero rows
@@ -85,7 +85,7 @@ D. `persist_docs: true`
 
 ---
 
-**Q10.** In `../dataeng/dagster/lakehouse/assets/quality.py`, the `check_row_counts` check iterates over `SILVER_TABLES` and marks the run as failed when...
+**Q10.** A Dagster `check_row_counts` asset check iterates over `SILVER_TABLES` and marks the run as failed when...
 
 A. Any silver table has more than 1 million rows
 B. Any silver table is empty (row count equals zero)
@@ -99,10 +99,10 @@ D. The dbt job has not run today
 1. **B** — `not_null` asserts the column has no nulls. Ref: [dbt generic tests](https://docs.getdbt.com/docs/build/data-tests#generic-data-tests)
 2. **C** — `relationships` is dbt's foreign-key test (`to: ref('...')`, `field: ...`). Ref: [dbt generic tests](https://docs.getdbt.com/docs/build/data-tests#generic-data-tests)
 3. **B** — Data tests run on real data at runtime; unit tests run on inline fixture rows at CI time. Ref: [dbt unit tests](https://docs.getdbt.com/docs/build/unit-tests)
-4. **B** — dbt tests are SELECTs; zero returned rows = pass, any returned rows = fail. Ref: [dbt — Singular data tests](https://docs.getdbt.com/docs/build/data-tests#singular-data-tests); example at `../../../dataeng/dbt_project/tests/assert_positive_revenue.sql:L1-L10`
+4. **B** — dbt tests are SELECTs; zero returned rows = pass, any returned rows = fail. Ref: [dbt — Singular data tests](https://docs.getdbt.com/docs/build/data-tests#singular-data-tests)
 5. **B** — Freshness checks detect stale assets. Ref: [Dagster freshness checks](https://docs.dagster.io/concepts/assets/asset-checks/checking-for-data-freshness)
 6. **B** — Contracts enforce declared shape (columns, types, constraints) at build time. Ref: [dbt model contracts](https://docs.getdbt.com/docs/collaborate/govern/model-contracts)
 7. **D** — Push the assertion left: a contract prevents the bad shape before any row is written. Ref: [dbt model contracts](https://docs.getdbt.com/docs/collaborate/govern/model-contracts)
 8. **B** — Accuracy is the sixth dimension (and the hardest to test). Ref: *Fundamentals of Data Engineering*, Reis & Housley, Ch. 10
 9. **B** — `severity`, `warn_if`, and `error_if` configure warn vs. fail thresholds. Ref: [dbt test severity](https://docs.getdbt.com/reference/resource-configs/severity)
-10. **B** — The loop flags any table with `count == 0`. Ref: `../../../dataeng/dagster/lakehouse/assets/quality.py:L54-L65`
+10. **B** — The loop flags any table with `count == 0`. Ref: [Dagster — Asset checks](https://docs.dagster.io/concepts/assets/asset-checks)

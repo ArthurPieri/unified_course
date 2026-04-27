@@ -38,31 +38,33 @@
 - **Athena** — serverless SQL, pay-per-TB-scanned. Best for ad-hoc SQL on S3, Iceberg, federated queries. Athena Spark notebooks handle PySpark ad-hoc analysis.
 - **Redshift** — columnar MPP warehouse. RA3 nodes separate compute from managed storage; Serverless autoscales RPUs. Best for BI workloads that need sub-second interactive SQL across TBs-PBs.
 
-Depth: `../../../aws_certified/docs/week-03-data-transformation.md:570-606` and `week-08-automation-analysis.md:803-824`.
+Primary: [AWS Glue Developer Guide](https://docs.aws.amazon.com/glue/latest/dg/), [Amazon EMR Management Guide](https://docs.aws.amazon.com/emr/latest/ManagementGuide/), [Amazon Athena User Guide](https://docs.aws.amazon.com/athena/latest/ug/), [Amazon Redshift Developer Guide](https://docs.aws.amazon.com/redshift/latest/dg/).
 
 ### Redshift distribution styles and sort keys
-Distribution styles: **KEY** (co-locate rows with matching hash), **ALL** (replicate small dim tables), **EVEN** (round-robin), **AUTO** (Redshift chooses). Sort keys: compound (default) or interleaved (rare). Pick DIST KEY on the most common join column; pick SORT KEY on filter columns (e.g., date). Wrong DIST KEY = shuffle-heavy queries. Depth: `../../../aws_certified/docs/week-08-automation-analysis.md:645-802`.
+Distribution styles: **KEY** (co-locate rows with matching hash), **ALL** (replicate small dim tables), **EVEN** (round-robin), **AUTO** (Redshift chooses). Sort keys: compound (default) or interleaved (rare). Pick DIST KEY on the most common join column; pick SORT KEY on filter columns (e.g., date). Wrong DIST KEY = shuffle-heavy queries. Primary: [Redshift distribution styles](https://docs.aws.amazon.com/redshift/latest/dg/c_choosing_dist_sort.html).
 
 ### Redshift Spectrum and federated queries
-Spectrum reads external tables in S3 (Glue Catalog) without loading to Redshift. Federated queries reach into RDS/Aurora PostgreSQL or MySQL. Together they give you "load only the hot table" designs. Depth: `../../../aws_certified/docs/week-05-data-store-selection.md:242-345`.
+Spectrum reads external tables in S3 (Glue Catalog) without loading to Redshift. Federated queries reach into RDS/Aurora PostgreSQL or MySQL. Together they give you "load only the hot table" designs. Primary: [Redshift Spectrum](https://docs.aws.amazon.com/redshift/latest/dg/c-using-spectrum.html), [Athena federated query](https://docs.aws.amazon.com/athena/latest/ug/connect-to-a-data-source.html).
 
 ### Athena partition projection and results reuse
-Partition projection removes the need to run `MSCK REPAIR` / crawlers when the partition scheme is predictable (date-based). Query results reuse caches results for up to 7 days. Workgroups enforce per-query and per-workgroup data-scanned limits for cost control. Depth: `../../../aws_certified/docs/week-08-automation-analysis.md:368-544`.
+Partition projection removes the need to run `MSCK REPAIR` / crawlers when the partition scheme is predictable (date-based). Query results reuse caches results for up to 7 days. Workgroups enforce per-query and per-workgroup data-scanned limits for cost control. Primary: [Athena partition projection](https://docs.aws.amazon.com/athena/latest/ug/partition-projection.html), [Athena query results reuse](https://docs.aws.amazon.com/athena/latest/ug/reusing-query-results.html), [Athena workgroups](https://docs.aws.amazon.com/athena/latest/ug/workgroups.html).
 
 ### EMR cost levers
-Use Instance Fleets with Spot for task nodes; keep core nodes On-Demand or Spot-with-capacity-reservation; use managed scaling; prefer EMR Serverless for bursty workloads. Depth: `../../../aws_certified/docs/week-03-data-transformation.md:359-484`.
+Use Instance Fleets with Spot for task nodes; keep core nodes On-Demand or Spot-with-capacity-reservation; use managed scaling; prefer EMR Serverless for bursty workloads. Primary: [EMR instance fleets](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-instance-fleet.html), [EMR managed scaling](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-managed-scaling.html), [EMR Serverless](https://docs.aws.amazon.com/emr/latest/EMR-Serverless-UserGuide/emr-serverless.html).
 
 ### Spark programming concepts in scope
-`repartition` vs. `coalesce`, broadcast joins, window functions, skew handling, caching. *Skill 1.4.10 — distributed computing*. Depth: `../../../aws_certified/docs/week-03-data-transformation.md:607-865`. Language-specific syntax is explicitly out of scope. *Exam Guide, out-of-scope tasks*.
+`repartition` vs. `coalesce`, broadcast joins, window functions, skew handling, caching. *Skill 1.4.10 — distributed computing*. Primary: [AWS Glue ETL programming](https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl.html). Language-specific syntax is explicitly out of scope. *Exam Guide, out-of-scope tasks*.
 
-## Labs (from sibling `../../../aws_certified/labs/`)
+## Labs
 
-| Lab | Goal | Sibling anchor |
+See the hands-on labs in this module's labs/ directory. Key exercises:
+
+| Lab | Goal | AWS reference |
 |---|---|---|
-| Week 3 Lab — Glue ETL | JSON->Parquet Glue job, bookmarks, ResolveChoice | `../../../aws_certified/labs/week-03-lab-transformation.md:167-500` |
-| Week 5 Lab — Data stores | DynamoDB GSI queries, Redshift load, Athena queries | `../../../aws_certified/labs/week-05-lab-datastores.md:13-400` |
-| Week 8 Lab — Athena + Lambda automation | Lambda schema validation, Athena ad-hoc queries | `../../../aws_certified/labs/week-08-lab-automation.md:1-400` |
-| Week 11 Capstone | End-to-end pipeline (Kinesis -> Firehose -> S3 -> Glue -> Athena) | `../../../aws_certified/labs/week-11-lab-capstone.md:1-800` |
+| Glue ETL | JSON->Parquet Glue job, bookmarks, ResolveChoice | [AWS Glue ETL](https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl.html) |
+| Data stores | DynamoDB GSI queries, Redshift load, Athena queries | [Amazon Redshift](https://docs.aws.amazon.com/redshift/latest/dg/), [Amazon Athena](https://docs.aws.amazon.com/athena/latest/ug/) |
+| Athena + Lambda automation | Lambda schema validation, Athena ad-hoc queries | [Amazon Athena User Guide](https://docs.aws.amazon.com/athena/latest/ug/) |
+| Capstone | End-to-end pipeline (Kinesis -> Firehose -> S3 -> Glue -> Athena) | [AWS Well-Architected Data Analytics Lens](https://docs.aws.amazon.com/wellarchitected/latest/analytics-lens/) |
 
 ## Common exam gotchas
 

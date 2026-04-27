@@ -23,11 +23,11 @@ Enough networking to troubleshoot a data pipeline: why does `trino` resolve `hiv
 
 ### IP addresses, subnets, CIDR
 IPv4 is a 32-bit address written as four octets (`192.168.1.100`); IPv6 is 128-bit hex. CIDR notation `192.168.1.0/24` says "the first 24 bits are the network, the remaining 8 identify hosts on that network" — a `/24` gives 256 addresses, 254 usable. Private ranges (not routable on the public internet) are `10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16`. `127.0.0.1` is loopback (the machine itself). Docker bridge networks use private ranges by default — this is why `172.17.0.x` appears when you `docker inspect`.
-Ref: `../linux_fundamentals/course/02-system-administration.md:L905-L962` · [RFC 1918: Address Allocation for Private Internets](https://datatracker.ietf.org/doc/html/rfc1918)
+Ref: [RFC 1918: Address Allocation for Private Internets](https://datatracker.ietf.org/doc/html/rfc1918)
 
 ### Ports: well-known, registered, ephemeral
 A port is a 16-bit number (0–65535) that distinguishes services on a single IP. IANA splits the range three ways: **well-known** `0–1023` (binding requires privileges on Linux — SSH/22, HTTP/80, HTTPS/443, PostgreSQL/5432 is registered not well-known, DNS/53), **registered** `1024–49151`, **dynamic/ephemeral** `49152–65535` (what the kernel hands out for the client side of an outbound connection). Linux's actual ephemeral range is configurable (`/proc/sys/net/ipv4/ip_local_port_range`) and is often narrower than the IANA range.
-Ref: `../linux_fundamentals/course/02-system-administration.md:L1086-L1119` · [IANA Service Name and Transport Protocol Port Number Registry](https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml) · [RFC 6335](https://datatracker.ietf.org/doc/html/rfc6335)
+Ref: [IANA Service Name and Transport Protocol Port Number Registry](https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml) · [RFC 6335](https://datatracker.ietf.org/doc/html/rfc6335)
 
 ### TCP vs. UDP
 **TCP** is connection-oriented and reliable: three-way handshake, ordered delivery, retransmission, congestion control. HTTP(S), SSH, PostgreSQL wire protocol, Kafka — all TCP. **UDP** is connectionless and unreliable: fire-and-forget datagrams, no ordering, no retransmit. DNS queries, DHCP, NTP, and most voice/video streaming use UDP because the overhead of TCP is worse than a dropped packet. If you do not know which to pick, the answer for a data platform is almost always TCP.
@@ -41,7 +41,7 @@ When an application looks up `hive-metastore.internal`:
 4. The answer is cached according to its TTL.
 
 Common record types you will actually see: **A** (hostname → IPv4), **AAAA** (hostname → IPv6), **CNAME** (alias to another hostname), **MX** (mail), **TXT** (SPF/DKIM/verification), **NS** (nameserver for a zone), **PTR** (reverse lookup).
-Ref: `../linux_fundamentals/course/02-system-administration.md:L1006-L1082` · [RFC 1034: Domain Names — Concepts and Facilities](https://datatracker.ietf.org/doc/html/rfc1034) · [RFC 1035: Domain Names — Implementation and Specification](https://datatracker.ietf.org/doc/html/rfc1035)
+Ref: [RFC 1034: Domain Names — Concepts and Facilities](https://datatracker.ietf.org/doc/html/rfc1034) · [RFC 1035: Domain Names — Implementation and Specification](https://datatracker.ietf.org/doc/html/rfc1035)
 
 ### HTTP/HTTPS request lifecycle
 A request to `https://api.example.com/v1/data` does this:
@@ -59,7 +59,7 @@ Ref: [Docker: Networking overview](https://docs.docker.com/network/) · [Docker:
 
 ### Firewalls, VPNs, proxies (troubleshooting level)
 A **firewall** is a packet filter that allows/denies traffic based on rules (source/destination IP, port, protocol, connection state). When a service is "up but unreachable from the laptop," a firewall rule is the usual suspect — check both the host (`ufw status`, cloud security group) and any intermediate network. A **VPN** is an encrypted tunnel that makes your machine appear to be on a remote network — it changes your source IP and DNS resolver, which is why an API works on the office network and fails from home. A **proxy** is an intermediary that terminates your connection and opens a new one to the destination; HTTPS-aware proxies do TLS interception and will break certificate validation unless their CA is trusted.
-Ref: `../linux_fundamentals/course/02-system-administration.md:L1173-L1275` · [Linux man-pages: iptables(8)](https://man7.org/linux/man-pages/man8/iptables.8.html)
+Ref: [Linux man-pages: iptables(8)](https://man7.org/linux/man-pages/man8/iptables.8.html)
 
 ### Diagnostic tools
 
@@ -74,7 +74,7 @@ Ref: `../linux_fundamentals/course/02-system-administration.md:L1173-L1275` · [
 | `traceroute host` | Hop-by-hop path to destination | `traceroute trino.internal` |
 | `tcpdump -i any port 5432` | Packet capture — last resort, requires root | see below |
 
-`tcpdump` captures raw packets off an interface; you rarely need it day-to-day, but when DNS says the right IP and `ss` shows the port listening and the client still cannot connect, it is the tool that proves whether packets are leaving the client and arriving at the server. Ref: [Linux man-pages: tcpdump(1)](https://man7.org/linux/man-pages/man1/tcpdump.1.html) · `../linux_fundamentals/course/02-system-administration.md:L1123-L1170`.
+`tcpdump` captures raw packets off an interface; you rarely need it day-to-day, but when DNS says the right IP and `ss` shows the port listening and the client still cannot connect, it is the tool that proves whether packets are leaving the client and arriving at the server. Ref: [Linux man-pages: tcpdump(1)](https://man7.org/linux/man-pages/man1/tcpdump.1.html).
 
 ## Common failures
 | Symptom | Cause | Fix | Source |

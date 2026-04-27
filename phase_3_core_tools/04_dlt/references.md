@@ -1,12 +1,12 @@
 # Module 04: dlt — References
 
-## Primary reuse (sibling source)
-- `../dataeng/dlt_pipelines/taxi_pipeline.py:L52-L110` — canonical `@dlt.resource` with incremental cursor on `tpep_pickup_datetime`; batch-yield pattern from pyarrow.
-- `../dataeng/dlt_pipelines/taxi_pipeline.py:L118-L132` — `@dlt.source` wrapper grouping the resource.
-- `../dataeng/dlt_pipelines/taxi_pipeline.py:L140-L166` — `dlt.pipeline(...)` construction + `pipeline.run(source)` with `load_info` print.
-- `../dataeng/dlt_pipelines/.dlt/config.toml` — filesystem destination + MinIO endpoint credentials pattern.
-- `../dataeng/dagster/lakehouse/resources/dlt_resource.py` — dlt wrapped as a Dagster resource (forward reference for Module 06).
-- `../dataeng/tests/test_dlt_pipelines/test_taxi_pipeline.py` — pipeline-level pytest pattern.
+## Patterns (based on the companion lakehouse project)
+- Canonical `@dlt.resource` with incremental cursor on `tpep_pickup_datetime`; batch-yield pattern from pyarrow. See the lab's `pipeline.py`. Ref: [dlt — Incremental loading](https://dlthub.com/docs/general-usage/incremental-loading).
+- `@dlt.source` wrapper grouping the resource. Ref: [dlt — Sources](https://dlthub.com/docs/general-usage/source).
+- `dlt.pipeline(...)` construction + `pipeline.run(source)` with `load_info` print. Ref: [dlt — How dlt works](https://dlthub.com/docs/reference/explainers/how-dlt-works).
+- Filesystem destination + MinIO endpoint credentials pattern. Ref: [dlt — Filesystem destination](https://dlthub.com/docs/dlt-ecosystem/destinations/filesystem).
+- dlt wrapped as a Dagster resource (forward reference for Module 06). Ref: [Dagster — dagster-dlt](https://docs.dagster.io/integrations/dlt).
+- Pipeline-level pytest pattern for testing dlt pipelines.
 
 ## Official dlt docs (dlthub.com)
 - [How dlt works](https://dlthub.com/docs/reference/explainers/how-dlt-works) — extract/normalise/load model.

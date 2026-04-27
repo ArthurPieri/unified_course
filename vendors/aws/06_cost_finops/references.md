@@ -25,12 +25,11 @@
 - [AWS Cost Explorer](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/ce-what-is.html)
 - [AWS Budgets](https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html)
 
-## Sibling course
+## Additional AWS references
 
-- `../../../../aws_certified/docs/week-07-lifecycle-schema.md:22-638`
-- `../../../../aws_certified/docs/week-11-cross-domain.md:20-783`
-- `../../../../aws_certified/labs/week-07-lab-lifecycle.md`
-- `../../../../aws_certified/labs/week-11-lab-capstone.md`
+- [S3 Lifecycle](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lifecycle-mgmt.html) — lifecycle and schema management
+- [AWS Glue Schema Registry](https://docs.aws.amazon.com/glue/latest/dg/schema-registry.html) — schema evolution
+- [AWS Well-Architected Data Analytics Lens](https://docs.aws.amazon.com/wellarchitected/latest/analytics-lens/) — cross-domain architecture patterns
 
 ## Exam guide
 

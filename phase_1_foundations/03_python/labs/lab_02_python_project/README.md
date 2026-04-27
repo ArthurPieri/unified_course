@@ -68,7 +68,7 @@ git init                     # pre-commit needs a git repo
    [tool.pytest.ini_options]
    testpaths = ["tests"]
    ```
-   `[tool.ruff]` options: [Ruff — Configuration](https://docs.astral.sh/ruff/configuration/). `[tool.mypy]`: [mypy — Config file](https://mypy.readthedocs.io/en/stable/config_file.html). Compare against the real `../dataeng/pyproject.toml:L24-L33`.
+   `[tool.ruff]` options: [Ruff — Configuration](https://docs.astral.sh/ruff/configuration/). `[tool.mypy]`: [mypy — Config file](https://mypy.readthedocs.io/en/stable/config_file.html).
 
 6. **Create `.pre-commit-config.yaml`** (syntax per [pre-commit — `.pre-commit-config.yaml`](https://pre-commit.com/#pre-commit-configyaml---hooks)):
    ```yaml

@@ -23,21 +23,21 @@ Source for weights: *SnowPro Associate: Platform Study Guide, June 9 2025, p. 4*
 - **Time:** ~45-60 h (study plan) including 5 h environment setup and 5 h practice. Rounds to **~50 h** for planning.
 - **Scope:** modules `01_architecture`, `02_loading`, `03_access`, `04_protection`, plus warehouse sizing/Cortex from `05_performance`. Skip `06_dea_advanced`.
 - **Cost:** $175 exam + ~$0-50 trial credits overrun buffer.
-- **Source:** `../../../snowflake_eng/STUDY_PLAN.md:L172-L190`.
+- **Source:** [Snowflake certification guide](https://www.snowflake.com/certifications/).
 
 ### Path 2 — SOL-C01 + COF-C02 (platform + core)
 - **Audience:** Snowflake admins, data platform engineers, ELT developers who will operate Snowflake daily.
 - **Time:** ~115-150 h. Study plan says Platform 45-60 h + Core 70-90 h minus 2-3 h bridge overlap; rounds to **~100-120 h** planning total (the "85% overlap with Path 1" figure in this branch refers only to the Platform portion that carries forward, not the overall hours).
 - **Scope:** all six modules except `06_dea_advanced` optional sections (streams, tasks, semi-structured are required for Core; Snowpark, Dynamic Tables, Iceberg are DEA-only).
 - **Cost:** $350 exams + ~$50 official Core practice exam + trial buffer.
-- **Source:** `../../../snowflake_eng/STUDY_PLAN.md:L289-L314`.
+- **Source:** [Snowflake certification guide](https://www.snowflake.com/certifications/).
 
 ### Path 3 — Full tri-cert (SOL + COF + DEA)
 - **Audience:** data engineers pursuing the highest Snowflake credential; consultants; staff engineers.
 - **Time:** **150-200 h** over 15-22 weeks. 45-60 h Platform + 70-90 h Core + 100-130 h DEA, minus bridge overlap (3 h P1->P2, 5 h P2->P3). Matches `UNIFIED_COURSE_PLAN.md:L954`.
 - **Scope:** all six modules in full, including `06_dea_advanced` (streams, tasks, Dynamic Tables, Snowpark, UDFs, external functions, Iceberg).
-- **Cost:** $725 exam subtotal ($175 + $175 + $375) + ~$100 in official practice exams + trial buffer. See `../../../snowflake_eng/STUDY_PLAN.md:L737-L750`.
-- **Overlap estimate:** Core provides ~50-75% of DEA foundations depending on domain (`../../../snowflake_eng/STUDY_PLAN.md:L500`). Phase 1 covers ~85% of Core Domain 1 and ~80% of Core Domain 2 (`STUDY_PLAN.md:L296`).
+- **Cost:** $725 exam subtotal ($175 + $175 + $375) + ~$100 in official practice exams + trial buffer. See the [Snowflake certification guide](https://www.snowflake.com/certifications/) for current pricing.
+- **Overlap estimate:** Core provides ~50-75% of DEA foundations depending on domain. Phase 1 covers ~85% of Core Domain 1 and ~80% of Core Domain 2.
 
 ### Which path for whom
 
@@ -58,7 +58,7 @@ Source for weights: *SnowPro Associate: Platform Study Guide, June 9 2025, p. 4*
 
 ## Reuse disclosure
 
-Modules `01_architecture`, `02_loading`, `03_access`, `04_protection` heavily reuse `../../../snowflake_eng/phase1_platform/` study notes and SQL labs by citation. Modules `05_performance` and `06_dea_advanced` are GAPs in the sibling dir (Snowflake phases 2-3 do not exist) — they cite the official PDF study guides and docs.snowflake.com as primary sources. See `../../references/sibling_sources.md:L158-L178` and `./references.md`.
+Modules `01_architecture`, `02_loading`, `03_access`, `04_protection` reference the official [Snowflake documentation](https://docs.snowflake.com/) and [Snowflake Quickstarts](https://quickstarts.snowflake.com/) for study notes and hands-on labs. Modules `05_performance` and `06_dea_advanced` cite the official PDF study guides and docs.snowflake.com as primary sources. See `./references.md`.
 
 ## References
 

@@ -19,5 +19,5 @@
 ## Books
 - *Designing Data-Intensive Applications*, Kleppmann, Ch. 11 — "Stream Processing" (log-based vs AMQP-style brokers, partitioning, delivery semantics)
 
-## Sibling reuse
-- `../../../aws_certified/docs/week-02-streaming-ingestion.md:L197-L273` — Amazon MSK overview, Kafka concepts recap, MSK vs Kinesis decision matrix (managed parallel to the OSS stack in this module)
+## Managed-service parallel
+- [Amazon MSK — What is Amazon MSK?](https://docs.aws.amazon.com/msk/latest/developerguide/what-is-msk.html) — Amazon MSK overview, Kafka concepts recap, MSK vs Kinesis decision matrix (managed parallel to the OSS stack in this module).

@@ -1,6 +1,6 @@
 -- Staging: one-to-one with raw_taxi.yellow_taxi_trips, rename + cast only.
--- Reuse pattern: ../dataeng/dbt_project/models/staging/stg_taxi_trips.sql:L23-L56
--- (trimmed to a view for the lab; the dataeng version is incremental).
+-- Based on the companion lakehouse project's staging pattern.
+-- (trimmed to a view for the lab; a production version would be incremental).
 
 with source as (
 

@@ -7,7 +7,7 @@
 - Name and describe six core Kubernetes objects: Pod, Deployment, Service, ConfigMap, Secret, Namespace.
 - Use `kubectl get`, `describe`, `logs`, `exec`, and `apply` to inspect and modify a running cluster.
 - Create a local cluster with `kind` and install a Helm chart into it.
-- Map Docker Compose concepts to their Kubernetes equivalents (cite `../dataeng/k8s/README.md:L29-L38`).
+- Map Docker Compose concepts to their Kubernetes equivalents (see [Kubernetes concepts overview](https://kubernetes.io/docs/concepts/overview/)).
 - Decide when running a data tool on Kubernetes is worth the complexity and when a managed service is better.
 
 ## Prerequisites
@@ -37,7 +37,7 @@ A **Deployment** declares: "I want N pods matching this template, and here is ho
 Ref: [Kubernetes — Deployments](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
 
 ### Service
-A Pod's IP changes every time it is rescheduled. A **Service** gives you a stable virtual IP and DNS name that load-balances across the pods matching a label selector. `ClusterIP` (default) is reachable only inside the cluster; `NodePort` opens a port on every node; `LoadBalancer` asks the cloud provider for an external LB. The `trino-values.yaml` in the dataeng repo picks `NodePort` with port `30080` so the coordinator is reachable from the host via the kind port mapping (`../dataeng/k8s/trino-values.yaml:L47-L50`, `../dataeng/k8s/kind-config.yaml:L8-L12`).
+A Pod's IP changes every time it is rescheduled. A **Service** gives you a stable virtual IP and DNS name that load-balances across the pods matching a label selector. `ClusterIP` (default) is reachable only inside the cluster; `NodePort` opens a port on every node; `LoadBalancer` asks the cloud provider for an external LB. A typical Trino Helm values file picks `NodePort` with port `30080` so the coordinator is reachable from the host via the kind port mapping (see [kind -- Configuration: extraPortMappings](https://kind.sigs.k8s.io/docs/user/configuration/#extra-port-mappings) and [Trino Helm chart values](https://github.com/trinodb/charts)).
 
 Ref: [Kubernetes — Services](https://kubernetes.io/docs/concepts/services-networking/service/)
 
@@ -47,7 +47,7 @@ Ref: [Kubernetes — Services](https://kubernetes.io/docs/concepts/services-netw
 Ref: [Kubernetes — ConfigMaps](https://kubernetes.io/docs/concepts/configuration/configmap/) · [Kubernetes — Secrets](https://kubernetes.io/docs/concepts/configuration/secret/)
 
 ### Namespace
-A **Namespace** is a virtual cluster inside a cluster. It scopes object names (two pods can be called `trino` if they're in different namespaces) and is the unit for RBAC policies and resource quotas. The dataeng example deploys Trino into `-n trino` to keep it isolated from anything else on the cluster — see `../dataeng/k8s/README.md:L18-L19`.
+A **Namespace** is a virtual cluster inside a cluster. It scopes object names (two pods can be called `trino` if they're in different namespaces) and is the unit for RBAC policies and resource quotas. A common pattern is to deploy Trino into `-n trino` to keep it isolated from anything else on the cluster -- see [Kubernetes -- Namespaces](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/).
 
 Ref: [Kubernetes — Namespaces](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/)
 
@@ -62,12 +62,12 @@ Five verbs cover 90% of daily use:
 Ref: [Kubernetes — kubectl overview](https://kubernetes.io/docs/reference/kubectl/) · [kubectl cheat sheet](https://kubernetes.io/docs/reference/kubectl/quick-reference/)
 
 ### Local cluster with kind
-**kind** ("Kubernetes IN Docker") runs a full cluster as Docker containers — one per node. It is the standard way to develop locally and to spin up throwaway clusters inside CI runners. The cluster config is YAML: `apiVersion: kind.x-k8s.io/v1alpha4`, `kind: Cluster`, a list of nodes, and optional `extraPortMappings` to expose node ports on the host. The dataeng example (`../dataeng/k8s/kind-config.yaml:L1-L12`) creates a single-node cluster named `lakehouse-dev` and forwards host port `8180` to container port `30080` — exactly where the Trino NodePort service lives.
+**kind** ("Kubernetes IN Docker") runs a full cluster as Docker containers -- one per node. It is the standard way to develop locally and to spin up throwaway clusters inside CI runners. The cluster config is YAML: `apiVersion: kind.x-k8s.io/v1alpha4`, `kind: Cluster`, a list of nodes, and optional `extraPortMappings` to expose node ports on the host. A typical config creates a single-node cluster and forwards a host port (e.g., `8180`) to the container port where the Trino NodePort service lives (e.g., `30080`). See [kind -- Configuration](https://kind.sigs.k8s.io/docs/user/configuration/) for the full schema and [kind -- Quick Start](https://kind.sigs.k8s.io/docs/user/quick-start/) for examples.
 
 Ref: [kind — Quick Start](https://kind.sigs.k8s.io/docs/user/quick-start/) · [kind — Configuration](https://kind.sigs.k8s.io/docs/user/configuration/)
 
 ### Helm: why it exists
-Writing raw YAML for a real app means dozens of files and copy-paste between environments. **Helm** is a package manager: a **chart** is a directory of Go templates plus a `values.yaml` with defaults. `helm install myrelease ./chart -f my-values.yaml` renders the templates with merged values and applies the result to the cluster. `helm upgrade` diffs and rolls forward; `helm rollback` reverts. The Trino chart lives at [github.com/trinodb/charts](https://github.com/trinodb/charts) and is consumed in the dataeng repo via a minimal values override that sets `server.workers: 1`, resource requests, and the Iceberg catalog (`../dataeng/k8s/trino-values.yaml:L1-L50`).
+Writing raw YAML for a real app means dozens of files and copy-paste between environments. **Helm** is a package manager: a **chart** is a directory of Go templates plus a `values.yaml` with defaults. `helm install myrelease ./chart -f my-values.yaml` renders the templates with merged values and applies the result to the cluster. `helm upgrade` diffs and rolls forward; `helm rollback` reverts. The Trino chart lives at [github.com/trinodb/charts](https://github.com/trinodb/charts) and is consumed via a minimal values override that sets `server.workers: 1`, resource requests, and the Iceberg catalog. See the [Trino Helm chart README](https://github.com/trinodb/charts) for the full set of configurable values.
 
 Ref: [Helm — Charts](https://helm.sh/docs/topics/charts/) · [Helm — Using Helm](https://helm.sh/docs/intro/using_helm/) · [Trino Helm charts](https://github.com/trinodb/charts)
 
@@ -86,7 +86,7 @@ Ref: [Trino — Deploying on Kubernetes](https://trino.io/docs/current/installat
 |---|---|---|---|
 | Pod stuck in `Pending` | No node has enough CPU/memory | `kubectl describe pod` → check events; lower resource requests | [Kubernetes — Resource management](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/) |
 | `ImagePullBackOff` on a local image | Image not loaded into kind | `kind load docker-image <tag> --name <cluster>` | [kind — Loading an image](https://kind.sigs.k8s.io/docs/user/quick-start/#loading-an-image-into-your-cluster) |
-| Service reachable inside cluster, not from host | ClusterIP service; no NodePort / port-forward | Use `NodePort` + `extraPortMappings` or `kubectl port-forward` | `../dataeng/k8s/kind-config.yaml:L8-L12` |
+| Service reachable inside cluster, not from host | ClusterIP service; no NodePort / port-forward | Use `NodePort` + `extraPortMappings` or `kubectl port-forward` | [kind -- extraPortMappings](https://kind.sigs.k8s.io/docs/user/configuration/#extra-port-mappings) |
 | Secret values visible in `kubectl get secret -o yaml` | base64 is not encryption | Enable etcd encryption-at-rest or use an external secret manager | [Kubernetes — Encryption at rest](https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/) |
 | `helm upgrade` hangs forever | Pod never becomes ready; `--wait` blocks | Drop `--wait` for debugging; run `kubectl describe` to find the real cause | [Helm — Helm install](https://helm.sh/docs/helm/helm_install/) |
 

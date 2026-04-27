@@ -21,12 +21,12 @@
 ### Azure Data Factory, Synapse Pipelines, Fabric Data Factory — one engine, three wrappers
 
 **Azure Data Factory (ADF)** is Azure's standalone orchestration and data-movement service. **Synapse Pipelines** is ADF embedded in a Synapse workspace — same runtime, same activities, same JSON definitions. **Fabric Data Factory** is the Fabric incarnation with two surfaces: **Pipelines** (visually indistinguishable from ADF, minus a few activities and with Fabric-native sinks) and **Dataflow Gen2** (Power Query M transformations on the Fabric Spark runtime). DP-700 tests Fabric Pipelines + Dataflow Gen2 primarily, but you must still recognize ADF artifacts because most DP-700 candidates migrate from them.
-Ref: [Fabric Data Factory](https://learn.microsoft.com/en-us/fabric/data-factory/) · [Azure Data Factory introduction](https://learn.microsoft.com/en-us/azure/data-factory/introduction) · `../../../azure_certified/IMPLEMENTATION-PLAN.md:L304-L325`
+Ref: [Fabric Data Factory](https://learn.microsoft.com/en-us/fabric/data-factory/) · [Azure Data Factory introduction](https://learn.microsoft.com/en-us/azure/data-factory/introduction)
 
 ### Copy Activity — movement only
 
 Copy Activity is the 90+-connector data-movement workhorse. It reads from a source, optionally applies format conversions and column mappings, and writes to a sink. It does **not** transform: no joins, no aggregations, no derived columns beyond simple mapping. Key tunables: Data Integration Units (DIUs, max 256), parallel copies, and staging via Blob/ADLS for cross-cloud hops. Fault tolerance: skip incompatible rows, log to a file for reprocessing.
-Ref: [Copy activity](https://learn.microsoft.com/en-us/fabric/data-factory/copy-data-activity) · `../../../azure_certified/labs/04-batch-and-pipeline-patterns.md:L7-L450`
+Ref: [Copy activity](https://learn.microsoft.com/en-us/fabric/data-factory/copy-data-activity) · [Azure Data Factory pipelines](https://learn.microsoft.com/en-us/azure/data-factory/concepts-pipelines-activities)
 
 ### Mapping Data Flows (ADF) and Dataflow Gen2 (Fabric)
 
@@ -36,7 +36,7 @@ Ref: [Dataflow Gen2 overview](https://learn.microsoft.com/en-us/fabric/data-fact
 ### Incremental load — watermark pattern
 
 The canonical three-step: (1) **Lookup** reads the last watermark from a control table, (2) **Copy Activity** issues `SELECT * WHERE modified_date > @{activity('Lookup').output.firstRow.watermark}`, (3) a **Stored Procedure** or Script activity updates the control table to the new maximum. Failure between step 2 and step 3 re-copies rows on the next run — design your sink to be idempotent (Delta `MERGE`, upsert, or dedup key).
-Ref: `../../../azure_certified/IMPLEMENTATION-PLAN.md:L315-L325` · `../../../azure_certified/flashcards/top-33-flashcards.md` Card 8
+Ref: [Azure Data Factory incremental copy](https://learn.microsoft.com/en-us/azure/data-factory/tutorial-incremental-copy-overview)
 
 ### Change data capture options
 
@@ -46,7 +46,7 @@ Ref: `../../../azure_certified/IMPLEMENTATION-PLAN.md:L315-L325` · `../../../az
 - **Delta Change Data Feed (CDF)** — `readChangeFeed` emits row-level deltas from a Delta table to downstream consumers.
 - **Fabric mirroring** — zero-ETL CDC for Azure SQL DB, Cosmos DB, Snowflake; see module 01.
 
-Ref: [Delta CDF](https://learn.microsoft.com/en-us/azure/databricks/delta/delta-change-data-feed) · `../../../azure_certified/IMPLEMENTATION-PLAN.md:L315-L325`
+Ref: [Delta CDF](https://learn.microsoft.com/en-us/azure/databricks/delta/delta-change-data-feed) · [Azure Data Factory incremental copy](https://learn.microsoft.com/en-us/azure/data-factory/tutorial-incremental-copy-overview)
 
 ### Triggers
 
@@ -59,7 +59,7 @@ Ref: [Delta CDF](https://learn.microsoft.com/en-us/azure/databricks/delta/delta-
 | Manual | Ad-hoc testing | "Trigger now" / REST API |
 
 If the question mentions *backfill* or *one execution per date partition with dependencies*, the answer is almost always tumbling window.
-Ref: `../../../azure_certified/flashcards/top-33-flashcards.md` Card 12 · [ADF triggers](https://learn.microsoft.com/en-us/azure/data-factory/concepts-pipeline-execution-triggers)
+Ref: [ADF triggers](https://learn.microsoft.com/en-us/azure/data-factory/concepts-pipeline-execution-triggers)
 
 ### Integration Runtime (ADF / Synapse Pipelines)
 
@@ -81,17 +81,17 @@ Ref: [Expressions and functions](https://learn.microsoft.com/en-us/azure/data-fa
 
 | Lab | Goal | Est. time | Source |
 |---|---|---|---|
-| L02.1 Copy + Data Flow | Build Copy Activity → Mapping Data Flow pipeline in ADF portal (sandbox) | 60 m | `../../../azure_certified/labs/04-batch-and-pipeline-patterns.md:L7-L450` |
-| L02.2 Watermark incremental | Implement Lookup → Copy → Stored Procedure watermark pipeline | 60 m | `../../../azure_certified/labs/04-batch-and-pipeline-patterns.md:L842-L1424` |
+| L02.1 Copy + Data Flow | Build Copy Activity → Mapping Data Flow pipeline in ADF portal (sandbox) | 60 m | [Azure Data Factory pipelines](https://learn.microsoft.com/en-us/azure/data-factory/concepts-pipelines-activities) |
+| L02.2 Watermark incremental | Implement Lookup → Copy → Stored Procedure watermark pipeline | 60 m | [Azure Data Factory incremental copy](https://learn.microsoft.com/en-us/azure/data-factory/tutorial-incremental-copy-overview) |
 | L02.3 Dataflow Gen2 in Fabric | Ingest a CSV, apply M transformations, land in a Lakehouse | 45 m | [Dataflow Gen2 quickstart](https://learn.microsoft.com/en-us/fabric/data-factory/create-first-dataflow-gen2) |
-| L02.4 Tumbling window backfill | Configure a tumbling window trigger and backfill 7 days | 30 m | `../../../azure_certified/labs/04-batch-and-pipeline-patterns.md:L1424-L1850` |
+| L02.4 Tumbling window backfill | Configure a tumbling window trigger and backfill 7 days | 30 m | [ADF triggers](https://learn.microsoft.com/en-us/azure/data-factory/concepts-pipeline-execution-triggers) |
 
 ## Common failures
 
 | Symptom | Cause | Fix | Source |
 |---|---|---|---|
 | Copy Activity "cannot transform" | Tried to add derived columns in Copy | Use Mapping Data Flow or Dataflow Gen2 | [Copy activity](https://learn.microsoft.com/en-us/fabric/data-factory/copy-data-activity) |
-| Rows duplicated after pipeline retry | Watermark updated before failure in copy sink | Make sink idempotent (Delta MERGE / upsert) | `../../../azure_certified/flashcards/top-33-flashcards.md` Card 8 |
+| Rows duplicated after pipeline retry | Watermark updated before failure in copy sink | Make sink idempotent (Delta MERGE / upsert) | [Azure Data Factory incremental copy](https://learn.microsoft.com/en-us/azure/data-factory/tutorial-incremental-copy-overview) |
 | On-premises source unreachable | Azure IR only; no self-hosted IR / on-prem gateway | Install self-hosted IR (ADF) or on-premises data gateway (Fabric) | [IR concepts](https://learn.microsoft.com/en-us/azure/data-factory/concepts-integration-runtime) |
 | Tumbling window pipeline runs but does not backfill | Used Schedule trigger instead | Switch to Tumbling Window trigger with start time in the past | [ADF triggers](https://learn.microsoft.com/en-us/azure/data-factory/concepts-pipeline-execution-triggers) |
 
@@ -106,7 +106,7 @@ Ref: [Expressions and functions](https://learn.microsoft.com/en-us/azure/data-fa
 | Compute billing | DIUs / cluster cores | Fabric capacity units |
 | Lineage to catalog | Purview integration | Fabric governance + Purview |
 
-Ref: [Fabric Data Factory](https://learn.microsoft.com/en-us/fabric/data-factory/) · `../../../azure_certified/IMPLEMENTATION-PLAN.md:L304-L390`
+Ref: [Fabric Data Factory](https://learn.microsoft.com/en-us/fabric/data-factory/) · [Azure Data Factory introduction](https://learn.microsoft.com/en-us/azure/data-factory/introduction)
 
 ## References
 

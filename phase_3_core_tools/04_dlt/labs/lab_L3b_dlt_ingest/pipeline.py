@@ -1,7 +1,6 @@
 """Lab L3b — dlt pipeline: NYC Yellow Taxi Parquet -> MinIO (filesystem).
 
-Adapted from ../../../../../dataeng/dlt_pipelines/taxi_pipeline.py:L52-L166.
-Key differences:
+Key differences from a production pipeline:
   - pipeline_name is scoped to this lab so state does not collide.
   - Credentials/endpoint come from DESTINATION__FILESYSTEM__* env vars
     (see lab README "Setup"), not from .dlt/config.toml.

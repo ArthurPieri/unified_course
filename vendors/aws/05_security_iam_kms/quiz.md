@@ -81,7 +81,7 @@
 1. **B** — Explicit Deny wins everywhere. [IAM policy evaluation](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html).
 2. **B** — S3 (and DynamoDB) use Gateway endpoints. [Gateway VPC endpoints](https://docs.aws.amazon.com/vpc/latest/privatelink/gateway-endpoints.html).
 3. **B** — S3 Bucket Keys reduce KMS request volume substantially. [S3 Bucket Keys](https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-key.html).
-4. **B** — Action-level grants scoped to specific resources. *AWS DEA-C01, Skill 4.2.6*; `../../../aws_certified/labs/week-10-lab-security.md:9-260`.
+4. **B** — Action-level grants scoped to specific resources. *AWS DEA-C01, Skill 4.2.6*; [IAM policy best practices](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html).
 5. **B** — Secrets Manager with a rotation Lambda. [Secrets Manager rotation](https://docs.aws.amazon.com/secretsmanager/latest/userguide/rotating-secrets.html).
 6. **B** — Macie classification jobs emit findings to EventBridge. [Macie findings](https://docs.aws.amazon.com/macie/latest/user/findings.html).
 7. **B** — CloudTrail Lake stores events for SQL queries across the org. [CloudTrail Lake](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-lake.html).

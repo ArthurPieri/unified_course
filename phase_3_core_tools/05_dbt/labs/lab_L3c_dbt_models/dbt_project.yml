@@ -1,7 +1,7 @@
 
 # Lab L3c dbt project.
-# Pattern lifted from ../dataeng/dbt_project/dbt_project.yml:L1-L27 and trimmed
-# for the lab. Keeps the staging → silver, marts → gold convention.
+# dbt project configuration for the Iceberg lakehouse lab.
+# Keeps the staging → silver, marts → gold convention.
 
 name: lakehouse_l3c
 version: "1.0.0"

@@ -104,7 +104,7 @@ D. `curl -X PUT http://localhost:9000/warehouse` with no headers
 
 4. **C** — The catalog is the only place that records which `metadata.json` is current, which is what makes atomic compare-and-set commits possible. Ref: [Iceberg catalogs concept](https://iceberg.apache.org/concepts/catalog/), [Iceberg spec — Commit](https://iceberg.apache.org/spec/#commit).
 
-5. **D** — Hive Metastore Thrift listens on `9083`; this is mirrored in the compose block at `../../../../dataeng/docker-compose.yml:L62-L88` and in [Hive Metastore administration](https://cwiki.apache.org/confluence/display/Hive/AdminManual+Metastore+Administration).
+5. **D** — Hive Metastore Thrift listens on `9083`; this is mirrored in the compose block at `../compose/full-stack/docker-compose.yml:L71-L98` and in [Hive Metastore administration](https://cwiki.apache.org/confluence/display/Hive/AdminManual+Metastore+Administration).
 
 6. **C** — Atomic commit is a catalog-side compare-and-set swap of the current metadata pointer. Ref: [Iceberg spec — Commit](https://iceberg.apache.org/spec/#commit).
 
@@ -112,6 +112,6 @@ D. `curl -X PUT http://localhost:9000/warehouse` with no headers
 
 8. **B** — Expired snapshots are what authorise deletion of orphaned data/manifest files; without expiry, storage grows monotonically. Ref: [Iceberg maintenance — expire snapshots](https://iceberg.apache.org/docs/latest/maintenance/#expire-snapshots).
 
-9. **C** — HMS needs its backing Postgres healthy and schema-clean on first boot; the compose `depends_on: metastore-db: condition: service_healthy` exists for exactly this reason. Ref: `../../../../dataeng/docker-compose.yml:L62-L88`, [Hive Metastore 3.0 administration](https://cwiki.apache.org/confluence/display/Hive/AdminManual+Metastore+3.0+Administration).
+9. **C** — HMS needs its backing Postgres healthy and schema-clean on first boot; the compose `depends_on: metastore-db: condition: service_healthy` exists for exactly this reason. Ref: `../compose/full-stack/docker-compose.yml:L71-L98`, [Hive Metastore 3.0 administration](https://cwiki.apache.org/confluence/display/Hive/AdminManual+Metastore+3.0+Administration).
 
 10. **B** — `mc` is MinIO's canonical CLI; `mc alias set` then `mc mb local/warehouse` creates the bucket against the service in the compose network. Ref: [mc CLI reference](https://min.io/docs/minio/linux/reference/minio-mc.html), [`mc mb`](https://min.io/docs/minio/linux/reference/minio-mc/mc-mb.html).

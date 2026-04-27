@@ -2,7 +2,7 @@
 
 This module is the **DEA-C02 delta** on top of Platform + Core. It touches COF-C02 Domain 5.0 (Data Transformations, 18%) only for streams, tasks, and UDF basics; everything else is DEA Domain 1.0 (Data Movement, 28%) and Domain 5.0 (Data Transformation, 25%).
 
-**Sibling gap:** `../../../../snowflake_eng/` has no Phase 2 or Phase 3 content. This module cites the DEA and Core PDF guides plus docs.snowflake.com exclusively.
+This module cites the [Snowflake certification study guides](https://www.snowflake.com/certifications/) and [Snowflake documentation](https://docs.snowflake.com/) exclusively.
 
 ## Learning goals
 - Explain what a **stream** captures (CDC for a source table) and the three stream types.

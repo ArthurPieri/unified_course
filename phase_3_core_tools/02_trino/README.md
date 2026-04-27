@@ -18,7 +18,7 @@
 ## Reading order
 1. This README
 2. `../compose/full-stack/docker-compose.yml:L101-L125` (Trino service block)
-3. `../../../../dataeng/trino/catalog/iceberg.properties` (sibling catalog config)
+3. `../compose/full-stack/conf/trino/catalog/iceberg.properties` (local catalog config)
 4. [quiz.md](quiz.md)
 
 Labs L3a (MinIO + Iceberg + HMS) and L3c (dbt on Trino) exercise Trino end-to-end; no dedicated lab lives in this module.
@@ -30,7 +30,7 @@ Trino is a distributed SQL query engine that runs federated analytical queries o
 Ref: [Trino concepts](https://trino.io/docs/current/overview/concepts.html) · [Trino overview](https://trino.io/docs/current/overview/use-cases.html)
 
 ### Coordinator and workers
-The coordinator is the single node clients talk to (JDBC, CLI, REST at `:8080`). It holds the query queue, the metadata cache, the resource group rules, and the scheduler. Workers execute tasks — one task per stage per worker — and exchange pages over HTTP. In the Phase 3 single-node compose the `trino` service is both coordinator and worker (`coordinator=true`, `node-scheduler.include-coordinator=true` in `../../../../dataeng/trino/config.properties:L1-L2`); a production cluster would set `coordinator=false` on the worker nodes and point them at the coordinator via `discovery.uri`.
+The coordinator is the single node clients talk to (JDBC, CLI, REST at `:8080`). It holds the query queue, the metadata cache, the resource group rules, and the scheduler. Workers execute tasks — one task per stage per worker — and exchange pages over HTTP. In the Phase 3 single-node compose the `trino` service is both coordinator and worker (`coordinator=true`, `node-scheduler.include-coordinator=true` in `../compose/full-stack/conf/trino/config.properties`); a production cluster would set `coordinator=false` on the worker nodes and point them at the coordinator via `discovery.uri`.
 Ref: [Trino cluster concepts](https://trino.io/docs/current/overview/concepts.html#cluster) · [Trino configuration](https://trino.io/docs/current/installation/deployment.html#configuring-trino)
 
 ### Connectors and the catalog namespace
@@ -38,7 +38,7 @@ Every SQL identifier in Trino is three parts: `catalog.schema.table`. A *catalog
 Ref: [Trino connectors](https://trino.io/docs/current/connector.html) · [Trino catalogs](https://trino.io/docs/current/overview/concepts.html#catalog)
 
 ### The Iceberg connector
-The Iceberg connector reads and writes [Apache Iceberg](https://iceberg.apache.org/spec/) tables. It resolves a table by asking a *catalog backend* — Hive Metastore, JDBC, REST, Glue, Nessie, or Snowflake — for the current `metadata.json` location, then reads that JSON to learn the current snapshot, manifest list, and data-file paths. Every query runs against a single snapshot, which is how Iceberg delivers serializable reads without locking. The Phase 3 configuration (`../../../../dataeng/trino/catalog/iceberg.properties:L1-L11`) sets `iceberg.catalog.type=hive_metastore`, `hive.metastore.uri=thrift://hive-metastore:9083`, and the native S3 filesystem (`fs.native-s3.enabled=true`) pointed at MinIO with path-style access — the same S3A pattern documented in `../00_stack_overview/README.md:L100-L111`.
+The Iceberg connector reads and writes [Apache Iceberg](https://iceberg.apache.org/spec/) tables. It resolves a table by asking a *catalog backend* — Hive Metastore, JDBC, REST, Glue, Nessie, or Snowflake — for the current `metadata.json` location, then reads that JSON to learn the current snapshot, manifest list, and data-file paths. Every query runs against a single snapshot, which is how Iceberg delivers serializable reads without locking. The Phase 3 configuration (`../compose/full-stack/conf/trino/catalog/iceberg.properties`) sets `iceberg.catalog.type=hive_metastore`, `hive.metastore.uri=thrift://hive-metastore:9083`, and the native S3 filesystem (`fs.native-s3.enabled=true`) pointed at MinIO with path-style access — the same S3A pattern documented in `../00_stack_overview/README.md:L100-L111`.
 Ref: [Trino Iceberg connector](https://trino.io/docs/current/connector/iceberg.html) · [Iceberg Hive catalog](https://iceberg.apache.org/docs/latest/hive/)
 
 ### SQL surface and Trino-specific bits
@@ -74,7 +74,7 @@ No dedicated lab. Trino is exercised in:
 |---|---|---|---|
 | `Catalog 'iceberg' does not exist` | Catalog properties file missing from `/etc/trino/catalog/` or misnamed | Confirm the mount in `../compose/full-stack/docker-compose.yml:L114` and that the file is named `<catalog>.properties` | [Trino Iceberg connector](https://trino.io/docs/current/connector/iceberg.html) |
 | `Failed to connect to HMS` / `Thrift` timeouts | HMS not healthy when Trino tried; HMS URI wrong | Wait for `docker compose ps` to show HMS healthy; verify `hive.metastore.uri=thrift://hive-metastore:9083` | [Trino Iceberg connector](https://trino.io/docs/current/connector/iceberg.html) · [Iceberg Hive catalog](https://iceberg.apache.org/docs/latest/hive/) |
-| `Access Denied` / `403` on S3 reads | MinIO credentials not exported into the container env | Set `MINIO_ROOT_USER` / `MINIO_ROOT_PASSWORD` in `.env`; confirm `${ENV:...}` expansion in `iceberg.properties` | `../../../../dataeng/trino/catalog/iceberg.properties:L10-L11` |
+| `Access Denied` / `403` on S3 reads | MinIO credentials not exported into the container env | Set `MINIO_ROOT_USER` / `MINIO_ROOT_PASSWORD` in `.env`; confirm `${ENV:...}` expansion in `iceberg.properties` | `../compose/full-stack/conf/trino/catalog/iceberg.properties` |
 | Queries hang forever on `:8080` with stages stuck at 0 rows | Split generation is blocked on the connector (HMS or S3) | Check HMS and MinIO logs; open the Web UI stage view for the blocked stage | [Trino Web UI](https://trino.io/docs/current/admin/web-interface.html) |
 | `Query exceeded per-node memory limit` | `query.max-memory-per-node` too low for the join | Raise the limit in `config.properties` and restart Trino | [Trino properties reference](https://trino.io/docs/current/admin/properties-general.html) |
 | `QUERY_QUEUE_FULL` on a shared cluster | Resource group queue saturated | Wait, or reshape the query; escalate to the group owner to revisit selectors | [Resource groups](https://trino.io/docs/current/admin/resource-groups.html) |

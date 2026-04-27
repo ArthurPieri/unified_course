@@ -91,4 +91,4 @@ D. Because it uses `case when`.
 9. **B** — Hub (business keys), link (relationships), satellite (descriptive, time-variant attributes). *Linstedt & Olschimke, Data Vault 2.0, Ch. 2*.
 10. **B** — Late-arriving facts must join to the SCD2 row whose validity interval contains the event timestamp, not the currently-current row. *Kimball DW Toolkit, Ch. 5*.
 11. **C** — Data Vault's insert-only, hash-keyed, source-tagged design prioritizes auditability and multi-source integration over BI ergonomics. *Linstedt & Olschimke, Data Vault 2.0, Ch. 1*.
-12. **B** — Ratios and averages are non-additive; store numerator and denominator and compute the ratio at query time. *Kimball DW Toolkit, Ch. 1*; sibling exemplar `../../../dataeng/dbt_project/models/marts/fct_trip_metrics.sql:L16-L22`.
+12. **B** — Ratios and averages are non-additive; store numerator and denominator and compute the ratio at query time. *Kimball DW Toolkit, Ch. 1*.

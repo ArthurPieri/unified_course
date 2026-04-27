@@ -35,11 +35,11 @@ Ref: *Kimball DW Toolkit, Ch. 1* (Four-Step Dimensional Design Process)
 
 ### Fact additivity
 Facts are classified by how they roll up across dimensions. **Fully additive** facts (e.g., `trip_count`, `fare_amount`) can be summed across any dimension. **Semi-additive** facts (e.g., `account_balance`) can be summed across some dimensions but not time — you do not sum today's balance and yesterday's balance. **Non-additive** facts (e.g., ratios, percentages, `avg_tip_percentage`) cannot be summed at all; store the numerator and denominator and compute the ratio at query time.
-Ref: *Kimball DW Toolkit, Ch. 1* · sibling exemplar: `../../../dataeng/dbt_project/models/marts/fct_trip_metrics.sql:L9-L23` (note `avg_tip_percentage` — stored as an average, already non-additive)
+Ref: *Kimball DW Toolkit, Ch. 1* (note: a fact table storing `avg_tip_percentage` is a textbook example of non-additivity)
 
 ### Star vs snowflake
 A **star schema** keeps each dimension as a single denormalized table directly joined to the fact. A **snowflake schema** normalizes dimensions into sub-dimensions (e.g., `dim_product → dim_category → dim_department`). Star is the default: fewer joins, simpler SQL, better compression in columnar stores. Snowflake is occasionally defensible when a sub-dimension is genuinely shared across many dimensions or is enormous, but the storage savings rarely justify the query complexity.
-Ref: *Kimball DW Toolkit, Ch. 1* · sibling exemplar (denormalized dimension): `../../../dataeng/dbt_project/models/marts/dim_zones.sql:L7-L18`
+Ref: *Kimball DW Toolkit, Ch. 1*
 
 ### Slowly Changing Dimensions (SCD)
 Dimension attributes change (a customer moves, a product is reclassified). SCD types define how you record the change:
@@ -49,7 +49,7 @@ Dimension attributes change (a customer moves, a product is reclassified). SCD t
 - **Type 3** — add a `prior_value` column on the same row. Supports exactly one level of history; used when users want to toggle between "old" and "new" without a full time series.
 - **Type 6** — hybrid of 1 + 2 + 3: a Type 2 row plus a Type 1 "current value" column copied onto every historical row, so "group by current region" and "group by historical region" both work.
 
-Ref: *Kimball DW Toolkit, Ch. 5* · glossary: [`../../references/glossary.md`](../../references/glossary.md) (SCD) · sibling exemplar: `../../../dataeng/dbt_project/snapshots/snap_taxi_zones.sql:L1-L25` — dbt's `snapshot` with `strategy='timestamp'` implements Type 2 by writing `dbt_valid_from` / `dbt_valid_to` columns behind the scenes.
+Ref: *Kimball DW Toolkit, Ch. 5* · glossary: [`../../references/glossary.md`](../../references/glossary.md) (SCD) · dbt's `snapshot` with `strategy='timestamp'` implements Type 2 by writing `dbt_valid_from` / `dbt_valid_to` columns behind the scenes ([dbt — Snapshots](https://docs.getdbt.com/docs/build/snapshots)).
 
 ### Inmon CIF vs Kimball bus architecture
 Inmon's **Corporate Information Factory** puts a 3NF, subject-oriented, integrated, time-variant, non-volatile enterprise data warehouse at the center; dimensional **data marts** are derived downstream for specific departments. Kimball's **bus architecture** inverts this: you build conformed dimensions and a bus matrix first, then add fact tables for each business process; there is no separate 3NF layer. Inmon is easier to govern when source systems are heterogeneous and compliance requires a single historized record; Kimball is faster to deliver business value and is the default for most analytics teams. Modern lakehouses often use an Inmon-style silver layer (normalized, historized) feeding a Kimball-style gold layer (dimensional marts).

@@ -40,18 +40,16 @@ Primary-source index for the DP-700 branch. Per `../../docs/REUSE_POLICY.md` onl
 - [Kusto Query Language reference](https://learn.microsoft.com/en-us/kusto/query/)
 - [T-SQL reference](https://learn.microsoft.com/en-us/sql/t-sql/language-reference)
 
-## Sibling reuse (`../../../azure_certified/`)
+## Supplementary Microsoft Learn labs and study material
 
-- `IMPLEMENTATION-PLAN.md` — full DP-203→DP-700 plan, exam-critical topics (Domains 1–3).
-- `flashcards/top-33-flashcards.md` — concept-per-card review for all modules.
-- `labs/01-delta-lake-fundamentals.ipynb` — Delta MERGE, time travel (Databricks-bound; logic reusable).
-- `labs/02-spark-transformations.ipynb` — DataFrame ops, broadcast joins, repartition vs coalesce.
-- `labs/03-structured-streaming.ipynb` — checkpoints, watermarks, output modes.
-- `labs/04-batch-and-pipeline-patterns.md` — ADF, medallion, batch processing, triggers.
-- `labs/05-security-monitoring-optimization.md` — RBAC/ACL, Monitor, tuning exercises.
-- `labs/06-tsql-exercises.md` — OPENROWSET, CETAS, CTAS, JSON, RLS, DDM exercises.
-- `labs/07-kql-exercises.md` — KQL for pipeline monitoring, alerts, throughput.
-- `practice-questions/practice-exam.md` — **format reference only** (see `mock_exam_sources.md`).
+- [Microsoft Learn: Delta Lake](https://learn.microsoft.com/en-us/azure/databricks/delta/) — Delta MERGE, time travel, history (logic reusable in Fabric notebooks).
+- [Azure Databricks Spark](https://learn.microsoft.com/en-us/azure/databricks/getting-started/spark/) — DataFrame ops, broadcast joins, repartition vs coalesce.
+- [Structured Streaming](https://learn.microsoft.com/en-us/azure/databricks/structured-streaming/) — checkpoints, watermarks, output modes.
+- [Azure Data Factory pipelines](https://learn.microsoft.com/en-us/azure/data-factory/concepts-pipelines-activities) — ADF, medallion, batch processing, triggers.
+- [Azure Synapse security](https://learn.microsoft.com/en-us/azure/synapse-analytics/security/) — RBAC/ACL, Monitor, tuning exercises.
+- [Fabric Warehouse T-SQL surface area](https://learn.microsoft.com/en-us/fabric/data-warehouse/tsql-surface-area) — OPENROWSET, CETAS, CTAS, JSON, RLS, DDM exercises.
+- [KQL reference](https://learn.microsoft.com/en-us/kusto/query/) — KQL for pipeline monitoring, alerts, throughput.
+- [Microsoft DP-700 practice assessment](https://learn.microsoft.com/en-us/credentials/certifications/fabric-data-engineer-associate/) — **format reference only** (see `mock_exam_sources.md`).
 
 ## Canonical books
 

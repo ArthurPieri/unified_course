@@ -34,7 +34,7 @@ Last updated: 2026-04-10
 - [x] checkpoint_Q3.md — 20 MCQ, 2-3 per module, primary-doc citations
 
 ## Decisions recorded
-- Full-stack compose mirrors `../dataeng/docker-compose.yml:L1-L243` minus Prometheus/Grafana (moved to Phase 4 · 06_observability)
+- Full-stack compose includes all services minus Prometheus/Grafana (moved to Phase 4 · 06_observability)
 - Spark service uses `--packages` to pull Iceberg 1.5.2 + hadoop-aws 3.3.4 + aws-java-sdk-bundle 1.12.262 (Scala 2.12, Hadoop 3.3.4 alignment)
 - Light profile uses Trino JDBC Iceberg catalog against a dedicated small Postgres (no HMS, no Spark)
 - Metabase pinned v0.51.10 (flagged for re-verify); MinIO RELEASE.2025-02-07 (flagged)

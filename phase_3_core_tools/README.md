@@ -23,9 +23,9 @@ Start here. Every module below assumes one of these stacks is running.
 | 01 | MinIO + Iceberg + Hive Metastore                | 6     | primary — iceberg spec + MinIO docs     | [01_minio_iceberg_hms/](01_minio_iceberg_hms/) |
 | 02 | Trino — SQL, connectors, federation             | 6     | primary — trino.io                      | [02_trino/](02_trino/)                    |
 | 03 | PySpark on the Lakehouse                        | 8     | **GAP** — primary docs only             | [03_pyspark/](03_pyspark/)                |
-| 04 | dlt — Python-native ingestion                   | 6     | partial-reuse — `../dataeng/dlt_pipelines/` | [04_dlt/](04_dlt/)                    |
-| 05 | dbt — modelling and tests                       | 10    | partial-reuse — `../dataeng/dbt_project/` | [05_dbt/](05_dbt/)                      |
-| 06 | Dagster — orchestration                         | 8     | partial-reuse — `../dataeng/dagster/`   | [06_dagster/](06_dagster/)                |
+| 04 | dlt — Python-native ingestion                   | 6     | self-contained lab pipeline             | [04_dlt/](04_dlt/)                    |
+| 05 | dbt — modelling and tests                       | 10    | self-contained lab project              | [05_dbt/](05_dbt/)                      |
+| 06 | Dagster — orchestration                         | 8     | self-contained lab project              | [06_dagster/](06_dagster/)                |
 | 07 | Metabase — BI frontend                          | 4     | primary — metabase.com/docs             | [07_metabase/](07_metabase/)              |
 
 Module hours: 54h. With realistic buffer for multi-service debugging, Spark OOM tuning, jar version mismatches, and cross-tool integration: **100–140h** (9–13 weeks at 10–12h/week). Upper bound reflects that learners on 16GB RAM often hit Spark memory issues on the NYC Taxi lab. Each module has `README.md` → labs → `quiz.md` → `references.md`.

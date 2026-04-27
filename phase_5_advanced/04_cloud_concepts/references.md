@@ -41,13 +41,12 @@
 - [Google Cloud — Service accounts overview](https://cloud.google.com/iam/docs/service-account-overview)
 - [Google Cloud — Workload Identity Federation](https://cloud.google.com/iam/docs/workload-identity-federation)
 
-## Sibling reuse
-- `../../../linux_fundamentals/course/03-cloud-computing.md:L241-L285` — shared responsibility model (LFCA notes)
-- `../../../linux_fundamentals/course/03-cloud-computing.md:L319-L358` — regions and AZs
-- `../../../linux_fundamentals/course/03-cloud-computing.md:L857-L911` — VPC, subnets, gateways
-- `../../../linux_fundamentals/course/03-cloud-computing.md:L678-L703` — hidden costs (egress, idle)
-- `../../../linux_fundamentals/course/03-cloud-computing.md:L991-L998` — ingress vs egress
-- `../../../dataeng/docs/cloud-migration/README.md` — lakehouse-to-cloud port notes (referenced from `references/sibling_sources.md:L97`)
+## Cloud computing foundations
+- [Linux Foundation — Cloud Computing Essentials (LFS151)](https://training.linuxfoundation.org/training/introduction-to-cloud-infrastructure-technologies/) — shared responsibility model, regions/AZs, VPC/subnets/gateways, cost drivers (LFCA-aligned)
+- [AWS — Shared Responsibility Model](https://aws.amazon.com/compliance/shared-responsibility-model/) — canonical shared responsibility diagram
+- [AWS — Regions and Availability Zones](https://aws.amazon.com/about-aws/global-infrastructure/regions_az/) — region and AZ concepts
+- [AWS — EC2 data transfer pricing](https://aws.amazon.com/ec2/pricing/on-demand/) — hidden costs: egress, cross-AZ, idle capacity
+- [AWS — Cloud Migration](https://aws.amazon.com/cloud-migration/) — cloud migration strategy overview
 
 ## Books
 - *Fundamentals of Data Engineering*, Reis & Housley, Ch. 4 — "Choosing technologies across the data engineering lifecycle" covers the managed-services trade-off explicitly

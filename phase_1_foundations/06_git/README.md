@@ -1,6 +1,6 @@
 # Module 06: Git Workflows for Data Teams (4h)
 
-> GAP module — no sibling source. Written from git-scm.com, Pro Git (Chacon & Straub), GitHub docs, and pre-commit.com. One real CI example is cited from `../dataeng/.github/workflows/`.
+> GAP module — no sibling source. Written from git-scm.com, Pro Git (Chacon & Straub), GitHub docs, and pre-commit.com.
 
 ## Learning goals
 - Explain trunk-based development with short-lived feature branches and justify it over long-lived `develop`/`release` branches for data teams
@@ -36,7 +36,7 @@ A data PR typically touches more than code. Reviewers should explicitly check:
 
 GitHub enforces pre-merge requirements via **protected branches** (required status checks, required reviews, linear history). Ref: [About protected branches](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches).
 
-A real example of CI gates on PRs: [`../../../dataeng/.github/workflows/dbt-ci.yml`](../../../dataeng/.github/workflows/dbt-ci.yml) runs `dbt compile`, `sqlfluff`, and pytest on every pull request touching `dbt_project/**`.
+A real-world CI gate on PRs typically runs `dbt compile`, `sqlfluff`, and pytest on every pull request touching `dbt_project/**`. See [GitHub Actions workflow syntax](https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions) for how to set up path-filtered CI workflows.
 
 ### Merge vs. rebase
 `git merge` creates a merge commit that preserves the exact branch topology. `git rebase` replays your commits on top of a new base, producing a **linear history** but rewriting commit SHAs. Rule of thumb from Pro Git: **rebase local work you have not yet shared; merge public branches**. Rebasing commits that others have pulled will force them into a reconciliation dance.

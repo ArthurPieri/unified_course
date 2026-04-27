@@ -1,6 +1,6 @@
 # Module 05 — References
 
-> **Sibling gap notice:** `../../../../snowflake_eng/phase1_platform/` contains a warehouses SQL lab (`lab_03_warehouses.sql`) but **no Performance & Cost study notes**. Phases 2-3 of `../../../../snowflake_eng/` (Core and DEA) do not yet exist. This module therefore cites the PDF study guides and docs.snowflake.com as primary sources, with one sibling lab file for hands-on drills. See `../../../references/sibling_sources.md:L158-L178`.
+> This module cites the [Snowflake certification study guides](https://www.snowflake.com/certifications/) and [Snowflake documentation](https://docs.snowflake.com/) as primary sources, with [Snowflake Quickstarts](https://quickstarts.snowflake.com/) for hands-on drills.
 
 ## Snowflake docs (primary)
 - [Virtual warehouses overview](https://docs.snowflake.com/en/user-guide/warehouses)
@@ -22,5 +22,5 @@
 - *SnowPro Advanced: Data Engineer Study Guide*, Domain 2.0 "Performance Optimization", p. 7 — troubleshoot queries, scale out vs up, Snowpark-optimized warehouses, pipeline monitoring, alerts, data quality metric functions.
 - *SnowPro Associate: Platform Study Guide*, §3.2 "Virtual warehouses", p. 7 — sizing, multi-cluster, scaling up/down.
 
-## Sibling reuse (limited)
-- `../../../../snowflake_eng/phase1_platform/labs/lab_03_warehouses.sql:L17-L435` — warehouse sizing, properties, auto-suspend/resume, multi-cluster, Cortex LLM, quick-reference exam notes.
+## Additional resources
+- [Snowflake Quickstarts](https://quickstarts.snowflake.com/) — warehouse sizing, properties, auto-suspend/resume, multi-cluster, Cortex LLM, quick-reference exam notes.

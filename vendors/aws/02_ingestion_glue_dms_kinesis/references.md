@@ -21,14 +21,13 @@
 - [AWS Glue DataBrew](https://docs.aws.amazon.com/databrew/latest/dg/what-is.html)
 - [S3 Event Notifications](https://docs.aws.amazon.com/AmazonS3/latest/userguide/NotificationHowTo.html)
 
-## Sibling course
+## Additional AWS references
 
-- `../../../../aws_certified/docs/week-01-ingestion-fundamentals.md:1-426`
-- `../../../../aws_certified/docs/week-02-streaming-ingestion.md:1-428`
-- `../../../../aws_certified/docs/week-03-data-transformation.md:20-358`
-- `../../../../aws_certified/labs/week-01-lab-ingestion.md`
-- `../../../../aws_certified/labs/week-02-lab-streaming.md`
-- `../../../../aws_certified/labs/week-03-lab-transformation.md`
+- [AWS Glue Developer Guide](https://docs.aws.amazon.com/glue/latest/dg/) — ingestion fundamentals and ETL
+- [Amazon Kinesis Developer Guide](https://docs.aws.amazon.com/kinesis/latest/dev/) — streaming ingestion
+- [Amazon MSK Developer Guide](https://docs.aws.amazon.com/msk/latest/developerguide/) — managed Kafka
+- [AWS DMS User Guide](https://docs.aws.amazon.com/dms/latest/userguide/) — database migration and CDC
+- [AWS Glue ETL programming](https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl.html) — data transformation
 
 ## Exam guide
 

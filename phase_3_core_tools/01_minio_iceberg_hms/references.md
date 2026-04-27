@@ -40,13 +40,11 @@
 - Trino CLI: https://trino.io/docs/current/client/cli.html
 - Trino container install: https://trino.io/docs/current/installation/containers.html
 
-## Sibling-dir sources (cited inline)
+## Compose sources (local)
 
-- `../../../../dataeng/docker-compose.yml:L26-L43` — MinIO service block (image pin, ports, healthcheck).
-- `../../../../dataeng/docker-compose.yml:L62-L88` — Hive Metastore service block (JDBC wiring, depends_on, healthcheck).
-- `../../../../dataeng/docker-compose.yml:L91-L112` — Trino service block (catalog mount, depends_on HMS healthy).
-- `../compose/full-stack/docker-compose.yml:L26-L44` — MinIO block in the course stack.
-- `../compose/full-stack/docker-compose.yml:L71-L98` — HMS block in the course stack.
+- `../compose/full-stack/docker-compose.yml:L26-L44` — MinIO service block (image pin, ports, healthcheck).
+- `../compose/full-stack/docker-compose.yml:L71-L98` — HMS service block (JDBC wiring, depends_on, healthcheck).
+- `../compose/full-stack/docker-compose.yml:L101-L125` — Trino service block (catalog mount, depends_on HMS healthy).
 - `../00_stack_overview/README.md` — topology, S3A gotchas, jar matrix.
 
 ## Books

@@ -28,9 +28,8 @@
 ## Books
 - [*Site Reliability Engineering*, Beyer et al., Ch. 6 — Monitoring Distributed Systems](https://sre.google/sre-book/monitoring-distributed-systems/) — golden signals, symptoms vs. causes, SLI/SLO framing.
 
-## Sibling sources
-- `../dataeng/prometheus/prometheus.yml:L4-L44` — Phase 3 stack Prometheus scrape config (global interval, Prometheus self-scrape, Trino health probe, MinIO native metrics).
-- `../dataeng/grafana/provisioning/datasources/datasources.yml:L6-L25` — Grafana datasource provisioning: Prometheus default, PostgreSQL secondary, `editable: false`.
-- `../dataeng/grafana/provisioning/dashboards/dashboards.yml:L6-L15` — file-based dashboard provider for `/etc/grafana/provisioning/dashboards/json`.
-- `../dataeng/grafana/provisioning/dashboards/json/lakehouse-overview.json` — reference lakehouse overview dashboard.
-- `../../references/sibling_sources.md:L39-L40` — sibling mapping for Phase 4 · 06_observability → prometheus + grafana config paths.
+## Stack configuration references
+- Phase 3 stack Prometheus scrape config (global interval, Prometheus self-scrape, Trino health probe, MinIO native metrics). See `compose/full-stack/` for the local config. Ref: [Prometheus — Configuration](https://prometheus.io/docs/prometheus/latest/configuration/configuration/).
+- Grafana datasource provisioning: Prometheus default, PostgreSQL secondary, `editable: false`. Ref: [Grafana — Provisioning](https://grafana.com/docs/grafana/latest/administration/provisioning/).
+- File-based dashboard provider for `/etc/grafana/provisioning/dashboards/json`. Ref: [Grafana — Dashboards](https://grafana.com/docs/grafana/latest/dashboards/).
+- Reference lakehouse overview dashboard (JSON). Based on the companion lakehouse project.

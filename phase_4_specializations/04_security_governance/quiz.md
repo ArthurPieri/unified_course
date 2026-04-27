@@ -78,7 +78,7 @@ D. Principal and row count only
 
 ## Answer key
 
-1. **B** — a shared keyed HMAC gives a deterministic pseudonym that joins but is not reversible from the hash alone. Ref: masking techniques table, `aws_certified/docs/week-10-security-governance.md:L718-L728`.
+1. **B** — a shared keyed HMAC gives a deterministic pseudonym that joins but is not reversible from the hash alone. Ref: masking techniques table in module concepts; [AWS — Data masking best practices](https://docs.aws.amazon.com/prescriptive-guidance/latest/strategy-data-masking/welcome.html).
 2. **B** — masking is a display/projection-time control; the underlying bytes are unchanged. Ref: module concepts, Trino FBAC docs.
 3. **C** — Trino evaluates mask expressions per query as part of projection. Ref: [Trino FBAC](https://trino.io/docs/current/security/file-system-access-control.html).
 4. **B** — role explosion is the classic ABAC trigger. Ref: [AWS IAM — ABAC](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction_attribute-based-access-control.html).
@@ -86,5 +86,5 @@ D. Principal and row count only
 6. **A** — row filters are SQL predicates; a non-matching predicate yields an empty result. Ref: Trino FBAC.
 7. **B** — Iceberg deletes are only physical after snapshot expiry and orphan cleanup. Ref: [Iceberg Maintenance](https://iceberg.apache.org/docs/latest/maintenance/).
 8. **B** — lineage is a dependency graph; audit trails record events. Ref: [OpenLineage spec](https://openlineage.io/docs/spec/object-model), dbt lineage docs.
-9. **C** — tokenization is format-preserving, joinable, and reversible via vault — the standard PCI choice. Ref: masking techniques table, `aws_certified/docs/week-10-security-governance.md:L718-L728`.
-10. **B** — principal/action/resource/time/outcome plus query text for sensitive tables. Ref: `aws_certified/docs/week-10-security-governance.md:L731-L826`.
+9. **C** — tokenization is format-preserving, joinable, and reversible via vault — the standard PCI choice. Ref: masking techniques table in module concepts; [AWS — Data masking best practices](https://docs.aws.amazon.com/prescriptive-guidance/latest/strategy-data-masking/welcome.html).
+10. **B** — principal/action/resource/time/outcome plus query text for sensitive tables. Ref: [AWS CloudTrail User Guide](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html).

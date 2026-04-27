@@ -99,7 +99,7 @@ You are free to deviate from this reference. If you do, write an ADR explaining 
 
 **1. Ingestion — sources to Bronze.** dlt pipelines run on a Dagster schedule. The batch pipeline pulls from the API, normalizes the payload, and writes Parquet files into `s3a://lakehouse/bronze/<source>/dt=YYYY-MM-DD/` registered as an Iceberg table in HMS. The CDC pipeline tails the Postgres replication slot via Debezium and appends change events to a Bronze changelog table. The streaming pipeline consumes from a file drop (or Kafka topic in Phase 4) and appends. Bronze is immutable — no updates, no deletes except by retention. Reference: Phase 3 · 04_dlt, `../phase_3_core_tools/04_dlt/`.
 
-**2. Bronze to Silver — dbt staging and intermediate.** dbt-trino runs staging models that rename, cast, and filter. Intermediate models join reference data and apply the first business logic. Schema contracts on the Silver marts catch any upstream drift. `dbt test` runs as a Dagster asset check after the build — if tests fail, downstream Gold assets do not execute. Reference: Phase 3 · 05_dbt and `../dataeng/dbt_project/models/`.
+**2. Bronze to Silver -- dbt staging and intermediate.** dbt-trino runs staging models that rename, cast, and filter. Intermediate models join reference data and apply the first business logic. Schema contracts on the Silver marts catch any upstream drift. `dbt test` runs as a Dagster asset check after the build -- if tests fail, downstream Gold assets do not execute. Reference: Phase 3 `../phase_3_core_tools/05_dbt/` and the [dbt documentation](https://docs.getdbt.com/).
 
 **3. Silver to Gold — marts and aggregates.** Mart models are Kimball-style fact + dimension tables, materialized as Iceberg tables in `s3a://lakehouse/gold/`. Compaction runs on a daily schedule via a Dagster maintenance asset calling Spark. Gold is the only layer Metabase and FastAPI ever query.
 
@@ -109,7 +109,7 @@ You are free to deviate from this reference. If you do, write an ADR explaining 
 
 **6. Observability.** Prometheus scrapes Dagster, the Trino coordinator, and the dlt pipeline metrics endpoint. Grafana dashboards show pipeline health — run status, freshness lag, rows per run, test pass rate. At least one alert rule is wired to a receiver (webhook, file, or fake email). When a deliberate failure is injected (`project_brief.md` §Acceptance Criteria), the alert must fire within 5 minutes.
 
-**7. CI/CD.** GitHub Actions runs on every PR: ruff / pre-commit, `dbt compile`, `dbt test` against a CI profile, and an integration smoke test. Merges to main are blocked on failure. A deploy job rebuilds the compose stack and applies it. Reference: `../dataeng/.github/workflows/dbt-ci.yml` and `../dataeng/.github/workflows/pipeline-validation.yml`.
+**7. CI/CD.** GitHub Actions runs on every PR: ruff / pre-commit, `dbt compile`, `dbt test` against a CI profile, and an integration smoke test. Merges to main are blocked on failure. A deploy job rebuilds the compose stack and applies it. Reference: see the CI/CD examples in this repo's `../phase_5_advanced/01_cicd/` and the [GitHub Actions documentation](https://docs.github.com/en/actions).
 
 ## Concrete instantiation
 
@@ -117,6 +117,4 @@ The concrete starting point for all of this is the Phase 3 full-stack compose fi
 
 - `../phase_3_core_tools/compose/full-stack/docker-compose.yml` — services, pinned versions, volumes, networks
 - `../phase_3_core_tools/compose/full-stack/README.md` — bootstrap steps and service URLs
-- `../dataeng/docker-compose.yml` — the sibling reference this was built from
-
-Copy that compose file into your capstone repository as the starting point. Add Prometheus + Grafana using `../dataeng/prometheus/prometheus.yml` and `../dataeng/grafana/provisioning/` as references. Add the Dagster project using `../dataeng/dagster/lakehouse/` as the reference layout. Add the dbt project using `../dataeng/dbt_project/` as the reference. Your work is the integration and the hardening — the scaffolding exists, per the course's reuse-first rule (`../docs/REUSE_POLICY.md` §Reuse-first rule).
+Copy that compose file into your capstone repository as the starting point. Add Prometheus + Grafana using the [Prometheus configuration docs](https://prometheus.io/docs/prometheus/latest/configuration/configuration/) and [Grafana provisioning docs](https://grafana.com/docs/grafana/latest/administration/provisioning/) as references. Add the Dagster project using the [Dagster project structure guide](https://docs.dagster.io/getting-started/create-new-project) as the reference layout. Add the dbt project using the [dbt project structure guide](https://docs.getdbt.com/best-practices/how-we-structure/1-guide-overview) as the reference. Your work is the integration and the hardening -- the scaffolding exists in `../phase_3_core_tools/compose/full-stack/`.

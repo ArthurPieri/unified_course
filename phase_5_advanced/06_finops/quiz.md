@@ -61,6 +61,6 @@
 3. **B** — Showback creates visibility without billing the P&L. Ref: [FinOps Chargeback & Finance Integration](https://www.finops.org/framework/capabilities/chargeback-finance-integration/).
 4. **B** — Unit economics normalise for volume. Ref: [FinOps Unit Economics](https://www.finops.org/framework/capabilities/unit-economics/).
 5. **B** — Auto-suspend plus caching target the dominant costs of an interactive warehouse. Ref: [FinOps Workload Optimization](https://www.finops.org/framework/capabilities/workload-optimization/).
-6. **B** — `groupFiles=inPartition` is the documented fix for the small-files problem. Ref: `../aws_certified/docs/week-11-cross-domain.md:L919-L933`.
-7. **B** — Commit only to the certain baseline. Ref: [FinOps Rate Optimization](https://www.finops.org/framework/capabilities/rate-optimization/); `../aws_certified/docs/week-11-cross-domain.md:L717`.
+6. **B** — `groupFiles=inPartition` is the documented fix for the small-files problem. Ref: [AWS Glue — Reading input files in larger groups](https://docs.aws.amazon.com/glue/latest/dg/grouping-input-files.html).
+7. **B** — Commit only to the certain baseline. Ref: [FinOps Rate Optimization](https://www.finops.org/framework/capabilities/rate-optimization/); [AWS — Savings Plans](https://docs.aws.amazon.com/savingsplans/latest/userguide/what-is-savings-plans.html).
 8. **B** — Anomaly detection per tag routed to owners. Ref: [FinOps Anomaly Management](https://www.finops.org/framework/capabilities/anomaly-management/).

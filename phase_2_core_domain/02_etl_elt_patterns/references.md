@@ -22,14 +22,13 @@
 - [Airflow core concepts](https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/index.html) — task-DAG model
 - [Dagster concepts](https://docs.dagster.io/concepts) — asset-DAG model
 
-## Sibling-dir sources
-- `../../../dataeng/dlt_pipelines/taxi_pipeline.py:L52-L110` — concrete dlt incremental-cursor + append pattern (`write_disposition="append"`, `dlt.sources.incremental("tpep_pickup_datetime")`)
-- `../../../dataeng/enhanced-plan.md:L460` — "this stack is ELT: dlt = E+L, dbt = T, Trino = compute"
-- `../../../dataeng/enhanced-plan.md:L681` — ETL vs. ELT and idempotency listed as core pipeline-paradigm concepts
-- `../../../dataeng/enhanced-plan.md:L1565` — Airflow backfill CLI vs. Dagster partitioned-asset backfills
-- `../../../dataeng/enhanced-plan.md:L1716-L1748` — Medallion architecture with contracts at Silver
-- `../../../dataeng/dbt_project/models/marts/fct_trip_metrics.sql` — Gold-layer fact model example
-- `../../../dataeng/dbt_project/snapshots/snap_taxi_zones.sql` — snapshot (change capture) pattern in dbt
+## Working patterns (based on the companion lakehouse project)
+- dlt incremental-cursor + append pattern: `write_disposition="append"` with `dlt.sources.incremental("tpep_pickup_datetime")`. See [dlt incremental loading](https://dlthub.com/docs/general-usage/incremental-loading).
+- This stack is ELT: dlt = E+L, dbt = T, Trino = compute. See [dlt documentation](https://dlthub.com/docs/intro) and [dbt documentation](https://docs.getdbt.com/docs/introduction).
+- Airflow backfill CLI vs. Dagster partitioned-asset backfills. See [Dagster — Partitioned assets](https://docs.dagster.io/concepts/partitions-schedules-sensors/partitions).
+- Medallion architecture with contracts at Silver. See [Databricks Medallion architecture](https://docs.databricks.com/aws/en/lakehouse/medallion) and [dbt model contracts](https://docs.getdbt.com/docs/collaborate/govern/model-contracts).
+- Gold-layer fact model example (dbt model). See [dbt — Models](https://docs.getdbt.com/docs/build/models).
+- Snapshot (change capture) pattern in dbt. See [dbt — Snapshots](https://docs.getdbt.com/docs/build/snapshots).
 
 ## Central course references
 - [../../references/books.md](../../references/books.md)

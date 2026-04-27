@@ -29,6 +29,6 @@
 - [Quick start](https://pre-commit.com/#quick-start) — install + first config
 - [Supported hooks](https://pre-commit.com/hooks.html) — community hook index (ruff, sqlfluff, yamllint, detect-private-key, check-added-large-files)
 
-## Sibling example (real CI gating a data PR)
-- `../../../dataeng/.github/workflows/dbt-ci.yml` — dbt compile + sqlfluff + pytest on PRs touching `dbt_project/**`
-- `../../../dataeng/.github/workflows/pipeline-validation.yml` — full-pipeline validation CI
+## CI workflow examples
+- [GitHub Actions workflow syntax](https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions) — how to author path-filtered CI workflows (e.g., dbt compile + sqlfluff + pytest on PRs touching `dbt_project/**`)
+- [GitHub Actions — Using conditions to control job execution](https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/using-conditions-to-control-job-execution) — `paths:` filter for monorepo CI

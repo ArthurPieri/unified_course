@@ -1,9 +1,9 @@
 # Vendor Snowflake — Branch References
 
-## Official Snowflake study guides (PDFs in sibling repo)
-- *SnowPro Associate: Platform (SOL-C01) Exam Study Guide*, last updated June 9 2025 — `../../../snowflake_eng/SnowProPlatformStudyGuide.pdf`
-- *SnowPro Core (COF-C02) Exam Study Guide*, last updated August 22 2025 — `../../../snowflake_eng/SnowProCoreStudyGuide.pdf`
-- *SnowPro Advanced: Data Engineer (DEA-C02) Exam Study Guide*, last updated March 6 2026 — `../../../snowflake_eng/SnowProDataEngineerStudyGuide.pdf`
+## Official Snowflake study guides
+- *SnowPro Associate: Platform (SOL-C01) Exam Study Guide*, last updated June 9 2025 — download from [Snowflake certification study guides](https://www.snowflake.com/certifications/)
+- *SnowPro Core (COF-C02) Exam Study Guide*, last updated August 22 2025 — download from [Snowflake certification study guides](https://www.snowflake.com/certifications/)
+- *SnowPro Advanced: Data Engineer (DEA-C02) Exam Study Guide*, last updated March 6 2026 — download from [Snowflake certification study guides](https://www.snowflake.com/certifications/)
 
 ## Snowflake certification pages
 - [Snowflake Certifications hub](https://www.snowflake.com/en/learn/certifications/)
@@ -23,21 +23,16 @@
 - [Dynamic tables](https://docs.snowflake.com/en/user-guide/dynamic-tables-about)
 - [Snowpark for Python](https://docs.snowflake.com/en/developer-guide/snowpark/python/index)
 
-## Sibling repo — primary reuse source
-- `../../../snowflake_eng/STUDY_PLAN.md` — tri-cert study plan
-- `../../../snowflake_eng/phase1_platform/README.md`
-- `../../../snowflake_eng/phase1_platform/study_notes/domain_1_0_architecture.md`
-- `../../../snowflake_eng/phase1_platform/study_notes/domain_2_0_identity.md`
-- `../../../snowflake_eng/phase1_platform/study_notes/domain_3_0_data_loading.md`
-- `../../../snowflake_eng/phase1_platform/study_notes/domain_4_0_data_protection.md`
-- `../../../snowflake_eng/phase1_platform/labs/lab_01_architecture_and_ui.sql`
-- `../../../snowflake_eng/phase1_platform/labs/lab_02_data_loading.sql`
-- `../../../snowflake_eng/phase1_platform/labs/lab_03_warehouses.sql`
-- `../../../snowflake_eng/phase1_platform/labs/lab_04_identity_and_access.sql`
-- `../../../snowflake_eng/phase1_platform/labs/lab_05_data_protection.sql`
+## Snowflake documentation — topic index
+- [Snowflake Architecture](https://docs.snowflake.com/en/user-guide/intro-key-concepts)
+- [Snowflake Access Control](https://docs.snowflake.com/en/user-guide/security-access-control-overview)
+- [Snowflake Data Loading](https://docs.snowflake.com/en/user-guide/data-load-overview)
+- [Snowflake Data Protection](https://docs.snowflake.com/en/user-guide/data-time-travel)
+- [Snowflake Quickstarts](https://quickstarts.snowflake.com/) — hands-on labs and tutorials
+- [Snowflake free trial signup](https://signup.snowflake.com/)
 
-## Sibling gap notice
-`../../../snowflake_eng/` contains only `phase1_platform/`. No sibling content exists for Core (COF-C02) or DEA-C02 topics beyond what overlaps with Platform. Modules `05_performance` and `06_dea_advanced` therefore cite the three PDF study guides and docs.snowflake.com directly rather than sibling notes. See `../../references/sibling_sources.md:L158-L178`.
+## Coverage note
+Modules `05_performance` and `06_dea_advanced` cite the three PDF study guides and docs.snowflake.com directly, as no additional source material exists for Core (COF-C02) or DEA-C02 beyond Platform-level overlap.
 
 ## Policy
 All citations conform to `../../docs/REUSE_POLICY.md`. No blogs. No LLM summaries. Sibling citations use `path:Lstart-Lend`; PDF citations use `*Guide title, page N*`.

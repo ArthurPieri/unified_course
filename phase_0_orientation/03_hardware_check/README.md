@@ -21,7 +21,7 @@ Phase 3 runs a real open-source lakehouse in Docker Compose. Full profile workin
 ### Memory budgets (measured against stock Docker images, not theoretical)
 | Profile | Services | RAM working set | Disk | Notes |
 |---|---|---|---|---|
-| Full | MinIO, HMS + Postgres, Trino, Spark, dbt, Dagster, Metabase | ~12GB | ~15GB | Recommended — matches sibling `../dataeng/docker-compose.yml` topology |
+| Full | MinIO, HMS + Postgres, Trino, Spark, dbt, Dagster, Metabase | ~12GB | ~15GB | Recommended — matches the Phase 3 `docker-compose.yml` topology |
 | Light | MinIO, Trino (JDBC Iceberg catalog), dbt, Dagster, Metabase | ~6GB | ~10GB | Drops HMS + Spark; Trino does all compute |
 | Cloud fallback | Same as full, on GitHub Codespaces / Gitpod | n/a (remote) | n/a | Use when local RAM < 8GB |
 

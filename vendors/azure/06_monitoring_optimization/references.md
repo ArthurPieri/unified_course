@@ -17,12 +17,12 @@
 - [Adaptive Query Execution](https://learn.microsoft.com/en-us/azure/databricks/optimizations/aqe)
 - [Synapse DMVs](https://learn.microsoft.com/en-us/azure/synapse-analytics/sql-data-warehouse/sql-data-warehouse-manage-monitor)
 
-## Sibling reuse
+## Additional resources
 
-- `../../../../azure_certified/IMPLEMENTATION-PLAN.md:L629-L745` — Azure Monitor, pipeline monitoring, DMVs, alerts, tuning, troubleshooting.
-- `../../../../azure_certified/labs/05-security-monitoring-optimization.md:L750-L2051` — monitoring and optimization exercises (exercises 9–20).
-- `../../../../azure_certified/labs/07-kql-exercises.md:L9-L473` — KQL exercises for pipeline monitoring and anomaly detection.
-- `../../../../azure_certified/flashcards/top-33-flashcards.md` — Card 11 (OPTIMIZE/ZORDER/VACUUM).
+- [Azure Monitor overview](https://learn.microsoft.com/en-us/azure/azure-monitor/overview) — Azure Monitor, pipeline monitoring, DMVs, alerts, tuning, troubleshooting.
+- [Azure Synapse security](https://learn.microsoft.com/en-us/azure/synapse-analytics/security/) — monitoring and optimization exercises.
+- [KQL reference](https://learn.microsoft.com/en-us/kusto/query/) — KQL exercises for pipeline monitoring and anomaly detection.
+- [Delta optimization and V-Order](https://learn.microsoft.com/en-us/fabric/data-engineering/delta-optimization-and-v-order) — OPTIMIZE, ZORDER, VACUUM.
 
 ## Books
 

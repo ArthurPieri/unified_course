@@ -32,7 +32,7 @@ Ref: [*Site Reliability Engineering*, Beyer et al., Ch. 6 — Monitoring Distrib
 
 ### Prometheus: the pull model
 Prometheus is a time-series database that *pulls* metrics from instrumented targets over HTTP on a configurable interval. Targets expose a `/metrics` endpoint in a line-based text format; Prometheus scrapes them, stores samples, and serves queries via PromQL. The pull model makes target health observable (a scrape failure is itself a signal), decouples publishers from the server, and simplifies service discovery. The Phase 3 stack's `prometheus.yml` configures a 15-second `scrape_interval` and scrapes Prometheus itself, a Trino health probe, and MinIO's native Prometheus endpoint.
-Ref: [Prometheus — Overview](https://prometheus.io/docs/introduction/overview/) · [Prometheus — Configuration](https://prometheus.io/docs/prometheus/latest/configuration/configuration/) · `../dataeng/prometheus/prometheus.yml:L4-L44`
+Ref: [Prometheus — Overview](https://prometheus.io/docs/introduction/overview/) · [Prometheus — Configuration](https://prometheus.io/docs/prometheus/latest/configuration/configuration/)
 
 ### Prometheus metric types
 Prometheus defines four core metric types: **counter** (monotonic, only goes up, resets on restart — requests served, bytes processed), **gauge** (goes up and down — queue depth, memory in use), **histogram** (samples observations into configurable buckets plus a sum and count — request latency), and **summary** (similar to histogram but computes configurable quantiles client-side). Choosing the right type is a correctness concern: using a gauge where you need a counter makes `rate()` meaningless, and using a summary where you need cross-dimension percentile aggregation makes your p99 uncomputable.
@@ -40,7 +40,7 @@ Ref: [Prometheus — Metric types](https://prometheus.io/docs/concepts/metric_ty
 
 ### Grafana datasources and dashboards
 Grafana reads from any number of **datasources** (Prometheus, PostgreSQL, Loki, Tempo, …) and renders **dashboards** composed of panels with queries. Dashboards and datasources can be checked into git via provisioning YAML, which Grafana reads from `/etc/grafana/provisioning/` at boot. The Phase 3 stack configures Prometheus as the default datasource in `datasources.yml`, and auto-loads dashboard JSON files via `dashboards.yml`. This is the "dashboards as code" pattern — no click-ops, no dashboards lost when a container restarts.
-Ref: [Grafana — Provisioning](https://grafana.com/docs/grafana/latest/administration/provisioning/) · [Grafana — Data sources](https://grafana.com/docs/grafana/latest/datasources/) · `../dataeng/grafana/provisioning/datasources/datasources.yml:L6-L25` · `../dataeng/grafana/provisioning/dashboards/dashboards.yml:L6-L15`
+Ref: [Grafana — Provisioning](https://grafana.com/docs/grafana/latest/administration/provisioning/) · [Grafana — Data sources](https://grafana.com/docs/grafana/latest/datasources/)
 
 ### What to monitor for data pipelines
 Data pipelines have signals that generic service monitoring misses. At minimum: **freshness** (how stale is the latest row in the target table vs. the source event time), **row counts** (per-run ingestion volume; a sudden drop is a silent failure), **null / invalid rates** per column (silent schema drift), **schema changes** (a producer added or removed a field), **task duration** (runtime of each DAG task or dbt model), **queue depth** (how many runs are waiting), and **SLA breach counts**. Most of these are emitted by the orchestrator (Dagster, Airflow) as metrics or asset-check results; the rest come from the transformation layer (dbt test results) or the table format (Iceberg metadata tables).
@@ -54,12 +54,12 @@ Ref: [Dagster — Freshness checks](https://docs.dagster.io/concepts/assets/asse
 The SRE book Chapter 6 is explicit: alert on **symptoms that users experience** (latency is high, errors are rising, data is stale) rather than on **causes that may not matter** (CPU is hot, a pod restarted, a disk is 80% full). Symptom alerts have low false positive rates because they fire only when something users care about is actually wrong, and they generalize across implementation changes. Cause-based alerts tend to fire during routine operations and train responders to ignore pages, which is the path to missed incidents. The SLI/SLO framing formalizes this: define a user-visible indicator, set an error budget, and alert when burn-rate threatens the budget.
 Ref: [*SRE Book*, Ch. 6 — Symptoms vs. Causes](https://sre.google/sre-book/monitoring-distributed-systems/#symptoms-versus-causes) · [*SRE Book*, Ch. 6 — The four golden signals](https://sre.google/sre-book/monitoring-distributed-systems/#xref_monitoring_golden-signals)
 
-### Sibling stack reference
+### Stack configuration reference
 The Phase 3 compose stack already ships a working Prometheus + Grafana configuration. Read it to ground the concepts above:
-- `../dataeng/prometheus/prometheus.yml:L8-L44` — scrape configs for Prometheus self, Trino health, MinIO native metrics.
-- `../dataeng/grafana/provisioning/datasources/datasources.yml:L6-L25` — Prometheus-as-default datasource, PostgreSQL secondary, declared `editable: false` so changes are tracked in git.
-- `../dataeng/grafana/provisioning/dashboards/dashboards.yml:L6-L15` — file-based dashboard provider that loads JSON from `/etc/grafana/provisioning/dashboards/json`.
-- `../dataeng/grafana/provisioning/dashboards/json/lakehouse-overview.json` — a reference lakehouse overview dashboard.
+- `compose/full-stack/` Prometheus scrape configs for Prometheus self, Trino health, MinIO native metrics. Ref: [Prometheus — Configuration](https://prometheus.io/docs/prometheus/latest/configuration/configuration/).
+- Grafana datasource provisioning: Prometheus-as-default datasource, PostgreSQL secondary, declared `editable: false` so changes are tracked in git. Ref: [Grafana — Provisioning](https://grafana.com/docs/grafana/latest/administration/provisioning/).
+- File-based dashboard provider that loads JSON from `/etc/grafana/provisioning/dashboards/json`. Ref: [Grafana — Dashboards](https://grafana.com/docs/grafana/latest/dashboards/).
+- A reference lakehouse overview dashboard. Based on the companion lakehouse project.
 
 ## Labs
 This module is configuration- and reading-heavy; the hands-on work happens in the Phase 3 stack you already have running. Recommended exercises (no new lab directory):

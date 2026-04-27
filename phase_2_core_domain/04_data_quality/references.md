@@ -22,12 +22,11 @@
 ## Canonical books
 - *Fundamentals of Data Engineering*, Reis & Housley, O'Reilly 2022 — Ch. 10 (undercurrent: data management, quality framing)
 
-## Reused sibling sources (cited with line ranges)
-- `../../../dataeng/dbt_project/tests/assert_positive_revenue.sql:L1-L10` — singular test example
-- `../../../dataeng/dbt_project/unit_tests/test_revenue_calculation.yml:L1-L81` — unit test example (fixture rows + expected output)
-- `../../../dataeng/dagster/lakehouse/assets/quality.py:L11-L15` — silver table list used by `check_row_counts`
-- `../../../dataeng/dagster/lakehouse/assets/quality.py:L18-L42` — `check_revenue_positive` asset check
-- `../../../dataeng/dagster/lakehouse/assets/quality.py:L45-L71` — `check_row_counts` asset check
+## Working patterns (based on the companion lakehouse project)
+- Singular test: a SQL file that selects rows from `fct_daily_revenue` where `total_revenue < 0` (zero rows = pass). See [dbt — Singular data tests](https://docs.getdbt.com/docs/build/data-tests#singular-data-tests).
+- Unit test: a YAML file feeding fixture rows into `fct_daily_revenue` and asserting aggregated output. See [dbt — Unit tests](https://docs.getdbt.com/docs/build/unit-tests).
+- `check_revenue_positive` asset check: queries Trino for negative revenue rows, passes iff count is zero. See [Dagster — Asset checks](https://docs.dagster.io/concepts/assets/asset-checks).
+- `check_row_counts` asset check: loops over silver tables and fails if any is empty. See [Dagster — Asset checks](https://docs.dagster.io/concepts/assets/asset-checks).
 
 ## Cross-course index
 - `references/docs.md:L55-L57` — dbt docs and model contracts entry

@@ -5,10 +5,7 @@ Three assets:
     staging_taxi  -- dbt model over raw_taxi                  [dagster-dbt]
     mart_taxi     -- dbt model over staging_taxi              [dagster-dbt]
 
-Reuse pattern sources (sibling dataeng repo):
-    raw_taxi       <- ../dataeng/dagster/lakehouse/assets/ingestion.py:L1-L58
-    staging/mart   <- ../dataeng/dagster/lakehouse/assets/transformation.py:L1-L42
-    row_count chk  <- ../dataeng/dagster/lakehouse/assets/quality.py:L11-L71
+Three asset patterns: ingestion, transformation, and quality checks.
 """
 from __future__ import annotations
 
@@ -35,7 +32,6 @@ DBT_MANIFEST = DBT_PROJECT_DIR / "target" / "manifest.json"
 
 # ---------------------------------------------------------------------------
 # raw_taxi — dlt ingest wrapped as a Dagster asset.
-# Pattern: ../dataeng/dagster/lakehouse/assets/ingestion.py:L1-L58
 # We import the dlt source + pipeline builders from the Phase 3 lab L3b module.
 # ---------------------------------------------------------------------------
 import importlib
@@ -65,7 +61,6 @@ def raw_taxi(context: AssetExecutionContext, dlt: DagsterDltResource):
 
 # ---------------------------------------------------------------------------
 # staging_taxi + mart_taxi — emitted from the dbt manifest.
-# Pattern: ../dataeng/dagster/lakehouse/assets/transformation.py:L1-L42
 # @dbt_assets creates one Dagster asset per dbt model; lineage comes from
 # the compiled manifest.json so `ref()` edges become asset edges.
 # ---------------------------------------------------------------------------
@@ -76,8 +71,7 @@ def taxi_dbt_assets(context: AssetExecutionContext, dbt: DbtCliResource):
 
 # ---------------------------------------------------------------------------
 # Asset check on staging_taxi — row count must be > 0.
-# Pattern: ../dataeng/dagster/lakehouse/assets/quality.py:L11-L71
-# In the sibling project the check queries Trino via a trino_resource; here
+# A production version might query Trino via a trino_resource; here
 # we query the dbt adapter via `dbt show` to keep the lab dependency-light.
 # ---------------------------------------------------------------------------
 @asset_check(

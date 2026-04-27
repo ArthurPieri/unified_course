@@ -1,5 +1,5 @@
-# Adapted from ../dataeng/docker-compose.yml:L26-L43
 # Single-service MinIO for Phase 2 lakehouse bridge lab.
+# MinIO service for the DuckDB lakehouse lab.
 services:
   minio:
     image: minio/minio:RELEASE.2025-01-20T14-49-07Z

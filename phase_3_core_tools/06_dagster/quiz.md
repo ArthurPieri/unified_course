@@ -58,7 +58,7 @@
 - C. The dbt manifest is stale.
 - D. MinIO is down.
 
-**10.** In the sibling reference, `../dataeng/dagster/lakehouse/assets/quality.py:L11-L71` shows:
+**10.** The companion lakehouse project's `quality.py` asset check pattern shows:
 - A. A dbt profile YAML.
 - B. An `@asset_check` pattern that queries the materialized table (via the Trino resource) and asserts a row-count / null-rate condition.
 - C. A schedule definition.

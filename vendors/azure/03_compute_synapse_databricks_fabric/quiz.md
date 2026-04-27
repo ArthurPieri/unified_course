@@ -64,8 +64,8 @@
 
 ## Answer key
 
-1. **B** — Lazy evaluation; action triggers execution (`../../../../azure_certified/flashcards/top-33-flashcards.md` Card 2).
-2. **B** — `repartition` full shuffle (`../../../../azure_certified/IMPLEMENTATION-PLAN.md:L287-L295`).
+1. **B** — Lazy evaluation; action triggers execution. See [Azure Databricks Spark](https://learn.microsoft.com/en-us/azure/databricks/getting-started/spark/).
+2. **B** — `repartition` full shuffle. See [Azure Databricks Spark](https://learn.microsoft.com/en-us/azure/databricks/getting-started/spark/).
 3. **B** — Broadcast the small side; [Spark SQL performance tuning](https://spark.apache.org/docs/latest/sql-performance-tuning.html).
 4. **C** — `WHEN NOT MATCHED BY SOURCE` ([Delta MERGE](https://learn.microsoft.com/en-us/azure/databricks/sql/language-manual/delta-merge-into)).
 5. **C** — Fabric Warehouse is columnstore-only; no user index DDL ([T-SQL surface area](https://learn.microsoft.com/en-us/fabric/data-warehouse/tsql-surface-area)).

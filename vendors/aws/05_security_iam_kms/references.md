@@ -23,13 +23,13 @@
 - [AWS Lake Formation permissions reference](https://docs.aws.amazon.com/lake-formation/latest/dg/lf-permissions-reference.html)
 - [AWS Glue Data Quality](https://docs.aws.amazon.com/glue/latest/dg/glue-data-quality.html)
 
-## Sibling course
+## Additional AWS references
 
-- `../../../../aws_certified/docs/week-09-monitoring-quality.md:1-1200`
-- `../../../../aws_certified/docs/week-10-security-governance.md:1-1100`
-- `../../../../aws_certified/labs/week-09-lab-monitoring.md`
-- `../../../../aws_certified/labs/week-10-lab-security.md`
-- `../../../../aws_certified/labs/week-11-lab-capstone.md:195-576`
+- [Amazon CloudWatch User Guide](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/) — monitoring and quality
+- [AWS IAM User Guide](https://docs.aws.amazon.com/IAM/latest/UserGuide/) — security and governance
+- [AWS KMS Developer Guide](https://docs.aws.amazon.com/kms/latest/developerguide/) — encryption
+- [AWS Glue Data Quality](https://docs.aws.amazon.com/glue/latest/dg/glue-data-quality.html) — data quality rules
+- [AWS Well-Architected Data Analytics Lens](https://docs.aws.amazon.com/wellarchitected/latest/analytics-lens/) — capstone architecture
 
 ## Exam guide
 

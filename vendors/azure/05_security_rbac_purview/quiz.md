@@ -65,11 +65,11 @@
 ## Answer key
 
 1. **B** — Management-plane vs data-plane ([Storage built-in roles](https://learn.microsoft.com/en-us/azure/storage/blobs/assign-azure-role-data-access)).
-2. **B** — RBAC checked first; `../../../../azure_certified/flashcards/top-33-flashcards.md` Card 6.
+2. **B** — RBAC checked first; see [ADLS Gen2 access control model](https://learn.microsoft.com/en-us/azure/storage/blobs/data-lake-storage-access-control-model).
 3. **B** — Private endpoint ([docs](https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-overview)).
 4. **B** — Execute on every parent directory ([ADLS access control](https://learn.microsoft.com/en-us/azure/storage/blobs/data-lake-storage-access-control-model)).
 5. **C** — Managed identity ([docs](https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/overview)).
-6. **C** — `../../../../azure_certified/IMPLEMENTATION-PLAN.md:L576-L581`.
+6. **C** — See [Row-level security](https://learn.microsoft.com/en-us/sql/relational-databases/security/row-level-security) and [Dynamic data masking](https://learn.microsoft.com/en-us/sql/relational-databases/security/dynamic-data-masking).
 7. **B** — DDM is not encryption ([docs](https://learn.microsoft.com/en-us/sql/relational-databases/security/dynamic-data-masking)).
 8. **B** — [Purview lineage](https://learn.microsoft.com/en-us/purview/concept-data-lineage).
 9. **D** — [Storage built-in roles](https://learn.microsoft.com/en-us/azure/storage/blobs/assign-azure-role-data-access).

@@ -33,7 +33,7 @@ Each module README is 600–1500 words (per `../../docs/REUSE_POLICY.md`) with l
 
 - **Microsoft Learn** (`learn.microsoft.com/en-us/fabric/`, `/azure/data-factory/`, `/azure/synapse-analytics/`, `/azure/databricks/`, `/azure/event-hubs/`, `/azure/stream-analytics/`, `/purview/`) — canonical.
 - **Official DP-700 study guide** — domain scoping.
-- **`../../../azure_certified/**`** — sibling reuse with `:L<start>-L<end>` citations.
+- **Microsoft Learn** — supplementary labs and concept references (see per-module `references.md` files).
 - No blogs, no Medium, no Stack Overflow. Per `../../docs/REUSE_POLICY.md`.
 
 ## Cross-branch anchors
@@ -44,7 +44,7 @@ Each module README is 600–1500 words (per `../../docs/REUSE_POLICY.md`) with l
 
 ## Lab environment
 
-DP-700 labs use the **Microsoft Fabric free trial** (60-day, no credit card) for OneLake/Fabric-native exercises and the **Azure free tier** for ADF/Event Hubs/Stream Analytics where Fabric equivalents do not yet cover the exam depth. Sibling labs in `../../../azure_certified/labs/` (04/05/06/07) provide reusable exercise text.
+DP-700 labs use the **Microsoft Fabric free trial** (60-day, no credit card) for OneLake/Fabric-native exercises and the **Azure free tier** for ADF/Event Hubs/Stream Analytics where Fabric equivalents do not yet cover the exam depth. Supplementary hands-on exercises are available via [Microsoft Learn DP-700 training path](https://learn.microsoft.com/en-us/training/courses/dp-700t00) and the per-module lab links.
 
 ## Branch references
 

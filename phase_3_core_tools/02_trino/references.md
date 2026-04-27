@@ -1,10 +1,9 @@
 # References — 02_trino
 
-## Sibling sources (reuse)
+## Local compose and config sources
 
-- `../../../../dataeng/trino/config.properties:L1-L9` — coordinator/worker collocated single-node config.
-- `../../../../dataeng/trino/catalog/iceberg.properties:L1-L15` — Iceberg connector properties with native S3 filesystem against MinIO.
-- `../../../../dataeng/docker-compose.yml` — full-stack reference compose.
+- `../compose/full-stack/conf/trino/config.properties` — coordinator/worker collocated single-node config.
+- `../compose/full-stack/conf/trino/catalog/iceberg.properties` — Iceberg connector properties with native S3 filesystem against MinIO.
 - `../compose/full-stack/docker-compose.yml:L101-L125` — Phase 3 Trino service block (image `trinodb/trino:470`, port 8080, HMS dependency).
 - `../00_stack_overview/README.md` — topology, port map, S3A configuration pattern reused by the Trino connector.
 

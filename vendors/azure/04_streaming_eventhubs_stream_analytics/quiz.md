@@ -64,13 +64,13 @@
 
 ## Answer key
 
-1. **C** — Sliding (event-driven) captures every 10-min span; `../../../../azure_certified/flashcards/top-33-flashcards.md` Card 3.
+1. **C** — Sliding (event-driven) captures every 10-min span; see [ASA windowing](https://learn.microsoft.com/en-us/azure/stream-analytics/stream-analytics-window-functions).
 2. **B** — Clock-driven; [ASA windowing](https://learn.microsoft.com/en-us/azure/stream-analytics/stream-analytics-window-functions).
 3. **A** — [Event Hubs Capture](https://learn.microsoft.com/en-us/azure/event-hubs/event-hubs-capture-overview).
-4. **B** — Checkpoints are per-query; `../../../../azure_certified/IMPLEMENTATION-PLAN.md:L483-L487`.
+4. **B** — Checkpoints are per-query; see [Structured Streaming](https://learn.microsoft.com/en-us/azure/databricks/structured-streaming/).
 5. **B** — Unbounded state; [Structured Streaming](https://learn.microsoft.com/en-us/azure/databricks/structured-streaming/).
-6. **B** — `complete` / `update`; `../../../../azure_certified/flashcards/top-33-flashcards.md` Card 10.
+6. **B** — `complete` / `update`; see [Structured Streaming output modes](https://learn.microsoft.com/en-us/azure/databricks/structured-streaming/).
 7. **B** — [Eventstream](https://learn.microsoft.com/en-us/fabric/real-time-intelligence/event-streams/overview).
 8. **C** — One lease per partition per consumer group ([Event Hubs features](https://learn.microsoft.com/en-us/azure/event-hubs/event-hubs-features)).
 9. **B** — [ASA parallelization](https://learn.microsoft.com/en-us/azure/stream-analytics/stream-analytics-parallelization).
-10. **B** — Delta MERGE on dedup key; `../../../../azure_certified/flashcards/top-33-flashcards.md` Card 10.
+10. **B** — Delta MERGE on dedup key; see [Structured Streaming](https://learn.microsoft.com/en-us/azure/databricks/structured-streaming/).

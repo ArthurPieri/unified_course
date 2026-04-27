@@ -68,8 +68,8 @@
 2. **C** — Mapping Data Flow ([Data flows](https://learn.microsoft.com/en-us/azure/data-factory/concepts-data-flow-overview)).
 3. **C** — [Dataflow Gen2](https://learn.microsoft.com/en-us/fabric/data-factory/dataflows-gen2-overview).
 4. **B** — Tumbling window supports backfill ([Triggers](https://learn.microsoft.com/en-us/azure/data-factory/concepts-pipeline-execution-triggers)).
-5. **B** — `../../../../azure_certified/flashcards/top-33-flashcards.md` Card 8.
-6. **B** — At-least-once semantics; design for idempotency (`../../../../azure_certified/flashcards/top-33-flashcards.md` Card 8).
+5. **B** — Watermark pattern requires idempotent sink; see [Azure Data Factory incremental copy](https://learn.microsoft.com/en-us/azure/data-factory/tutorial-incremental-copy-overview).
+6. **B** — At-least-once semantics; design for idempotency. See [Azure Data Factory incremental copy](https://learn.microsoft.com/en-us/azure/data-factory/tutorial-incremental-copy-overview).
 7. **B** — [On-premises data gateway for Fabric](https://learn.microsoft.com/en-us/data-integration/gateway/service-gateway-onprem).
 8. **C** — [OneLake shortcuts](https://learn.microsoft.com/en-us/fabric/onelake/onelake-shortcuts).
 9. **B** — [Expressions and functions](https://learn.microsoft.com/en-us/azure/data-factory/control-flow-expression-language-functions).

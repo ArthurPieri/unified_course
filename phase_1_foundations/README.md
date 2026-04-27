@@ -11,10 +11,10 @@ Operating-level fluency with the six tools every data engineer uses daily: Linux
 
 | # | Module | Hours | Type |
 |---|---|---|---|
-| 01 | [Linux & Bash Scripting](01_linux_bash/) | 16 | reuse — `../linux_fundamentals/` |
-| 02 | [Networking Fundamentals](02_networking/) | 6 | reuse — `../linux_fundamentals/` Part C |
+| 01 | [Linux & Bash Scripting](01_linux_bash/) | 16 | reuse — LFCA course material |
+| 02 | [Networking Fundamentals](02_networking/) | 6 | reuse — LFCA course material (Part C) |
 | 03 | [Python Engineering for Data](03_python/) | 12 | **GAP** — primary docs + PEPs |
-| 04 | [Docker & Compose for Data](04_docker/) | 12 | reuse — `../dataeng/docker-compose.yml` + Docker docs |
+| 04 | [Docker & Compose for Data](04_docker/) | 12 | reuse — companion lakehouse project + Docker docs |
 | 05 | [SQL Depth with PostgreSQL](05_sql_postgres/) | 10 | primary — postgresql.org/docs |
 | 06 | [Git Workflows for Data Teams](06_git/) | 4 | **GAP** — git-scm.com, Pro Git |
 

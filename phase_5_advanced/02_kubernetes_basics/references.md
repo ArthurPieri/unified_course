@@ -27,10 +27,10 @@
 - [Trino — Deploying on Kubernetes](https://trino.io/docs/current/installation/kubernetes.html) — official deployment guide.
 - [trinodb/charts](https://github.com/trinodb/charts) — official Trino Helm chart repository (`https://trinodb.github.io/charts`).
 
-## Sibling repo (primary reuse source)
-- `../dataeng/k8s/kind-config.yaml:L1-L12` — kind cluster config with NodePort mapping for Trino.
-- `../dataeng/k8s/trino-values.yaml:L1-L50` — Helm values: image pin, workers, resources, Iceberg catalog, NodePort.
-- `../dataeng/k8s/README.md:L1-L38` — Docker-Compose-to-Kubernetes concept mapping.
+## Official documentation (concepts adapted from)
+- [kind -- Configuration](https://kind.sigs.k8s.io/docs/user/configuration/) -- kind cluster config schema including `extraPortMappings` for NodePort access from the host.
+- [Trino Helm chart](https://github.com/trinodb/charts) -- Helm values reference: image pin, workers, resources, Iceberg catalog, NodePort configuration.
+- [Kubernetes concepts overview](https://kubernetes.io/docs/concepts/overview/) -- maps Docker Compose concepts to Kubernetes equivalents.
 
 ## Books
 - *Designing Data-Intensive Applications*, Kleppmann, Ch. 5 — why stateful replication on dynamic infrastructure is hard.

@@ -1,5 +1,5 @@
 -- Mart: one row per pickup_hour. Fact grain for BI.
--- Pattern reference: ../dataeng/dbt_project/models/marts/fct_trip_metrics.sql:L1-L31
+-- Based on the companion lakehouse project's fact table pattern.
 
 with hourly as (
 

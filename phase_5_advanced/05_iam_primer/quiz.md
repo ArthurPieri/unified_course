@@ -69,12 +69,12 @@
 ## Answer key
 
 1. **B** — Principal, action, resource, condition. Ref: [AWS IAM identity overview](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction_identity-management.html).
-2. **C** — Explicit deny wins unconditionally. Ref: [AWS Policy evaluation logic](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html); `../aws_certified/docs/week-10-security-governance.md:L60-L62`.
-3. **C** — Cross-account requires both sides to allow. Ref: `../aws_certified/docs/week-10-security-governance.md:L118-L165`.
+2. **C** — Explicit deny wins unconditionally. Ref: [AWS Policy evaluation logic](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html).
+3. **C** — Cross-account requires both sides to allow. Ref: [AWS cross-account access](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies-cross-account-resource-access.html).
 4. **A** — Trust vs. permission split. Ref: [IAM roles terms and concepts](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_terms-and-concepts.html).
 5. **B** — The `sub` claim carries `repo:owner/name:ref:refs/heads/branch`. Ref: [GitHub OIDC for AWS](https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/configuring-openid-connect-in-amazon-web-services).
-6. **C** — Add minimum allows, one capability per statement. Ref: `../aws_certified/labs/week-10-lab-security.md:L57-L116`.
+6. **C** — Add minimum allows, one capability per statement. Ref: [AWS Glue security best practices](https://docs.aws.amazon.com/glue/latest/dg/security-best-practices.html).
 7. **B** — Wildcard resource on an action that supports resource-level permissions is the classic over-grant. Ref: [AWS IAM best practices](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html).
-8. **B** — Effective permissions = identity policy ∩ boundary. Ref: `../aws_certified/labs/week-10-lab-security.md:L217-L248`.
+8. **B** — Effective permissions = identity policy ∩ boundary. Ref: [AWS IAM permissions boundaries](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html).
 9. **B** — `iam,s3,sts` is the minimum set for this module's lab. Ref: [LocalStack IAM docs](https://docs.localstack.cloud/user-guide/aws/iam/).
 10. **B** — `Principal: *` makes the bucket effectively anonymous from any source in the allowed IP range; pin principals explicitly. Ref: [AWS IAM best practices](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html).

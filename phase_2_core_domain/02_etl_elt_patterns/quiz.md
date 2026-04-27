@@ -70,13 +70,13 @@
 
 | Q | Answer | Source |
 |---|---|---|
-| 1 | C | `../dataeng/enhanced-plan.md:L460` ("this stack is ELT: dlt = E+L, dbt = T, Trino = compute"); [dbt documentation](https://docs.getdbt.com/docs/introduction) |
+| 1 | C | This stack is ELT: dlt = E+L, dbt = T, Trino = compute; [dbt documentation](https://docs.getdbt.com/docs/introduction) |
 | 2 | C | *DDIA, Kleppmann, Ch. 11*; [Debezium architecture](https://debezium.io/documentation/reference/stable/architecture.html) |
 | 3 | B | *DDIA, Kleppmann, Ch. 7* (atomicity and retries); [Iceberg spec](https://iceberg.apache.org/spec/) |
 | 4 | B | *DDIA, Kleppmann, Ch. 7*; [Iceberg spec](https://iceberg.apache.org/spec/) |
 | 5 | C | [Databricks Medallion architecture](https://docs.databricks.com/aws/en/lakehouse/medallion) |
-| 6 | B | [Dagster concepts](https://docs.dagster.io/concepts); `../dataeng/enhanced-plan.md:L1565` |
-| 7 | C | [dlt incremental loading](https://dlthub.com/docs/general-usage/incremental-loading); `../dataeng/dlt_pipelines/taxi_pipeline.py:L52-L110` |
+| 6 | B | [Dagster — Partitioned assets](https://docs.dagster.io/concepts/partitions-schedules-sensors/partitions) |
+| 7 | C | [dlt incremental loading](https://dlthub.com/docs/general-usage/incremental-loading) |
 | 8 | B | [Airflow core concepts](https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/index.html); [Dagster concepts](https://docs.dagster.io/concepts) |
 | 9 | B | *DDIA, Kleppmann, Ch. 11* (change-detection limitations of timestamp cursors) |
-| 10 | A | *Fundamentals of Data Engineering*, Reis & Housley (lifecycle framing); `../dataeng/enhanced-plan.md:L460` |
+| 10 | A | *Fundamentals of Data Engineering*, Reis & Housley (lifecycle framing) |

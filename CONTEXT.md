@@ -953,12 +953,12 @@ A learner who completes the shared core and one vendor branch will operate as a 
 
 **Subject:** `UNIFIED_COURSE_PLAN.md` (914 lines) — a unified data engineering curriculum synthesizing five source documents into a single progressive path from foundations through vendor certification.
 
-**Source documents analyzed for context:**
-- `dataeng/enhanced-plan_categorized.md` (open-source lakehouse curriculum)
-- `aws_certified/docs/study-plan_categorized.md` (AWS DEA-C01)
-- `azure_certified/IMPLEMENTATION-PLAN_categorized.md` (Azure DP-203/DP-700)
-- `snowflake_eng/STUDY_PLAN_categorized.md` (Snowflake SnowPro triple cert)
-- `linux_fundamentals/IMPLEMENTATION_PLAN_categorized.md` (LFCA tutor)
+**Source documents analyzed for context (now fully integrated into this course):**
+- Open-source lakehouse curriculum
+- AWS DEA-C01 study plan
+- Azure DP-203/DP-700 implementation plan
+- Snowflake SnowPro triple cert study plan
+- LFCA tutor implementation plan
 
 **What this analysis examines:** Whether the plan's structure, scope, sequencing, and hour budgets will produce the claimed outcome — a learner who can "operate as a mid-level data engineer in a professional environment."
 
@@ -1138,7 +1138,7 @@ This is honest, still compelling, and sets correct expectations.
 
 ### The problem
 
-Line 901: "The learner has access to a machine with 16GB RAM (minimum)." The dataeng source document specifies the full stack needs ~11-12GB, and Trino alone needs 4GB JVM heap.
+Line 901: "The learner has access to a machine with 16GB RAM (minimum)." The original lakehouse source document specifies the full stack needs ~11-12GB, and Trino alone needs 4GB JVM heap.
 
 The plan targets career changers and junior engineers. In many markets (Latin America, Southeast Asia, Eastern Europe), 8GB machines are common. Apple's base MacBook Air ships with 8GB. Corporate-issued machines may be locked down.
 
@@ -1160,7 +1160,7 @@ Three mitigations (implement all):
 
 ### The problem
 
-The plan teaches Dagster as the primary orchestrator and mentions Airflow only in comparison (line 320: "Orchestrator landscape comparison: Dagster vs. Airflow vs. Prefect"). The dataeng source document notes Airflow has ~70% of job postings.
+The plan teaches Dagster as the primary orchestrator and mentions Airflow only in comparison (line 320: "Orchestrator landscape comparison: Dagster vs. Airflow vs. Prefect"). The original lakehouse source document notes Airflow has ~70% of job postings.
 
 The plan's defense is Principle 3 ("open-source before proprietary") and Principle 7 ("transferable knowledge"). These are valid — Dagster's asset-centric model is arguably better pedagogy than Airflow's task-centric model. However:
 
@@ -1220,7 +1220,7 @@ Add a 4-6h "Airflow bridge" module in Phase 5 (alongside the CI/CD and Kubernete
 
 ---
 
-## 3A. dataeng/enhanced-plan_categorized.md
+## 3A. Open-source lakehouse curriculum
 
 ### Software Engineering / Programming
 
@@ -1350,7 +1350,7 @@ Add a 4-6h "Airflow bridge" module in Phase 5 (alongside the CI/CD and Kubernete
 
 ---
 
-## 3B. aws_certified/docs/study-plan_categorized.md
+## 3B. AWS DEA-C01 study plan
 
 ### Software Engineering / Programming
 
@@ -1438,7 +1438,7 @@ Add a 4-6h "Airflow bridge" module in Phase 5 (alongside the CI/CD and Kubernete
 
 ---
 
-## 3C. azure_certified/IMPLEMENTATION-PLAN_categorized.md
+## 3C. Azure DP-700 implementation plan
 
 ### Software Engineering / Programming
 
@@ -1529,7 +1529,7 @@ Add a 4-6h "Airflow bridge" module in Phase 5 (alongside the CI/CD and Kubernete
 
 ---
 
-## 3D. snowflake_eng/STUDY_PLAN_categorized.md
+## 3D. Snowflake tri-cert study plan
 
 ### Software Engineering / Programming
 
@@ -1614,7 +1614,7 @@ Add a 4-6h "Airflow bridge" module in Phase 5 (alongside the CI/CD and Kubernete
 
 ---
 
-## 3E. linux_fundamentals/IMPLEMENTATION_PLAN_categorized.md
+## 3E. LFCA tutor implementation plan
 
 ### Software Engineering / Programming
 

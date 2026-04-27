@@ -48,8 +48,8 @@ Ref: [DuckDB — httpfs extension (S3 API Support)](https://duckdb.org/docs/exte
 Ref: [DuckDB — COPY statement and Parquet writing](https://duckdb.org/docs/sql/statements/copy) · [DuckDB — Parquet files](https://duckdb.org/docs/data/parquet/overview)
 
 ### What Phase 3 adds (Iceberg + HMS + Trino)
-In Phase 3 the same MinIO bucket sits behind an **Apache Iceberg** table format (metadata files + manifests tracked by the Iceberg spec), a **Hive Metastore** (HMS) that stores the pointer to the current table metadata, and **Trino** / **Spark** engines that read through the catalog instead of directly addressing Parquet files. The Phase 3 compose stack in `../dataeng/docker-compose.yml` composes exactly these services; the MinIO block you use in this lab is the same one Phase 3 depends on.
-Ref: [Iceberg — Getting started](https://iceberg.apache.org/docs/latest/) · `../dataeng/docker-compose.yml:L26-L43`
+In Phase 3 the same MinIO bucket sits behind an **Apache Iceberg** table format (metadata files + manifests tracked by the Iceberg spec), a **Hive Metastore** (HMS) that stores the pointer to the current table metadata, and **Trino** / **Spark** engines that read through the catalog instead of directly addressing Parquet files. The Phase 3 compose stack composes exactly these services; the MinIO block you use in this lab is the same one Phase 3 depends on.
+Ref: [Iceberg — Getting started](https://iceberg.apache.org/docs/latest/) · [MinIO — documentation root](https://min.io/docs/minio/linux/index.html)
 
 ## Labs
 | Lab | Goal | Est. time | Link |

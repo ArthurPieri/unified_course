@@ -33,16 +33,16 @@ Domain 1 explicitly calls out cost optimization (Skill 1.2.4). Domain 3 covers p
 ## Concepts (compact)
 
 ### Partition, project, compress — the Athena trinity
-Athena charges per TB scanned. Partitioning prunes unread objects; Parquet/ORC column pruning reads only required columns; Snappy/ZSTD compression cuts remaining bytes. The combined effect is often 10-100x cost reduction vs. raw JSON. Depth: `../../../aws_certified/docs/week-07-lifecycle-schema.md:502-638`. Primary: [Athena performance tuning](https://docs.aws.amazon.com/athena/latest/ug/performance-tuning.html).
+Athena charges per TB scanned. Partitioning prunes unread objects; Parquet/ORC column pruning reads only required columns; Snappy/ZSTD compression cuts remaining bytes. The combined effect is often 10-100x cost reduction vs. raw JSON. Primary: [Athena performance tuning](https://docs.aws.amazon.com/athena/latest/ug/performance-tuning.html). See also [Athena partitions](https://docs.aws.amazon.com/athena/latest/ug/partitions.html).
 
 ### Storage class strategy
-Use S3 Intelligent-Tiering when access patterns are unknown or unpredictable; use explicit Lifecycle transitions when the pattern is known (e.g., compliance logs). Deep Archive is cheapest but has retrieval latency. Depth: `../../../aws_certified/docs/week-07-lifecycle-schema.md:22-157`.
+Use S3 Intelligent-Tiering when access patterns are unknown or unpredictable; use explicit Lifecycle transitions when the pattern is known (e.g., compliance logs). Deep Archive is cheapest but has retrieval latency. Primary: [Using Amazon S3 storage classes](https://docs.aws.amazon.com/AmazonS3/latest/userguide/storage-class-intro.html), [S3 Lifecycle](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lifecycle-mgmt.html).
 
 ### Serverless vs. provisioned trade-off
 Serverless (Redshift Serverless, Glue, Athena, EMR Serverless, Firehose) wins on bursty / intermittent / unpredictable workloads and on team agility. Provisioned (Redshift RA3, EMR, MSK Provisioned) wins on steady high-utilization workloads with Reserved Instances or Savings Plans. *Exam Guide, Skill 3.2.5*.
 
 ### Spot for EMR task nodes
-Task nodes tolerate interruption; use Spot with instance fleets and allocation strategy = `lowestPrice` or `capacityOptimized`. Core nodes run HDFS/local shuffle — keep them On-Demand unless Spot interruption is acceptable. Depth: `../../../aws_certified/docs/week-03-data-transformation.md:359-484`.
+Task nodes tolerate interruption; use Spot with instance fleets and allocation strategy = `lowestPrice` or `capacityOptimized`. Core nodes run HDFS/local shuffle — keep them On-Demand unless Spot interruption is acceptable. Primary: [EMR instance fleets](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-instance-fleet.html), [EMR managed scaling](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-managed-scaling.html).
 
 ### Cost control guardrails
 - Athena workgroups enforce per-query and per-workgroup data-scanned limits.
@@ -56,14 +56,16 @@ Task nodes tolerate interruption; use Spot with instance fleets and allocation s
 - For one-shot analytics, Athena beats loading into Redshift.
 - For high-QPS BI dashboards, load hot subset into Redshift; keep cold data in S3 and query via Spectrum.
 
-Depth: `../../../aws_certified/docs/week-11-cross-domain.md:20-476` — this week file contains the cross-domain architecture patterns and is the single best sibling read for FinOps thinking.
+Primary: [AWS Well-Architected Data Analytics Lens](https://docs.aws.amazon.com/wellarchitected/latest/analytics-lens/) — the cross-domain architecture patterns are the single best read for FinOps thinking.
 
-## Labs (from sibling `../../../aws_certified/labs/`)
+## Labs
 
-| Lab | Goal | Sibling anchor |
+See the hands-on labs in this module's labs/ directory. Key exercises:
+
+| Lab | Goal | AWS reference |
 |---|---|---|
-| Week 7 Lab — Lifecycle | Lifecycle rules that move cold data to IA/Glacier | `../../../aws_certified/labs/week-07-lab-lifecycle.md:13-258` |
-| Week 11 Capstone — cost-aware pipeline | End-to-end with Firehose Parquet conversion and partitioned S3 | `../../../aws_certified/labs/week-11-lab-capstone.md:1-800` |
+| Lifecycle | Lifecycle rules that move cold data to IA/Glacier | [S3 Lifecycle](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lifecycle-mgmt.html) |
+| Capstone -- cost-aware pipeline | End-to-end with Firehose Parquet conversion and partitioned S3 | [AWS Well-Architected Data Analytics Lens](https://docs.aws.amazon.com/wellarchitected/latest/analytics-lens/) |
 
 ## Common exam gotchas
 

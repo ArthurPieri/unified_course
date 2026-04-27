@@ -91,7 +91,7 @@ deactivate && rm -rf .venv target dbt_packages logs
 ## Stretch goals
 - Add `{{ config(properties={'format': "'PARQUET'"}) }}` to `fct_taxi_hourly` and inspect the resulting files in MinIO.
 - Add a `relationships` test from `int_taxi_hourly.vendor_id` to a seed vendor table.
-- Wire `dbt source freshness` against `raw_taxi.yellow_taxi_trips` using `_dlt_load_id` (pattern: `../dataeng/dbt_project/models/sources.yml:L10-L17`).
+- Wire `dbt source freshness` against `raw_taxi.yellow_taxi_trips` using `_dlt_load_id` (see [dbt — Source freshness](https://docs.getdbt.com/docs/build/sources#snapshotting-source-data-freshness)).
 
 ## References
 See `../../references.md` (module-level).

@@ -4,9 +4,9 @@ Last updated: 2026-04-10
 
 ## Modules
 - [x] 01_data_modeling — drafted 2026-04-10 (GAP; Kimball Ch. 1–5, Inmon Ch. 2, Data Vault 2.0)
-- [x] 02_etl_elt_patterns — drafted 2026-04-10 (*Fundamentals of DE* framing; reuses `../dataeng/dlt_pipelines/taxi_pipeline.py`)
+- [x] 02_etl_elt_patterns — drafted 2026-04-10 (*Fundamentals of DE* framing; self-contained dlt pipeline)
 - [x] 03_distributed_systems — drafted 2026-04-10 (GAP; *DDIA* Ch. 5–11)
-- [x] 04_data_quality — drafted 2026-04-10 (partial-reuse; dbt + Dagster docs + `../dataeng/` tests/checks)
+- [x] 04_data_quality — drafted 2026-04-10 (partial-reuse; dbt + Dagster docs)
 - [x] 05_streaming_concepts — drafted 2026-04-10 (GAP; *DDIA* Ch. 11 + Kafka/Debezium docs)
 - [x] 06_lakehouse_bridge — drafted 2026-04-10 (MinIO + DuckDB + Parquet primary docs; lab_L2b_minio_duckdb)
 

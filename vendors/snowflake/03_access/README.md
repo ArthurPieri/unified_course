@@ -14,8 +14,8 @@ Snowflake's access model is **role-based access control**: privileges are grante
 
 ## Reading order
 1. This README
-2. `../../../../snowflake_eng/phase1_platform/study_notes/domain_2_0_identity.md:L12-L250`
-3. `../../../../snowflake_eng/phase1_platform/labs/lab_04_identity_and_access.sql`
+2. [Snowflake Access Control](https://docs.snowflake.com/en/user-guide/security-access-control-overview) — system roles, hierarchy, INFORMATION_SCHEMA, ownership transfer
+3. [Snowflake Quickstarts](https://quickstarts.snowflake.com/) — identity and access hands-on labs
 4. `quiz.md`
 
 ## Concepts
@@ -30,7 +30,7 @@ Snowflake's access model is **role-based access control**: privileges are grante
 | `SYSADMIN` | Creates and owns objects (databases, schemas, warehouses). The parent of all custom roles by convention. |
 | `PUBLIC` | Implicit role every user has; privileges granted to PUBLIC are universal. |
 
-Ref: *SnowPro Associate: Platform Study Guide, §2.1, p. 6* · `../../../../snowflake_eng/phase1_platform/study_notes/domain_2_0_identity.md:L22-L74` · [Access control overview](https://docs.snowflake.com/en/user-guide/security-access-control-overview).
+Ref: *SnowPro Associate: Platform Study Guide, §2.1, p. 6* · [Snowflake Access Control](https://docs.snowflake.com/en/user-guide/security-access-control-overview).
 
 ### Default hierarchy
 ```
@@ -64,7 +64,7 @@ Ref: [SCIM overview](https://docs.snowflake.com/en/user-guide/scim-intro) · *Co
 ### Object access by role
 Every `SELECT`, `INSERT`, `CREATE`, `ALTER`, or `DROP` is evaluated against the active role's privileges. `SHOW GRANTS TO ROLE x;` and `SHOW GRANTS ON TABLE t;` are the diagnostic commands. Use `USE ROLE` to switch; `CURRENT_ROLE()` returns the active primary role.
 
-Ref: `../../../../snowflake_eng/phase1_platform/labs/lab_04_identity_and_access.sql` (sections 1-8) · `domain_2_0_identity.md:L163-L235`.
+Ref: [Snowflake Quickstarts](https://quickstarts.snowflake.com/) · [Snowflake Access Control](https://docs.snowflake.com/en/user-guide/security-access-control-overview).
 
 ## Hands-on drills
 

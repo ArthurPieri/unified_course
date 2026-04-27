@@ -20,7 +20,7 @@
 
 ## Conceptual frame
 The control stack for a data platform is four layers: **authentication** (who you are), **authorization** (what you may do), **encryption** (who can read the bytes), and **audit** (what actually happened). The same layers appear in every managed offering — Lake Formation, Snowflake, BigQuery — which is why learning them once transfers across vendors.
-Ref: `../../../aws_certified/docs/week-10-security-governance.md:L9-L223` (IAM and authorization framing) · `:L731-L826` (audit logging and centralized audit pattern)
+Ref: [AWS IAM User Guide — Policy evaluation logic](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html) (IAM and authorization framing) · [AWS CloudTrail User Guide](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html) (audit logging and centralized audit pattern)
 
 ## Concepts
 
@@ -34,7 +34,7 @@ PII (personally identifiable information) is any attribute that alone or in comb
 | Sensitive attributes | health, financial balance, location trace | encrypt at rest + restrict by column |
 | Non-PII | SKU, region code, event type | no restriction |
 
-Ref: `../../../aws_certified/docs/week-10-security-governance.md:L664-L728` (masking techniques comparison and exam framing)
+Ref: [AWS — Data masking best practices](https://docs.aws.amazon.com/prescriptive-guidance/latest/strategy-data-masking/welcome.html) (masking techniques comparison)
 
 ### Masking vs tokenization vs hashing vs encryption
 All four replace cleartext with something else; they differ in **reversibility**, **format preservation**, and **what a downstream join can still do**.
@@ -46,7 +46,7 @@ All four replace cleartext with something else; they differ in **reversibility**
 | Tokenization (vault-backed surrogate) | Yes, via vault | Yes (format-preserving) | Yes | PCI-DSS, keeping referential integrity across systems |
 | Encryption (KMS-managed key) | Yes, via key | No | No in general | At-rest protection, recoverable secrets |
 
-Ref: `../../../aws_certified/docs/week-10-security-governance.md:L718-L728`
+Ref: [AWS — Data masking best practices](https://docs.aws.amazon.com/prescriptive-guidance/latest/strategy-data-masking/welcome.html)
 
 Masking is a **display** control — the data on disk is still cleartext, you are trusting the engine to apply the rule. Encryption is a **storage** control — even if the engine is bypassed, the bytes are opaque. They are not substitutes; a regulated platform uses both.
 
@@ -78,7 +78,7 @@ Ref: [Trino — File-based access control (column masks and row filters)](https:
 **RBAC** binds permissions to **roles** (analyst, dpo, engineer). It is easy to reason about and easy to audit but grows a combinatorial number of roles as dimensions multiply (role × region × product). **ABAC** binds permissions to **attributes** of the principal, resource, and environment via a policy expression (`principal.department == resource.owner_department AND resource.sensitivity <= principal.clearance`). It scales with cardinality but is harder to audit — the effective permission is computed, not listed.
 
 A practical rule: start with RBAC for coarse grants, add ABAC predicates (row filters keyed on `current_user`, group tags) when roles would otherwise explode.
-Ref: [AWS IAM User Guide — ABAC](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction_attribute-based-access-control.html) · `../../../aws_certified/docs/week-10-security-governance.md:L185-L223`
+Ref: [AWS IAM User Guide — ABAC](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction_attribute-based-access-control.html)
 
 ### Data lineage
 Lineage is the graph of "which inputs produced this output". It answers two questions audit cannot answer alone: (1) if a source field is wrong, which downstream tables and reports are affected? (2) if a report shows a number, which source fields and transformations did it come from? Lineage is computed from SQL and orchestration metadata (dbt's `manifest.json`, OpenLineage events, Dagster asset graph); it is not the same as lineage logs in an audit trail, which record *who ran the query*, not *what it depends on*.
@@ -86,7 +86,7 @@ Ref: [dbt — Documentation and lineage](https://docs.getdbt.com/docs/collaborat
 
 ### Audit trails: what to log, what to keep
 An audit trail for a data platform should capture, at minimum: principal (user or role), action (SELECT, INSERT, GRANT, DROP), resource (catalog.schema.table and column list if possible), timestamp, source IP or session id, and outcome (success/denied). For sensitive tables, log the **query text** too — column-level access decisions depend on which columns the user actually asked for. Retention is a regulatory decision (PCI-DSS is one year online + additional archive; many GDPR programs target two to six years); align with counsel, not with the default.
-Ref: `../../../aws_certified/docs/week-10-security-governance.md:L731-L826` (CloudTrail event types, centralized audit pattern)
+Ref: [AWS CloudTrail User Guide](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html) (CloudTrail event types, centralized audit pattern)
 
 ### Data contracts as governance
 A **data contract** is an explicit, versioned schema + semantics agreement between a producer (source system, upstream dbt project) and a consumer. dbt's **model contracts** enforce the contract at build time: if a downstream model declares a contract, dbt fails the build when column names, data types, or constraints drift. The contract turns schema changes from "noticed in Slack" into "failed CI".
@@ -115,9 +115,9 @@ Ref: [Iceberg — Row-level deletes and DELETE FROM](https://iceberg.apache.org/
 |---|---|---|---|
 | Masked column appears in cleartext for the wrong user | Mask rule ordering — the first matching user pattern wins | Reorder `rules.json` so specific rules precede wildcards | [Trino FBAC](https://trino.io/docs/current/security/file-system-access-control.html) |
 | Deleted rows reappear after a few days | Time-travel snapshot still references them | Expire snapshots after DELETE | [Iceberg Maintenance](https://iceberg.apache.org/docs/latest/maintenance/#expire-snapshots) |
-| Analyst joins on hashed email and gets no matches | Different salt/key on each side | Use a single keyed HMAC in a shared function | `../../../aws_certified/docs/week-10-security-governance.md:L718-L728` |
+| Analyst joins on hashed email and gets no matches | Different salt/key on each side | Use a single keyed HMAC in a shared function | [AWS — Data masking best practices](https://docs.aws.amazon.com/prescriptive-guidance/latest/strategy-data-masking/welcome.html) |
 | dbt build breaks downstream after upstream schema change | No contract between the models | Add a model contract and pin a version | [dbt contracts](https://docs.getdbt.com/docs/collaborate/govern/model-contracts) |
-| Audit log exists but cannot answer "who read column X" | Only logs query metadata, not text | Log query text for sensitive schemas, redact on ingest if needed | `../../../aws_certified/docs/week-10-security-governance.md:L731-L826` |
+| Audit log exists but cannot answer "who read column X" | Only logs query metadata, not text | Log query text for sensitive schemas, redact on ingest if needed | [AWS CloudTrail User Guide](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html) |
 
 ## References
 See [references.md](./references.md).

@@ -8,5 +8,5 @@
 - [Start a Microsoft Fabric trial](https://learn.microsoft.com/en-us/fabric/get-started/fabric-trial) — 60-day trial capacity setup.
 - [Microsoft Certification renewal](https://learn.microsoft.com/en-us/credentials/certifications/renew-your-microsoft-certification) — annual free renewal assessment.
 - [Exam formats and question types](https://learn.microsoft.com/en-us/credentials/certifications/certification-exams) — drag-and-drop, case studies, labs.
-- `../../../../azure_certified/IMPLEMENTATION-PLAN.md:L1-L200` — DP-203→DP-700 decision framing and learner profile.
-- `../../../../azure_certified/flashcards/top-33-flashcards.md` — top 33 transferable concepts.
+- [DP-700 Study Guide](https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/dp-700) — exam scoping, domain weights, and skills measured (replaces legacy DP-203 framing).
+- [Microsoft Learn DP-700 training path](https://learn.microsoft.com/en-us/training/courses/dp-700t00) — free modules covering all transferable concepts.

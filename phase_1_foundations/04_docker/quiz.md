@@ -79,7 +79,7 @@ D. They cannot communicate without `network_mode: host`
 ## Answer key
 
 1. **C** — Long-form `depends_on` with `condition: service_healthy` is the only form that blocks on health. [Compose depends_on](https://docs.docker.com/reference/compose-file/services/#depends_on)
-2. **B** — Pinning (e.g., `postgres:16-alpine`) is the documented defense against silent upgrades; the dataeng reference stack pins every image (`../dataeng/docker-compose.yml:L9`). [Dockerfile reference — FROM](https://docs.docker.com/reference/dockerfile/#from)
+2. **B** — Pinning (e.g., `postgres:16-alpine`) is the documented defense against silent upgrades; a well-managed stack pins every image to a specific version. [Dockerfile reference — FROM](https://docs.docker.com/reference/dockerfile/#from)
 3. **A** — `start_period` is explicitly a grace window where failing probes do not count. [Compose healthcheck](https://docs.docker.com/reference/compose-file/services/#healthcheck)
 4. **C** — `CMD` supplies default args to `ENTRYPOINT`; `docker run` positional args replace `CMD`. [Dockerfile reference — ENTRYPOINT](https://docs.docker.com/reference/dockerfile/#entrypoint)
 5. **B** — `docker exec` targets a running container; `docker run` starts a new one. [docker exec](https://docs.docker.com/reference/cli/docker/container/exec/)

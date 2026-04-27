@@ -32,7 +32,7 @@ The fast-track is an alternative to the full capstone for learners who already i
 - A Dagster asset (or `@asset_check`) depending on the Deliverable 1 mart.
 - A `FreshnessPolicy` (or the current Dagster equivalent for your version) declaring an expected maximum age — e.g. 24 hours.
 - A test that demonstrates the breach: run the asset, wait past the SLO (or fake the clock), and show that Dagster reports the asset as stale and surfaces an alert (UI badge, sensor, or log line is acceptable — it must be visible without opening source code).
-- The asset uses the Phase 3 Dagster project layout (`../dataeng/dagster/lakehouse/` is the reference).
+- The asset uses the Phase 3 Dagster project layout (see `../phase_3_core_tools/06_dagster/` and the [Dagster project structure guide](https://docs.dagster.io/getting-started/create-new-project)).
 
 **How to self-check.** Open the Dagster UI, find the asset, confirm the freshness policy is shown. Force a stale state and confirm the UI flips to the stale indicator. A screenshot of the stale state goes in the deliverable's README.
 
@@ -77,7 +77,7 @@ The fast-track is an alternative to the full capstone for learners who already i
 **Goal.** Prove you can instrument a real pipeline-health metric and write an alert rule that fires on a real condition, not a toy counter.
 
 **What good looks like.**
-- One Prometheus `alerting` rule in a `rules.yml` scraped by the Prometheus instance in your stack. Reference config: `../dataeng/prometheus/prometheus.yml`.
+- One Prometheus `alerting` rule in a `rules.yml` scraped by the Prometheus instance in your stack. Reference config: [Prometheus configuration docs](https://prometheus.io/docs/prometheus/latest/configuration/configuration/).
 - The rule is tied to a metric that actually reflects pipeline health — Dagster run status, dbt test failures, Trino query errors, or a freshness gauge you pushed yourself. Not CPU. Not memory. Not "up".
 - The rule has a `for:` duration (so flapping does not page), a `severity` label, and a human-readable `summary` + `description` annotation (`prometheus.io/docs/prometheus/latest/configuration/alerting_rules/`).
 - A test case where you deliberately break the pipeline (kill a container, fail a dbt test) and the alert transitions to firing within the `for` duration plus one scrape interval.
@@ -93,7 +93,7 @@ The fast-track is an alternative to the full capstone for learners who already i
 **Goal.** Prove you can gate merges on automated checks, not on human diligence.
 
 **What good looks like.**
-- A GitHub repository with a `.github/workflows/` file (reference: `../dataeng/.github/workflows/dbt-ci.yml`) that runs on every PR:
+- A GitHub repository with a `.github/workflows/` file (reference: see the CI/CD examples in `../phase_5_advanced/01_cicd/` and the [GitHub Actions documentation](https://docs.github.com/en/actions)) that runs on every PR:
   - `dbt compile` against a CI profile
   - `dbt test` (either the full test suite or a designated CI subset)
   - At minimum, one additional lint step (ruff, sqlfluff, or pre-commit)

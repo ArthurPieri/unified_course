@@ -15,8 +15,8 @@ Snowflake bundles recovery, dev-environment provisioning, and DR under **Continu
 
 ## Reading order
 1. This README
-2. `../../../../snowflake_eng/phase1_platform/study_notes/domain_4_0_data_protection.md:L7-L250`
-3. `../../../../snowflake_eng/phase1_platform/labs/lab_05_data_protection.sql`
+2. [Snowflake Data Protection](https://docs.snowflake.com/en/user-guide/data-time-travel) — CDP, Time Travel, Fail-safe, cloning
+3. [Snowflake Quickstarts](https://quickstarts.snowflake.com/) — data protection hands-on labs
 4. `quiz.md`
 
 ## Concepts
@@ -24,7 +24,7 @@ Snowflake bundles recovery, dev-environment provisioning, and DR under **Continu
 ### Time Travel
 Time Travel lets you query, clone, or restore data **as of a past point in time** using `AT(TIMESTAMP => ...)`, `AT(OFFSET => -60)`, `AT(STATEMENT => 'qid')`, or `BEFORE(STATEMENT => 'qid')`. Retention is controlled by `DATA_RETENTION_TIME_IN_DAYS` set at account, database, schema, or table level. Defaults: **1 day** for Standard edition, **up to 90 days** for Enterprise edition and above. Permanent tables support the full configured range; transient and temporary tables support **0 or 1 day** only.
 
-Ref: [Time Travel](https://docs.snowflake.com/en/user-guide/data-time-travel) · *SnowPro Associate: Platform Study Guide, §4.1, p. 8* · `../../../../snowflake_eng/phase1_platform/study_notes/domain_4_0_data_protection.md:L9-L45`.
+Ref: [Time Travel](https://docs.snowflake.com/en/user-guide/data-time-travel) · *SnowPro Associate: Platform Study Guide, §4.1, p. 8* · [Snowflake Data Protection](https://docs.snowflake.com/en/user-guide/data-time-travel).
 
 ### Fail-safe
 Fail-safe is a **7-day** non-configurable period after Time Travel expires, during which Snowflake Support — **not the customer** — can recover data in the event of catastrophic failure. Fail-safe applies only to permanent tables. Transient and temporary tables have no Fail-safe. You cannot query Fail-safe data yourself and you cannot disable it.
@@ -34,7 +34,7 @@ Ref: *SnowPro Core Study Guide, Domain 6.0, p. 12* · `domain_4_0_data_protectio
 ### Zero-copy cloning
 `CREATE TABLE dev_customers CLONE prod.public.customers;` creates a new object that shares the underlying micro-partitions until either side diverges. Clones are **instant and take no additional storage** at clone time. Cloning a database clones all schemas, tables, and most child objects. Cloned objects **inherit no grants by default** — privileges must be re-applied (a clone is a new object with a new owner).
 
-Ref: [Cloning considerations](https://docs.snowflake.com/en/user-guide/object-clone) · *Core Study Guide Domain 6.0, p. 12* · `../../../../snowflake_eng/phase1_platform/labs/lab_05_data_protection.sql` Section 5.
+Ref: [Cloning considerations](https://docs.snowflake.com/en/user-guide/object-clone) · *Core Study Guide Domain 6.0, p. 12* · [Snowflake Quickstarts](https://quickstarts.snowflake.com/).
 
 ### Replication and failover
 **Database replication** creates a read-only secondary in another account (possibly another region/cloud). **Account replication** replicates account-level objects (users, roles, warehouses, shares). **Failover groups** bundle databases and account objects so you can promote an entire secondary in one command (`ALTER FAILOVER GROUP ... PRIMARY`). Cross-region replication is an Enterprise+ feature; cross-cloud replication requires Business Critical or higher for some object types.
@@ -49,7 +49,7 @@ Ref: [Tri-Secret Secure](https://docs.snowflake.com/en/user-guide/security-encry
 ### UNDROP
 `UNDROP TABLE|SCHEMA|DATABASE` restores a dropped object within its Time Travel window. After the Time Travel window expires, UNDROP fails — Fail-safe is recoverable only by Snowflake Support.
 
-Ref: [UNDROP TABLE](https://docs.snowflake.com/en/sql-reference/sql/undrop-table) · `../../../../snowflake_eng/phase1_platform/labs/lab_05_data_protection.sql` Section 4.
+Ref: [UNDROP TABLE](https://docs.snowflake.com/en/sql-reference/sql/undrop-table) · [Snowflake Quickstarts](https://quickstarts.snowflake.com/).
 
 ## Hands-on drills
 

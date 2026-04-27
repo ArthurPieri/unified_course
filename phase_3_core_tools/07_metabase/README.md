@@ -1,6 +1,6 @@
 # Module 07: Metabase — BI frontend (4h)
 
-> The visualization layer of the Phase 3 lakehouse. Metabase sits on top of Trino, exposes a click-through question builder, a SQL editor, and dashboards, and is the service your non-engineer stakeholders actually open. This module is short by design — the heavy concepts live upstream in `02_trino/` and `05_dbt/`, and Metabase is "a BI tool wired to your gold tables" rather than a new compute engine. The service block is pinned at `../compose/full-stack/docker-compose.yml:L245-L265` and the sibling reference is `../../../../dataeng/docker-compose.yml:L170-L189`.
+> The visualization layer of the Phase 3 lakehouse. Metabase sits on top of Trino, exposes a click-through question builder, a SQL editor, and dashboards, and is the service your non-engineer stakeholders actually open. This module is short by design — the heavy concepts live upstream in `02_trino/` and `05_dbt/`, and Metabase is "a BI tool wired to your gold tables" rather than a new compute engine. The service block is pinned at `../compose/full-stack/docker-compose.yml:L245-L265`.
 
 ## Learning goals
 

@@ -49,14 +49,12 @@ Phase-level index. Each module carries its own `references.md`; this file points
 - Dagster: https://github.com/dagster-io/dagster/releases
 - Metabase: https://github.com/metabase/metabase/releases
 
-## Sibling reuse
+## Self-contained compose and project references
 
-- `../../dataeng/docker-compose.yml:L1-L243` — full stack reference
-- `../../dataeng/README.md` — topology notes
-- `../../dataeng/dbt_project/` — working dbt project (Phase 3 · 05_dbt)
-- `../../dataeng/dagster/lakehouse/` — working Dagster project (Phase 3 · 06_dagster)
-- `../../dataeng/dlt_pipelines/` — working dlt pipeline (Phase 3 · 04_dlt)
-- Full reuse map: `../references/sibling_sources.md` (grep "Phase 3")
+- `compose/full-stack/docker-compose.yml` — full lakehouse stack (full lakehouse stack)
+- `04_dlt/labs/lab_L3b_dlt_ingest/` — working dlt pipeline (Phase 3 · 04_dlt)
+- `05_dbt/labs/lab_L3c_dbt_models/` — working dbt project (Phase 3 · 05_dbt)
+- `06_dagster/labs/lab_L3d_dagster_orchestrate/` — working Dagster project (Phase 3 · 06_dagster)
 
 ## Books (per `docs/REUSE_POLICY.md`)
 

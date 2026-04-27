@@ -32,7 +32,7 @@ Primary sources:
 - *SnowPro Core Study Guide*, p. 4 — target audience "at least 6 months of knowledge using the Snowflake platform".
 - *SnowPro Advanced: Data Engineer Study Guide*, p. 3 — "2+ years of data engineering experience" and Core prerequisite.
 - *SnowPro Advanced: Data Engineer Study Guide*, p. 4 — Core credential prerequisite ("Eligible individuals must hold an active SnowPro Core credential").
-- Duration/Q-count/fee for COF-C02 and DEA-C02: `../../../../snowflake_eng/STUDY_PLAN.md:L29-L43`. The COF-C02 PDF does not print these numbers; confirm on [snowflake.com/en/learn/certifications/snowpro-core](https://www.snowflake.com/en/learn/certifications/snowpro-core/) before scheduling.
+- Duration/Q-count/fee for COF-C02 and DEA-C02: based on community reports and the [Snowflake certification guide](https://www.snowflake.com/certifications/). The COF-C02 PDF does not print these numbers; confirm on [snowflake.com/en/learn/certifications/snowpro-core](https://www.snowflake.com/en/learn/certifications/snowpro-core/) before scheduling.
 
 ## Domain weights
 
@@ -72,8 +72,8 @@ Primary sources:
 ## Delivery, scheduling, retakes
 
 - **Delivery channels:** All three exams are delivered via Pearson VUE — either in-person at a test center or via OnVUE online proctoring. Register through the Snowflake certification portal, which hands off to Pearson VUE.
-- **Retake policy:** 14-day mandatory wait between attempts. Full exam fee each attempt. See `../../../../snowflake_eng/STUDY_PLAN.md:L272-L279`.
-- **Validity:** Snowflake certifications expire 2 years after the pass date. If you let Core lapse before sitting DEA, you lose DEA eligibility. See `../../../../snowflake_eng/STUDY_PLAN.md:L483-L488`.
+- **Retake policy:** 14-day mandatory wait between attempts. Full exam fee each attempt. See the [Snowflake certification guide](https://www.snowflake.com/certifications/) for current retake policies.
+- **Validity:** Snowflake certifications expire 2 years after the pass date. If you let Core lapse before sitting DEA, you lose DEA eligibility. See the [Snowflake certification guide](https://www.snowflake.com/certifications/) for current validity rules.
 - **No NDA violation:** Snowflake exams are under NDA. Do not publish questions after sitting.
 
 ## What changed between recent versions
@@ -84,7 +84,7 @@ Primary sources:
 
 ## Cost planning
 
-Exam fees, first attempt: $175 + $175 + $375 = **$725**. Add ~$50 per official practice exam (Core, DEA) and a trial-credit buffer for labs. See `../../../../snowflake_eng/STUDY_PLAN.md:L737-L750`.
+Exam fees, first attempt: $175 + $175 + $375 = **$725**. Add ~$50 per official practice exam (Core, DEA) and a trial-credit buffer for labs. See the [Snowflake certification guide](https://www.snowflake.com/certifications/) for current pricing.
 
 ## Checkpoint
 Before moving on, you can:

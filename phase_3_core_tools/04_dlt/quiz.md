@@ -34,7 +34,7 @@
 - C. A Hive Metastore URI.
 - D. Nothing — dlt auto-detects MinIO.
 
-**6.** In `../dataeng/dlt_pipelines/taxi_pipeline.py:L52-L110`, the resource yields `pyarrow.Table` batches instead of Python dicts. The main reason is:
+**6.** In the taxi pipeline resource, the code yields `pyarrow.Table` batches instead of Python dicts. The main reason is:
 - A. dlt only accepts Arrow input.
 - B. Arrow batches keep memory bounded and preserve types through the extract stage.
 - C. It bypasses the normaliser entirely.

@@ -1,9 +1,9 @@
 # Vendor Branch A: AWS Data Engineering
 
 > Target certification: **AWS Certified Data Engineer - Associate (DEA-C01)**.
-> Duration: **100-130 hours** (9-12 weeks at 10-12h/week). See `../../UNIFIED_COURSE_PLAN.md:581-653`.
+> Duration: **100-130 hours** (9-12 weeks at 10-12h/week).
 
-This branch re-organizes the sibling `../../../aws_certified/` curriculum into a six-module taxonomy aligned with the four DEA-C01 content domains. It is **curation, not rewrite**: the sibling weeks carry the depth; modules here cite-link into them and fill service gaps from AWS official docs.
+This branch organizes AWS DEA-C01 preparation into a six-module taxonomy aligned with the four content domains. Modules are self-contained and cite AWS official documentation for depth.
 
 ## Who should take this branch
 
@@ -15,7 +15,7 @@ This branch re-organizes the sibling `../../../aws_certified/` curriculum into a
 
 | Prereq | Source |
 |---|---|
-| Phase 0-5 of unified course complete OR fast-track rubric met | `../../UNIFIED_COURSE_PLAN.md:583` |
+| Phase 0-5 of unified course complete OR fast-track rubric met | See the unified course plan in the repo root |
 | Python, SQL, Git, basic networking/compute | *AWS DEA-C01 Exam Guide, Recommended general IT knowledge* |
 | AWS Free Tier account + CLI configured | [AWS Free Tier](https://aws.amazon.com/free/) |
 | LocalStack Community (offline labs) | [LocalStack docs](https://docs.localstack.cloud/) |
@@ -40,18 +40,18 @@ Domain weights are taken directly from the exam guide. *AWS DEA-C01 Exam Guide, 
 
 | Week | Focus | Modules | Sibling anchor |
 |---|---|---|---|
-| 1 | Exam profile + S3 storage classes + Glue Catalog intro | 00, 01 | `../../../aws_certified/docs/week-01-ingestion-fundamentals.md:41-128` |
-| 2 | Lake Formation, Iceberg on S3, lifecycle | 01 | `../../../aws_certified/docs/week-06-cataloging-data-lakes.md:101-246`, `week-07-lifecycle-schema.md:22-415` |
-| 3 | Batch ingestion: S3, DMS, DataSync, AppFlow | 02 | `../../../aws_certified/docs/week-01-ingestion-fundamentals.md:129-367` |
-| 4 | Streaming: KDS, Firehose, MSK, Flink | 02 | `../../../aws_certified/docs/week-02-streaming-ingestion.md:7-410` |
-| 5 | Glue ETL + DataBrew | 02, 03 | `../../../aws_certified/docs/week-03-data-transformation.md:20-358` |
-| 6 | EMR + Athena | 03 | `../../../aws_certified/docs/week-03-data-transformation.md:359-606`, `week-08-automation-analysis.md:368-644` |
-| 7 | Redshift (RA3, Spectrum, Serverless) | 03 | `../../../aws_certified/docs/week-05-data-store-selection.md:242-345`, `week-08-automation-analysis.md:645-802` |
-| 8 | Orchestration: Step Functions + MWAA + EventBridge | 04 | `../../../aws_certified/docs/week-04-orchestration.md:20-559` |
-| 9 | Security: IAM, KMS, VPC endpoints | 05 | `../../../aws_certified/docs/week-10-security-governance.md:9-663` |
-| 10 | Data quality, Macie, audit logging | 05 | `../../../aws_certified/docs/week-09-monitoring-quality.md:539-875`, `week-10-security-governance.md:664-921` |
-| 11 | Cross-domain architecture + FinOps | 06 | `../../../aws_certified/docs/week-11-cross-domain.md:20-476` |
-| 12 | Mock exams + weak-area remediation | 00 | `../../../aws_certified/docs/week-12-mock-exam-1.md`, `week-12-mock-exam-2.md` |
+| 1 | Exam profile + S3 storage classes + Glue Catalog intro | 00, 01 | [AWS Glue Developer Guide](https://docs.aws.amazon.com/glue/latest/dg/), [S3 User Guide](https://docs.aws.amazon.com/AmazonS3/latest/userguide/) |
+| 2 | Lake Formation, Iceberg on S3, lifecycle | 01 | [AWS Glue Data Catalog](https://docs.aws.amazon.com/glue/latest/dg/catalog-and-crawler.html), [S3 Lifecycle](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lifecycle-mgmt.html) |
+| 3 | Batch ingestion: S3, DMS, DataSync, AppFlow | 02 | [AWS DMS User Guide](https://docs.aws.amazon.com/dms/latest/userguide/), [AWS DataSync](https://docs.aws.amazon.com/datasync/latest/userguide/) |
+| 4 | Streaming: KDS, Firehose, MSK, Flink | 02 | [Amazon Kinesis Developer Guide](https://docs.aws.amazon.com/kinesis/latest/dev/), [Amazon MSK Developer Guide](https://docs.aws.amazon.com/msk/latest/developerguide/) |
+| 5 | Glue ETL + DataBrew | 02, 03 | [AWS Glue ETL](https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl.html) |
+| 6 | EMR + Athena | 03 | [Amazon EMR Management Guide](https://docs.aws.amazon.com/emr/latest/ManagementGuide/), [Amazon Athena User Guide](https://docs.aws.amazon.com/athena/latest/ug/) |
+| 7 | Redshift (RA3, Spectrum, Serverless) | 03 | [Amazon Redshift Developer Guide](https://docs.aws.amazon.com/redshift/latest/dg/) |
+| 8 | Orchestration: Step Functions + MWAA + EventBridge | 04 | [AWS Step Functions Developer Guide](https://docs.aws.amazon.com/step-functions/latest/dg/) |
+| 9 | Security: IAM, KMS, VPC endpoints | 05 | [AWS IAM User Guide](https://docs.aws.amazon.com/IAM/latest/UserGuide/), [AWS KMS Developer Guide](https://docs.aws.amazon.com/kms/latest/developerguide/) |
+| 10 | Data quality, Macie, audit logging | 05 | [Amazon CloudWatch User Guide](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/), [AWS CloudTrail User Guide](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/) |
+| 11 | Cross-domain architecture + FinOps | 06 | [AWS Well-Architected Data Analytics Lens](https://docs.aws.amazon.com/wellarchitected/latest/analytics-lens/) |
+| 12 | Mock exams + weak-area remediation | 00 | See [mock_exam_sources.md](./mock_exam_sources.md) |
 
 Accelerated path: 9 weeks by collapsing weeks 5-6 and weeks 9-10.
 
@@ -64,20 +64,20 @@ Before booking the exam you should be able to:
 - [ ] Design an S3 lifecycle policy that meets a retention/cost requirement. *Skill 2.3.2-2.3.3*.
 - [ ] Write a least-privilege IAM policy for a Glue job accessing S3 and DynamoDB, with KMS key grants. *Skill 4.1.5, 4.2.6*.
 - [ ] Pick Step Functions vs. MWAA vs. EventBridge for a given orchestration need. *Skill 1.3.1, 3.1.1*.
-- [ ] Score >=75% on `week-12-mock-exam-1.md` and `week-12-mock-exam-2.md` without reference material.
-- [ ] Complete the capstone lab end-to-end: `../../../aws_certified/labs/week-11-lab-capstone.md`.
+- [ ] Score >=75% on mock exams (see [mock_exam_sources.md](./mock_exam_sources.md)) without reference material.
+- [ ] Complete the capstone lab end-to-end (see this module's labs/ directory).
 
 ## How to use this branch
 
 1. Read the [exam profile](./00_exam_profile/README.md) first to anchor the domain weightings in your mind.
-2. Work the 6 modules in order. Each module README is compact (600-1500 words) and points to the sibling `week-*.md` files for depth.
+2. Work the 6 modules in order. Each module README is compact (600-1500 words) and links to AWS official documentation for depth.
 3. Run the labs cited in each module against LocalStack (free) or AWS Free Tier.
 4. Take the per-module quizzes (`quiz.md`). Every question cites a primary source.
-5. Finish with `mock_exam_sources.md` and the sibling `week-12-mock-exam-*.md` files.
+5. Finish with [mock_exam_sources.md](./mock_exam_sources.md) for practice exam guidance.
 
 ## Reuse and citation policy
 
-This branch follows `../../docs/REUSE_POLICY.md`. Every service claim must cite `docs.aws.amazon.com` or the DEA-C01 exam guide. Sibling files are cited as `../../../aws_certified/<path>:L<start>-L<end>`. No blogs, no Medium, no Stack Overflow.
+This branch follows the unified course reuse policy. Every service claim must cite `docs.aws.amazon.com` or the [AWS DEA-C01 Exam Guide](https://aws.amazon.com/certification/certified-data-engineer-associate/). No blogs, no Medium, no Stack Overflow.
 
 ## References
 

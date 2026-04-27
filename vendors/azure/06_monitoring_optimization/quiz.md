@@ -66,11 +66,11 @@
 
 1. **B** — [KQL summarize](https://learn.microsoft.com/en-us/kusto/query/summarize-operator).
 2. **C** — 93 days for metrics ([Azure Monitor metrics](https://learn.microsoft.com/en-us/azure/azure-monitor/essentials/data-platform-metrics)).
-3. **B** — Data skew; `../../../../azure_certified/IMPLEMENTATION-PLAN.md:L693-L700`.
+3. **B** — Data skew; see [Adaptive Query Execution](https://learn.microsoft.com/en-us/azure/databricks/optimizations/aqe).
 4. **B** — [Adaptive Query Execution](https://learn.microsoft.com/en-us/azure/databricks/optimizations/aqe).
 5. **B** — [Delta OPTIMIZE](https://learn.microsoft.com/en-us/fabric/data-engineering/delta-optimization-and-v-order).
-6. **C** — Watermark delay; `../../../../azure_certified/IMPLEMENTATION-PLAN.md:L663-L667`.
+6. **C** — Watermark delay; see [Stream Analytics monitoring](https://learn.microsoft.com/en-us/azure/stream-analytics/stream-analytics-monitoring).
 7. **B** — [Fabric monitoring hub](https://learn.microsoft.com/en-us/fabric/admin/monitoring-hub).
 8. **B** — [Azure alerts overview](https://learn.microsoft.com/en-us/azure/azure-monitor/alerts/alerts-overview).
-9. **B** — Driver OOM; `../../../../azure_certified/IMPLEMENTATION-PLAN.md:L706-L711`.
+9. **B** — Driver OOM; see [Azure Databricks Spark](https://learn.microsoft.com/en-us/azure/databricks/getting-started/spark/).
 10. **B** — [Fabric capacity metrics app](https://learn.microsoft.com/en-us/fabric/enterprise/metrics-app).

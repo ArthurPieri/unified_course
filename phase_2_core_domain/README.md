@@ -10,9 +10,9 @@ Tool-agnostic fundamentals every data engineer must own before touching a specif
 | # | Module | Hours | Type |
 |---|---|---|---|
 | 01 | [Data Modeling](01_data_modeling/) | 14 | **GAP** — Kimball, Inmon, Data Vault |
-| 02 | [ETL / ELT Patterns](02_etl_elt_patterns/) | 10 | primary docs + `../dataeng/` dlt pipeline |
+| 02 | [ETL / ELT Patterns](02_etl_elt_patterns/) | 10 | primary docs + dlt pipeline examples |
 | 03 | [Distributed Systems](03_distributed_systems/) | 8 | **GAP** — *DDIA, Kleppmann* Ch. 5–11 |
-| 04 | [Data Quality — Tests, Contracts, Checks](04_data_quality/) | 8 | partial-reuse — `../dataeng/` dbt + Dagster |
+| 04 | [Data Quality — Tests, Contracts, Checks](04_data_quality/) | 8 | partial-reuse — dbt + Dagster examples |
 | 05 | [Streaming Concepts](05_streaming_concepts/) | 6 | **GAP** — *DDIA* Ch. 11 + Kafka/Debezium docs |
 | 06 | [Lakehouse Bridge — MinIO + DuckDB + Parquet](06_lakehouse_bridge/) | 6 | primary — MinIO, DuckDB, Parquet spec |
 

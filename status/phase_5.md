@@ -3,7 +3,7 @@
 Last updated: 2026-04-10
 
 ## Modules
-- [x] 01_cicd — drafted 2026-04-10 (GH Actions, OIDC, dbt PR pattern, preview envs; reuses `../dataeng/.github/workflows/`)
+- [x] 01_cicd — drafted 2026-04-10 (GH Actions, OIDC, dbt PR pattern, preview envs; references GitHub Actions official docs)
 - [x] 02_kubernetes_basics — drafted 2026-04-10 (reconciliation model, core resources, kind, Helm, when-K8s-vs-managed)
 - [x] 03_airflow_bridge — drafted 2026-04-10 (TaskFlow vs classic, Dagster contrast, MWAA/Composer, top-level-code pitfall)
 - [x] 04_cloud_concepts — drafted 2026-04-10 (cloud-neutral; AWS/Azure/GCP citations; shared responsibility, AZs, VPC, egress)

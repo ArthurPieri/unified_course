@@ -1,6 +1,6 @@
 -- Intermediate: bucket trips to the hour and pre-aggregate per vendor.
 -- Materialized as table (see dbt_project.yml models.intermediate block).
--- Pattern reference: ../dataeng/dbt_project/models/intermediate/int_trips_enriched.sql:L1-L52
+-- Based on the companion lakehouse project's intermediate layer pattern.
 
 with trips as (
 

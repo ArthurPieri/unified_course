@@ -12,14 +12,14 @@
 - [LocalStack — S3 service](https://docs.localstack.cloud/user-guide/aws/s3/) — used in the lab for prefix-scoped read-only testing.
 - [LocalStack — STS service](https://docs.localstack.cloud/user-guide/aws/sts/) — `AssumeRole` behaviour in LocalStack.
 
-## Sibling sources (reuse-first)
-- `../aws_certified/docs/week-10-security-governance.md:L9-L22` — six IAM policy types table; reused as the foundation for the identity-based vs. resource-based discussion.
-- `../aws_certified/docs/week-10-security-governance.md:L24-L68` — policy evaluation diagram and key principles; reused verbatim in concept section.
-- `../aws_certified/docs/week-10-security-governance.md:L118-L165` — cross-account access patterns (resource policy vs. AssumeRole); referenced in the common-failures table.
-- `../aws_certified/labs/week-10-lab-security.md:L13-L36` — LocalStack Docker startup pattern adapted for the module lab.
-- `../aws_certified/labs/week-10-lab-security.md:L40-L53` — Glue trust policy example cited for trust vs. permission distinction.
-- `../aws_certified/labs/week-10-lab-security.md:L61-L116` — reference least-privilege identity policy; cited as the canonical shape.
-- `../aws_certified/labs/week-10-lab-security.md:L217-L248` — permissions boundary intersection example; used in the common-mistakes discussion.
+## AWS official sources (concepts adapted from)
+- [AWS IAM policy types](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html) — six IAM policy types; foundation for the identity-based vs. resource-based discussion.
+- [AWS Policy evaluation logic](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html) — policy evaluation diagram and key principles; reused in concept section.
+- [AWS cross-account access](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies-cross-account-resource-access.html) — cross-account access patterns (resource policy vs. AssumeRole); referenced in the common-failures table.
+- [LocalStack Getting Started](https://docs.localstack.cloud/getting-started/) — LocalStack Docker startup pattern adapted for the module lab.
+- [AWS Glue — Setting up IAM permissions](https://docs.aws.amazon.com/glue/latest/dg/getting-started-access.html) — Glue trust policy example cited for trust vs. permission distinction.
+- [AWS Glue security best practices](https://docs.aws.amazon.com/glue/latest/dg/security-best-practices.html) — reference least-privilege identity policy; cited as the canonical shape.
+- [AWS IAM permissions boundaries](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html) — permissions boundary intersection example; used in the common-mistakes discussion.
 
 ## Canonical book
 - *Fundamentals of Data Engineering*, Reis & Housley, Ch. 10 — security and access control foundations.

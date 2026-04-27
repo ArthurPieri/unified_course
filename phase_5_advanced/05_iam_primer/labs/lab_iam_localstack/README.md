@@ -19,7 +19,7 @@ awslocal s3 mb s3://lab-iam-demo
 echo "public content" | awslocal s3 cp - s3://lab-iam-demo/public/hello.txt
 echo "private content" | awslocal s3 cp - s3://lab-iam-demo/private/secret.txt
 ```
-Reference setup pattern: `../../../../aws_certified/labs/week-10-lab-security.md:L13-L36`.
+Reference setup pattern: [LocalStack Getting Started](https://docs.localstack.cloud/getting-started/).
 
 ## Steps
 
@@ -37,7 +37,7 @@ Reference setup pattern: `../../../../aws_certified/labs/week-10-lab-security.md
      ]
    }
    ```
-   Shape adapted from `../../../../aws_certified/labs/week-10-lab-security.md:L61-L116`.
+   Shape adapted from [AWS Glue security best practices](https://docs.aws.amazon.com/glue/latest/dg/security-best-practices.html).
 
 2. **Write the trust policy** to `/tmp/trust.json` allowing the root account to assume the role:
    ```json

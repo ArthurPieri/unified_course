@@ -1,12 +1,12 @@
 # Lab L5b: Port a Dagster Asset Graph to an Airflow DAG
 
 ## Goal
-Take the working Dagster lakehouse asset graph (dlt → dbt → quality) from `../../../../../dataeng/dagster/lakehouse/assets/`, port it to an Airflow TaskFlow DAG (`dag_example.py` in this directory), run it on a local Airflow, and write a 1-page comparison of the two paradigms.
+Take the working Dagster lakehouse asset graph (dlt -> dbt -> quality) from Phase 3's Dagster module (`../../../../phase_3_core_tools/06_dagster/`), port it to an Airflow TaskFlow DAG (`dag_example.py` in this directory), run it on a local Airflow, and write a 1-page comparison of the two paradigms.
 
 ## Prerequisites
 - Docker + Compose v2
 - Completed [../../../../phase_3_core_tools/06_dagster/](../../../../phase_3_core_tools/06_dagster/) (you know the "before" asset graph)
-- The Dagster source files, read for reference: `../../../../../dataeng/dagster/lakehouse/assets/ingestion.py:L1-L58`, `transformation.py:L1-L42`, and `quality.py`
+- The Dagster source files, read for reference: see Phase 3 Dagster module (`../../../../phase_3_core_tools/06_dagster/`) and [Dagster — Software-defined assets](https://docs.dagster.io/concepts/assets/software-defined-assets)
 
 ## Setup
 
@@ -86,10 +86,10 @@ docker compose down -v
 
 ## Comparison writeup (deliverable — commit as `COMPARISON.md` next to this README)
 
-Write 5–10 bullets covering these diffs, citing `../../../../../dataeng/dagster/lakehouse/assets/` line ranges for "before" and Airflow docs for "after":
+Write 5-10 bullets covering these diffs, citing Phase 3 Dagster module for "before" and Airflow docs for "after":
 
 - **Primary noun.** Dagster names the *asset* produced; Airflow names the *task* that runs.
-- **Data-quality checks.** Dagster has first-class asset checks (`../../../../../dataeng/dagster/lakehouse/assets/quality.py`) — Airflow has no direct equivalent; use inline asserts or `SQLCheckOperator`.
+- **Data-quality checks.** Dagster has first-class [asset checks](https://docs.dagster.io/concepts/assets/asset-checks) — Airflow has no direct equivalent; use inline asserts or `SQLCheckOperator`.
 - **Freshness SLAs.** Per-asset in Dagster; closest Airflow analog is per-task SLAs + [Datasets](https://airflow.apache.org/docs/apache-airflow/stable/authoring-and-scheduling/datasets.html).
 - **Partitioning.** Dagster partitions are asset-keyed; Airflow partitions are implicit in `{{ data_interval_start }}`.
 - **Lineage.** Dagster infers it from code; Airflow relies on Datasets or OpenLineage.

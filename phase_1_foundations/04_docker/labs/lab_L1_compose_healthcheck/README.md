@@ -12,7 +12,7 @@ Stand up PostgreSQL (and optional pgAdmin) via Docker Compose using `.env` crede
 
 Create a new directory and drop in three files.
 
-`docker-compose.yml` — pattern adapted from `../../../../../dataeng/docker-compose.yml:L8-L23`:
+`docker-compose.yml` — pattern based on the companion lakehouse project's Postgres service:
 
 ```yaml
 services:
@@ -168,7 +168,7 @@ docker compose --profile admin down        # stops all, preserves volume
 | Port 5432 already in use | Change host port: `"5433:5432"` |
 
 ## Stretch goals
-- Start the admin UI only when you want it: `docker compose --profile admin up -d`, then visit `http://localhost:5050`. The `profiles:` key follows the same pattern as `../../../../../dataeng/docker-compose.yml:L28` (MinIO) and `:L93` (Trino).
+- Start the admin UI only when you want it: `docker compose --profile admin up -d`, then visit `http://localhost:5050`. The `profiles:` key follows the same pattern used by MinIO and Trino services in a lakehouse stack. See [Compose — profiles](https://docs.docker.com/compose/how-tos/profiles/).
 - Add a second check in `healthcheck.sh` that actually queries Postgres: `docker exec lab-postgres-1 psql -U "$POSTGRES_USER" -d "$POSTGRES_DB" -c 'SELECT 1;' >/dev/null`.
 - Add `cpus: "1.0"` to cap CPU alongside `mem_limit`.
 

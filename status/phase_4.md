@@ -23,8 +23,8 @@ Last updated: 2026-04-10
 ## Decisions recorded
 - Streaming is specialization depth, not core — labs are "literacy grade" scope per UNIFIED_COURSE_PLAN §batch-first default
 - Performance tuning lab uses a synthetic `generate_data.py` (PEP 723 inline deps, pyarrow + MinIO via endpoint_override) to satisfy V2 Finding #4
-- Security module reuses `../aws_certified/docs/week-10-security-governance.md` with explicit line ranges
-- Observability reuses `../dataeng/prometheus/` and `../dataeng/grafana/provisioning/` configs with line ranges (Prometheus/Grafana were intentionally moved out of Phase 3 compose)
+- Security module references AWS IAM official docs
+- Observability uses self-contained Prometheus/Grafana configs (moved out of Phase 3 compose)
 
 ## Blockers
 none

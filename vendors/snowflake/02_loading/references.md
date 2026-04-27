@@ -19,6 +19,6 @@
 - *SnowPro Core Study Guide*, Domain 4.0 "Data Loading and Unloading", p. 10 — Snowpipe, loading best practices, loading commands, unloading.
 - *SnowPro Advanced: Data Engineer Study Guide*, Domain 1.0 "Data Movement", pp. 5-6 — 1.2 ingest of various formats, 1.3 troubleshoot ingestion, 1.4 continuous pipelines, 1.5 connectors.
 
-## Sibling reuse
-- `../../../../snowflake_eng/phase1_platform/study_notes/domain_3_0_data_loading.md:L16-L100` — stages, file formats, loading commands, semi-structured.
-- `../../../../snowflake_eng/phase1_platform/labs/lab_02_data_loading.sql:L1-L400+` — end-to-end data loading SQL lab with file formats, COPY INTO, JSON/VARIANT.
+## Additional sources
+- [Snowflake Data Loading](https://docs.snowflake.com/en/user-guide/data-load-overview) — stages, file formats, loading commands, semi-structured data.
+- [Snowflake Quickstarts](https://quickstarts.snowflake.com/) — end-to-end data loading labs with file formats, COPY INTO, JSON/VARIANT.

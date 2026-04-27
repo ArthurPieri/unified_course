@@ -32,36 +32,38 @@ Domain 4 is 18% — nine scored questions out of fifty. Tasks 4.1 (authN), 4.2 (
 ## Concepts (compact)
 
 ### IAM decision model
-AWS evaluates: (1) Organizations SCPs, (2) resource-based policies, (3) identity-based policies, (4) permission boundaries, (5) session policies. An explicit Deny anywhere wins. For cross-account access the resource policy must grant the remote principal AND the remote principal's identity policy must allow the action. Depth: `../../../aws_certified/docs/week-10-security-governance.md:9-223`.
+AWS evaluates: (1) Organizations SCPs, (2) resource-based policies, (3) identity-based policies, (4) permission boundaries, (5) session policies. An explicit Deny anywhere wins. For cross-account access the resource policy must grant the remote principal AND the remote principal's identity policy must allow the action. Primary: [IAM policy evaluation logic](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html).
 
 ### Least privilege in practice
-Use action-level grants (e.g., `s3:GetObject` only for `arn:aws:s3:::bucket/raw/*`), add `Condition` blocks for `aws:SourceVpce`, `aws:PrincipalTag`, `s3:prefix`, or `kms:ViaService`. IAM Access Analyzer finds unused permissions and overly broad policies. Lab: `../../../aws_certified/labs/week-10-lab-security.md:9-260`.
+Use action-level grants (e.g., `s3:GetObject` only for `arn:aws:s3:::bucket/raw/*`), add `Condition` blocks for `aws:SourceVpce`, `aws:PrincipalTag`, `s3:prefix`, or `kms:ViaService`. IAM Access Analyzer finds unused permissions and overly broad policies. Primary: [IAM best practices](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html), [IAM Access Analyzer](https://docs.aws.amazon.com/IAM/latest/UserGuide/what-is-access-analyzer.html). See the hands-on labs in this module's labs/ directory.
 
 ### KMS envelope encryption
-Data keys encrypt data; the KMS CMK encrypts the data key. SSE-KMS on S3 and Redshift use this pattern. Customer-managed keys (CMKs) let you rotate annually, control the key policy, and require grants for cross-account and cross-service use. S3 Bucket Keys reduce KMS call cost by ~99% by caching a bucket-level data key. Depth: `../../../aws_certified/docs/week-10-security-governance.md:433-663`.
+Data keys encrypt data; the KMS CMK encrypts the data key. SSE-KMS on S3 and Redshift use this pattern. Customer-managed keys (CMKs) let you rotate annually, control the key policy, and require grants for cross-account and cross-service use. S3 Bucket Keys reduce KMS call cost by ~99% by caching a bucket-level data key. Primary: [AWS KMS Developer Guide](https://docs.aws.amazon.com/kms/latest/developerguide/), [S3 Bucket Keys](https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-key.html).
 
 ### VPC endpoints and PrivateLink
-Gateway endpoints (free) route S3 and DynamoDB traffic without leaving the AWS backbone — add them to route tables. Interface endpoints (PrivateLink) are ENIs in your subnets for almost every other AWS service and partner SaaS; they cost per-hour-per-AZ + per-GB. Use `aws:SourceVpce` IAM conditions to deny access from outside your VPC. Depth: `../../../aws_certified/docs/week-10-security-governance.md:358-432`.
+Gateway endpoints (free) route S3 and DynamoDB traffic without leaving the AWS backbone — add them to route tables. Interface endpoints (PrivateLink) are ENIs in your subnets for almost every other AWS service and partner SaaS; they cost per-hour-per-AZ + per-GB. Use `aws:SourceVpce` IAM conditions to deny access from outside your VPC. Primary: [VPC endpoints and PrivateLink](https://docs.aws.amazon.com/vpc/latest/privatelink/concepts.html), [Gateway VPC endpoints](https://docs.aws.amazon.com/vpc/latest/privatelink/gateway-endpoints.html).
 
 ### Macie for PII discovery
-Managed sensitive-data discovery on S3. Schedule jobs, configure custom data identifiers, and route findings to EventBridge to quarantine objects or trigger Lake Formation column-level restrictions. Depth: `../../../aws_certified/docs/week-10-security-governance.md:828-921`.
+Managed sensitive-data discovery on S3. Schedule jobs, configure custom data identifiers, and route findings to EventBridge to quarantine objects or trigger Lake Formation column-level restrictions. Primary: [Amazon Macie User Guide](https://docs.aws.amazon.com/macie/latest/user/what-is-macie.html).
 
 ### Secrets Manager vs. Parameter Store
 Secrets Manager: automatic rotation via Lambda, cross-region replication, higher cost per secret. Parameter Store: free for standard tier, no built-in rotation, use `SecureString` with KMS. For RDS/Redshift credentials with rotation, Secrets Manager is the exam answer. *Skill 4.1.3*.
 
 ### Audit: CloudTrail + CloudTrail Lake + Config
-CloudTrail logs API calls (management events by default; data events are opt-in and billed per event). CloudTrail Lake stores events as an immutable queryable store for SQL across the org. AWS Config tracks resource state over time and can enforce rules (e.g., "S3 buckets must be encrypted"). Depth: `../../../aws_certified/docs/week-09-monitoring-quality.md:237-347` and `week-10-security-governance.md:731-827`.
+CloudTrail logs API calls (management events by default; data events are opt-in and billed per event). CloudTrail Lake stores events as an immutable queryable store for SQL across the org. AWS Config tracks resource state over time and can enforce rules (e.g., "S3 buckets must be encrypted"). Primary: [AWS CloudTrail User Guide](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/), [CloudTrail Lake](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-lake.html), [AWS Config](https://docs.aws.amazon.com/config/latest/developerguide/WhatIsConfig.html).
 
 ### Data quality adjacency (Domain 3.4)
-Glue Data Quality + DQDL rules are the exam answer for rule-based validation in data lakes; DataBrew rules for interactive quality. Depth: `../../../aws_certified/docs/week-09-monitoring-quality.md:539-875`.
+Glue Data Quality + DQDL rules are the exam answer for rule-based validation in data lakes; DataBrew rules for interactive quality. Primary: [AWS Glue Data Quality](https://docs.aws.amazon.com/glue/latest/dg/glue-data-quality.html).
 
-## Labs (from sibling `../../../aws_certified/labs/`)
+## Labs
 
-| Lab | Goal | Sibling anchor |
+See the hands-on labs in this module's labs/ directory. Key exercises:
+
+| Lab | Goal | AWS reference |
 |---|---|---|
-| Week 10 Lab — IAM + Lake Formation + KMS | Least-privilege Glue job, Lake Formation permissions, KMS envelope | `../../../aws_certified/labs/week-10-lab-security.md:1-600` |
-| Week 9 Lab — CloudWatch + CloudTrail | Alarms, metric filters, structured logging | `../../../aws_certified/labs/week-09-lab-monitoring.md:1-800` |
-| Week 11 Capstone | KMS keys, IAM roles, encrypted S3, encrypted Kinesis | `../../../aws_certified/labs/week-11-lab-capstone.md:195-576` |
+| IAM + Lake Formation + KMS | Least-privilege Glue job, Lake Formation permissions, KMS envelope | [AWS IAM User Guide](https://docs.aws.amazon.com/IAM/latest/UserGuide/), [AWS KMS Developer Guide](https://docs.aws.amazon.com/kms/latest/developerguide/) |
+| CloudWatch + CloudTrail | Alarms, metric filters, structured logging | [Amazon CloudWatch User Guide](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/), [AWS CloudTrail User Guide](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/) |
+| Capstone | KMS keys, IAM roles, encrypted S3, encrypted Kinesis | [AWS Well-Architected Data Analytics Lens](https://docs.aws.amazon.com/wellarchitected/latest/analytics-lens/) |
 
 ## Common exam gotchas
 

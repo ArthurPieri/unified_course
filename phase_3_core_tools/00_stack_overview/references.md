@@ -1,9 +1,8 @@
 # References — 00_stack_overview
 
-## Compose reference (sibling)
+## Compose reference
 
-- `../../../../dataeng/docker-compose.yml:L1-L243` — full lakehouse stack this module mirrors.
-- `../../../../dataeng/README.md` — sibling stack topology notes.
+- `../../compose/full-stack/docker-compose.yml` — the self-contained full lakehouse stack for this course. Based on the companion lakehouse project.
 
 ## Upstream release pages (version pinning)
 

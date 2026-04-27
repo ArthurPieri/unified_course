@@ -1,6 +1,6 @@
 # Module 03: Python Engineering for Data (12h)
 
-> GAP module — no comprehensive sibling source. Citations are to primary docs, PEPs, and two real files in `../dataeng/`.
+> GAP module — no comprehensive sibling source. Citations are to primary docs and PEPs.
 
 ## Learning goals
 - Scaffold a reproducible Python project with `pyproject.toml` and a lockfile
@@ -24,7 +24,7 @@
 `pyproject.toml` is the single declarative file that describes a Python project: build backend, dependencies, tool config. PEP 518 introduced the file and the `[build-system]` table to declare build requirements. PEP 621 standardized the `[project]` table — name, version, `requires-python`, `dependencies`, optional-dependencies — so the metadata is portable across tools.
 Ref: [PEP 518](https://peps.python.org/pep-0518/) · [PEP 621](https://peps.python.org/pep-0621/)
 
-A minimal working example lives in `../dataeng/pyproject.toml:L1-L33` — `[project]` block with `requires-python = ">=3.10"`, `[project.optional-dependencies]` for `dev`/`dlt`/`dbt` groups, and tool tables `[tool.ruff]`, `[tool.ruff.lint]`, `[tool.pytest.ini_options]`.
+A minimal working `pyproject.toml` includes a `[project]` block with `requires-python = ">=3.10"`, `[project.optional-dependencies]` for `dev`/`dlt`/`dbt` groups, and tool tables `[tool.ruff]`, `[tool.ruff.lint]`, `[tool.pytest.ini_options]`.
 
 ### `src/` layout vs. flat layout
 In a `src/` layout the importable package lives at `src/<pkg>/` instead of `<pkg>/` at the repo root. The practical consequence: running tests or scripts from the project root can only import the package via the installed distribution, which catches packaging bugs early (missing `__init__.py`, files excluded from the wheel). The Python Packaging User Guide documents both layouts and the trade-off.
@@ -41,7 +41,7 @@ Ref: [uv — Projects](https://docs.astral.sh/uv/concepts/projects/) · [uv — 
 Ref: [uv — Getting started](https://docs.astral.sh/uv/getting-started/) · [pip](https://pip.pypa.io/en/stable/) · [Poetry](https://python-poetry.org/docs/)
 
 ### Code quality: `ruff`, `mypy`, `pre-commit`
-`ruff` is a linter and formatter. A single tool replaces the `flake8` + `isort` + `black` stack; rules are selected via `[tool.ruff.lint] select = [...]`. The dataeng project uses `select = ["E", "F", "I", "W"]` — pycodestyle errors/warnings, pyflakes, and import sorting (`../dataeng/pyproject.toml:L28-L29`).
+`ruff` is a linter and formatter. A single tool replaces the `flake8` + `isort` + `black` stack; rules are selected via `[tool.ruff.lint] select = [...]`. A practical starting set is `select = ["E", "F", "I", "W"]` — pycodestyle errors/warnings, pyflakes, and import sorting.
 Ref: [Ruff — Configuration](https://docs.astral.sh/ruff/configuration/) · [Ruff — Rules](https://docs.astral.sh/ruff/rules/) · [Ruff — Formatter](https://docs.astral.sh/ruff/formatter/)
 
 `mypy` is a static type checker. It reads the annotations you already write (`def greet(name: str) -> str:`) and flags mismatches before runtime.
@@ -51,10 +51,10 @@ Ref: [mypy — Introduction](https://mypy.readthedocs.io/en/stable/) · [mypy �
 Ref: [pre-commit — Quick start](https://pre-commit.com/#quick-start) · [pre-commit — Plugins](https://pre-commit.com/#pre-commit-configyaml---hooks)
 
 ### Testing with `pytest`
-`pytest` discovers files matching `test_*.py` and functions matching `test_*` and uses plain `assert` statements. Test discovery paths are configured via `[tool.pytest.ini_options] testpaths = [...]` — see `../dataeng/pyproject.toml:L31-L33`.
+`pytest` discovers files matching `test_*.py` and functions matching `test_*` and uses plain `assert` statements. Test discovery paths are configured via `[tool.pytest.ini_options] testpaths = [...]` in `pyproject.toml`.
 Ref: [pytest — Getting started](https://docs.pytest.org/en/stable/getting-started.html) · [pytest — How to invoke](https://docs.pytest.org/en/stable/how-to/usage.html)
 
-**Fixtures** are functions decorated with `@pytest.fixture` that provide setup/teardown and are injected by parameter name. They have scopes (`function`, `class`, `module`, `session`) that control how often they run. A `conftest.py` file shares fixtures across every test file in its directory and subdirectories — no import needed. See `../dataeng/tests/conftest.py:L1-L37` for two real examples: `mock_minio_credentials` uses the built-in `monkeypatch` fixture to set env vars, and `tmp_pipeline_dir` builds on the built-in `tmp_path` fixture.
+**Fixtures** are functions decorated with `@pytest.fixture` that provide setup/teardown and are injected by parameter name. They have scopes (`function`, `class`, `module`, `session`) that control how often they run. A `conftest.py` file shares fixtures across every test file in its directory and subdirectories — no import needed. Two common patterns: a fixture that uses `monkeypatch` to set environment variables (e.g., mock cloud credentials), and a fixture that builds on the built-in `tmp_path` to create a temporary directory structure for pipeline tests.
 Ref: [pytest — Fixtures](https://docs.pytest.org/en/stable/how-to/fixtures.html) · [pytest — conftest.py](https://docs.pytest.org/en/stable/reference/fixtures.html#conftest-py-sharing-fixtures-across-multiple-files) · [pytest — monkeypatch](https://docs.pytest.org/en/stable/how-to/monkeypatch.html) · [pytest — tmp_path](https://docs.pytest.org/en/stable/how-to/tmp_path.html)
 
 **Parametrize** runs the same test body against multiple inputs:

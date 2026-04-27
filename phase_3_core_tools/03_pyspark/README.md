@@ -1,6 +1,6 @@
 # Module 03: PySpark on the Lakehouse (8h)
 
-> **GAP module.** No sibling PySpark source exists in `../dataeng/` (confirmed via `references/sibling_sources.md` — row: "Phase 3 · 03_pyspark → GAP"). The `../azure_certified/labs/02-spark-transformations.ipynb` is Databricks-tied notebook infra and is not reused. Content below is written from primary docs only: `spark.apache.org/docs/3.5.3/` and `iceberg.apache.org/docs/1.5.2/`, per `docs/REUSE_POLICY.md`.
+> **GAP module.** No companion PySpark source is reused in this module. Content below is written from primary docs only: [Apache Spark 3.5.3](https://spark.apache.org/docs/3.5.3/) and [Apache Iceberg 1.5.2](https://iceberg.apache.org/docs/1.5.2/), per `docs/REUSE_POLICY.md`.
 
 ## Learning goals
 

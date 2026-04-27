@@ -1,21 +1,18 @@
 
 # Module 05: dbt — References
 
-## Primary reuse (sibling source)
-- `../dataeng/dbt_project/dbt_project.yml:L1-L27` — canonical project wiring: layer-to-schema mapping (`staging → silver`, `marts → gold`), layer-specific materializations.
-- `../dataeng/dbt_project/profiles.yml:L1-L12` — `dbt-trino` profile targeting the local compose Trino (`type: trino`, `method: none`, catalog `iceberg`).
-- `../dataeng/dbt_project/models/sources.yml:L1-L27` — `sources:` declaration with freshness SLA on the `_dlt_load_id` load marker.
-- `../dataeng/dbt_project/models/staging/stg_taxi_trips.sql:L1-L20` — incremental staging pattern: `config(materialized='incremental', unique_key='trip_id', on_schema_change='append_new_columns')` + `is_incremental()` guard.
-- `../dataeng/dbt_project/models/staging/stg_taxi_trips.sql:L23-L56` — rename/cast-only staging body.
-- `../dataeng/dbt_project/models/staging/stg_taxi_zones.sql` — staging for a small reference dim (pattern reference).
-- `../dataeng/dbt_project/models/intermediate/int_trips_enriched.sql:L1-L52` — intermediate join/enrichment layer consumed by marts.
-- `../dataeng/dbt_project/models/marts/fct_trip_metrics.sql:L1-L31` — fact table reading from an intermediate via `ref()`; `group by` aggregation pattern.
-- `../dataeng/dbt_project/models/marts/fct_daily_revenue.sql` — aggregate fact, target of the singular test.
-- `../dataeng/dbt_project/models/marts/dim_zones.sql` — dimension table pattern.
-- `../dataeng/dbt_project/models/marts/_marts__models.yml:L1-L82` — generic tests attached to columns: `not_null`, `unique`, `accepted_values`.
-- `../dataeng/dbt_project/tests/assert_positive_revenue.sql:L1-L9` — canonical singular test: returns rows where `total_revenue < 0`.
-- `../dataeng/dbt_project/unit_tests/test_revenue_calculation.yml:L1-L80` — dbt 1.8 unit-test pattern (forward reference; Phase 2 Module 04 owns unit tests).
-- `../dataeng/dbt_project/macros/generate_schema_name.sql` — custom schema-naming macro (stretch-goal reference).
+## Patterns (based on the companion lakehouse project)
+- Canonical project wiring: layer-to-schema mapping (`staging → silver`, `marts → gold`), layer-specific materializations in `dbt_project.yml`. Ref: [dbt — dbt_project.yml](https://docs.getdbt.com/reference/dbt_project.yml).
+- `dbt-trino` profile targeting the local compose Trino (`type: trino`, `method: none`, catalog `iceberg`). See the lab's `profiles.yml.example`. Ref: [dbt — Trino setup](https://docs.getdbt.com/docs/core/connect-data-platform/trino-setup).
+- `sources:` declaration with freshness SLA on the `_dlt_load_id` load marker. Ref: [dbt — Source freshness](https://docs.getdbt.com/docs/build/sources#snapshotting-source-data-freshness).
+- Incremental staging pattern: `config(materialized='incremental', unique_key='trip_id', on_schema_change='append_new_columns')` + `is_incremental()` guard. Ref: [dbt — Incremental models](https://docs.getdbt.com/docs/build/incremental-models).
+- Rename/cast-only staging body. See the lab's `models/staging/stg_taxi_trips.sql`.
+- Intermediate join/enrichment layer consumed by marts. See the lab's `models/intermediate/int_taxi_hourly.sql`.
+- Fact table reading from an intermediate via `ref()`; `group by` aggregation pattern. See the lab's `models/marts/fct_taxi_hourly.sql`.
+- Generic tests attached to columns: `not_null`, `unique`, `accepted_values`. See the lab's `models/schema.yml`. Ref: [dbt — Data tests](https://docs.getdbt.com/docs/build/data-tests).
+- Singular test: returns rows where a metric is invalid. See the lab's `tests/assert_nonneg_trip_count.sql`.
+- dbt 1.8 unit-test pattern (forward reference; Phase 2 Module 04 owns unit tests). Ref: [dbt — Unit tests](https://docs.getdbt.com/docs/build/unit-tests).
+- Custom schema-naming macro (stretch-goal reference). Ref: [dbt — Custom schema names](https://docs.getdbt.com/docs/build/custom-schemas).
 
 ## Official dbt docs (docs.getdbt.com)
 - [About dbt projects](https://docs.getdbt.com/docs/build/projects) — project structure and the role of `dbt_project.yml`.

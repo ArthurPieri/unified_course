@@ -25,7 +25,7 @@
 ### Why CI/CD matters for data
 Data pipelines have a property that stateless APIs do not: a bad production change often cannot be rolled back cleanly. If a dbt model drops a column or rewrites history, replaying the previous version does not undo the damage to downstream tables, BI caches, or reverse-ETL exports. The only safe strategy is to catch errors *before* merge. CI lets you run `dbt compile`, `dbt test`, unit tests, and linters against every pull request so broken SQL never reaches `main`. CD then automates the deployment itself so humans do not fat-finger `kubectl apply` at 2 a.m.
 
-Ref: [dbt docs — Continuous integration jobs](https://docs.getdbt.com/docs/deploy/continuous-integration) · `../dataeng/.github/workflows/dbt-ci.yml:L1-L70`
+Ref: [dbt docs — Continuous integration jobs](https://docs.getdbt.com/docs/deploy/continuous-integration) · see the CI/CD examples in this repo's `phase_5_advanced/01_cicd/`
 
 ### GitHub Actions anatomy
 A **workflow** is a YAML file under `.github/workflows/`. It contains one or more **jobs**, which run in parallel by default on a **runner** (a VM or container GitHub provides, or a self-hosted machine). Each job contains **steps**: either a shell command (`run:`) or a reusable **action** (`uses:`). Actions are referenced by `owner/repo@ref`, for example `actions/checkout@v4`. A **matrix** runs the same job across a set of variables (Python 3.11, 3.12, 3.13) without duplicating YAML.
@@ -35,7 +35,7 @@ Ref: [GitHub Actions — Workflow syntax](https://docs.github.com/en/actions/usi
 ### Triggers
 The `on:` key defines when a workflow runs. `push` fires on every commit to a branch; `pull_request` fires when a PR is opened, updated, or reopened; `schedule` uses cron syntax for periodic runs; `workflow_dispatch` adds a manual "Run workflow" button in the GitHub UI, optionally with typed inputs. For data teams: use `pull_request` for lint/compile/unit tests, `push` to `main` for deploys, `schedule` for nightly freshness checks, and `workflow_dispatch` for expensive integration runs you only want to kick off by hand.
 
-Example from `../dataeng/.github/workflows/dbt-ci.yml:L2-L6`:
+Example (typical dbt CI workflow trigger):
 ```yaml
 on:
   pull_request:
@@ -55,7 +55,7 @@ Never commit credentials. GitHub provides two mechanisms:
 Ref: [GitHub Actions — Encrypted secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets) · [About security hardening with OIDC](https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect)
 
 ### Data-specific pipelines: dbt PR check
-The reference implementation at `../dataeng/.github/workflows/dbt-ci.yml:L8-L33` runs three things on every PR that touches `dbt_project/`:
+A typical dbt CI workflow runs three things on every PR that touches `dbt_project/`:
 1. `dbt deps` to install packages (`L20-L21`)
 2. `dbt compile --target dev` as a pure syntax/ref check (`L22-L23`)
 3. `sqlfluff lint` on changed files only, detected via `git diff --name-only origin/main...HEAD` (`L24-L33`)
@@ -65,7 +65,7 @@ A second job (`L35-L50`) runs `dbt test --select test_type:unit` — unit tests 
 Ref: [dbt docs — Unit tests](https://docs.getdbt.com/docs/build/unit-tests)
 
 ### Full-stack integration test
-A second workflow at `../dataeng/.github/workflows/pipeline-validation.yml:L1-L57` spins up the entire compose stack (MinIO, HMS, Trino, Postgres) inside the runner, initialises buckets and schemas, runs a health check, and tears down. Key design choices:
+A full-stack integration workflow spins up the entire compose stack (MinIO, HMS, Trino, Postgres) inside the runner, initialises buckets and schemas, runs a health check, and tears down. Key design choices:
 - Triggered only by `workflow_dispatch` and `push` to `main` on specific paths (`L2-L9`) — it's expensive.
 - `timeout-minutes: 30` (`L15`) caps runaway cost.
 - A polling loop waits for `docker compose ps` to report `healthy` (`L39-L45`).
@@ -91,10 +91,10 @@ Ref: [GitHub Actions — Using environments for deployment](https://docs.github.
 ## Common failures
 | Symptom | Cause | Fix | Source |
 |---|---|---|---|
-| Workflow runs on every commit, wasting minutes | No `paths` filter on the trigger | Add `paths:` under `pull_request` / `push` | `../dataeng/.github/workflows/dbt-ci.yml:L4-L6` |
+| Workflow runs on every commit, wasting minutes | No `paths` filter on the trigger | Add `paths:` under `pull_request` / `push` | [GitHub Actions — Events that trigger workflows](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows) |
 | `dbt compile` works locally, fails in CI | Missing `profiles.yml` or `DBT_PROFILES_DIR` | Check profile path, use env vars not hard-coded creds | [dbt — profiles.yml](https://docs.getdbt.com/docs/core/connect-data-platform/profiles.yml) |
 | AWS step fails with `The security token included in the request is invalid` | Still using long-lived `AWS_ACCESS_KEY_ID` | Migrate to OIDC with `aws-actions/configure-aws-credentials` | [GitHub Actions OIDC with AWS](https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/configuring-openid-connect-in-amazon-web-services) |
-| Integration test passes locally, fails in runner | Race condition — services not healthy yet | Poll `docker compose ps` for `healthy` before continuing | `../dataeng/.github/workflows/pipeline-validation.yml:L39-L45` |
+| Integration test passes locally, fails in runner | Race condition — services not healthy yet | Poll `docker compose ps` for `healthy` before continuing | [Docker Compose — wait for dependencies](https://docs.docker.com/compose/how-tos/startup-order/) |
 | Secret value appears as `***` in logs but still leaks via filename | Secret used in a filename | Never interpolate secrets into filenames or URLs written to logs | [GitHub — secret masking](https://docs.github.com/en/actions/security-guides/encrypted-secrets#accessing-your-secrets) |
 
 ## References
@@ -103,7 +103,7 @@ See [references.md](./references.md).
 ## Checkpoint
 Before moving on, you can:
 - [ ] Explain to a non-data engineer why rolling back a bad dbt deploy is harder than rolling back a bad API deploy.
-- [ ] Read the `dbt-ci.yml` in the dataeng repo and identify the trigger, jobs, and their dependencies.
+- [ ] Read a `dbt-ci.yml` workflow (see [GitHub Actions: workflow syntax](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions)) and identify the trigger, jobs, and their dependencies.
 - [ ] Write a workflow that runs `ruff` and `pytest` on every PR to a Python repo.
 - [ ] Configure an `environment: production` gate on a deploy job.
 - [ ] List three reasons OIDC is safer than `AWS_ACCESS_KEY_ID` in secrets.

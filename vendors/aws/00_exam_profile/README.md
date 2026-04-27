@@ -1,7 +1,7 @@
 # Module 00: DEA-C01 Exam Profile (3h)
 
 > Anchor every study decision to the official exam guide.
-> Source of truth for this module: `../../../../aws_certified/data-engineer-associate-01.pdf` = *AWS DEA-C01 Exam Guide* (cited inline).
+> Source of truth for this module: [AWS DEA-C01 Exam Guide](https://aws.amazon.com/certification/certified-data-engineer-associate/) (cited inline).
 
 ## Learning goals
 

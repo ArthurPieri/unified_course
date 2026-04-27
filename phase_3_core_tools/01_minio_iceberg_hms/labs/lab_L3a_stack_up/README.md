@@ -32,7 +32,7 @@ fs.native-s3.enabled=true
 EOF
 ```
 
-Ref: [Trino Iceberg connector](https://trino.io/docs/current/connector/iceberg.html). The `metastore-site.xml` and remaining Trino configs come from module `../00_stack_overview/` in your own branch; if `./conf/metastore-site.xml` is missing, copy the sibling reference at `../../../../../dataeng/hive-metastore/metastore-site.xml` before proceeding.
+Ref: [Trino Iceberg connector](https://trino.io/docs/current/connector/iceberg.html). The `metastore-site.xml` and remaining Trino configs come from module `../00_stack_overview/` in your own branch; if `./conf/metastore-site.xml` is missing, copy the reference from `../../compose/full-stack/conf/metastore-site.xml` before proceeding.
 
 ## Steps
 

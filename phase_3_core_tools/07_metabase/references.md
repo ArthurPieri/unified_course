@@ -24,7 +24,6 @@
 
 ## Sibling-dir sources (cited inline)
 
-- `../../../../dataeng/docker-compose.yml:L170-L189` — Metabase + metabase-db service blocks in the reference compose (profiles: visualization, full).
 - `../compose/full-stack/docker-compose.yml:L229-L265` — Metabase + metabase-db blocks in the course stack (depends_on: trino healthy).
 - `../00_stack_overview/README.md` — topology, ports, service responsibility table.
 - `../02_trino/README.md` — Trino architecture and catalog model (Metabase is a Trino client).

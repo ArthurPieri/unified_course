@@ -4,7 +4,7 @@ Index of AWS official documentation used across the six modules. Module-level `r
 
 ## Exam guide and certification portal
 
-- **DEA-C01 Exam Guide (PDF)** — `../../../aws_certified/data-engineer-associate-01.pdf`. Pages cited across modules: 1-18 (Intro, Target Candidate, Exam content, Content outline, Domains 1-4, In-Scope Services).
+- **[AWS DEA-C01 Exam Guide](https://aws.amazon.com/certification/certified-data-engineer-associate/)** — Pages cited across modules: 1-18 (Intro, Target Candidate, Exam content, Content outline, Domains 1-4, In-Scope Services).
 - [AWS Certified Data Engineer - Associate (product page)](https://aws.amazon.com/certification/certified-data-engineer-associate/)
 - [AWS Certification portal (scheduling)](https://www.aws.training/certification)
 - [AWS Certification Policies - Before Testing](https://aws.amazon.com/certification/policies/before-testing/)
@@ -79,12 +79,22 @@ Index of AWS official documentation used across the six modules. Module-level `r
 - [AWS Cost Explorer](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/ce-what-is.html)
 - [AWS Budgets](https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html)
 
-## Unified course + sibling references
+## Unified course references
 
-- `../../UNIFIED_COURSE_PLAN.md:581-653` — AWS branch scope (100-130h, Phases 0-5 prereq, DEA-C01 cert target).
-- `../../docs/REUSE_POLICY.md` — citation rules enforced here.
-- `../../docs/TEMPLATE_module.md` — module structure template.
-- `../../references/sibling_sources.md:106-131` — sibling `../../../aws_certified/` source inventory.
-- Sibling week files cited extensively: `../../../aws_certified/docs/week-01-ingestion-fundamentals.md` through `week-11-cross-domain.md`.
-- Sibling labs: `../../../aws_certified/labs/week-01-lab-ingestion.md` through `week-11-lab-capstone.md`.
-- Sibling mock exams: `../../../aws_certified/docs/week-12-mock-exam-1.md`, `week-12-mock-exam-2.md`.
+- Unified course plan — AWS branch scope (100-130h, Phases 0-5 prereq, DEA-C01 cert target).
+- Unified course reuse policy — citation rules enforced here.
+- Unified course module template — module structure template.
+
+## AWS official documentation index
+
+The following AWS documentation is cited extensively across modules:
+
+- Ingestion: [AWS Glue Developer Guide](https://docs.aws.amazon.com/glue/latest/dg/), [AWS DMS User Guide](https://docs.aws.amazon.com/dms/latest/userguide/)
+- Streaming: [Amazon Kinesis Developer Guide](https://docs.aws.amazon.com/kinesis/latest/dev/), [Amazon MSK Developer Guide](https://docs.aws.amazon.com/msk/latest/developerguide/)
+- Storage/Lifecycle: [Amazon S3 User Guide](https://docs.aws.amazon.com/AmazonS3/latest/userguide/), [S3 Lifecycle](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lifecycle-mgmt.html)
+- Transformation/Catalog: [AWS Glue ETL](https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl.html), [AWS Glue Data Catalog](https://docs.aws.amazon.com/glue/latest/dg/catalog-and-crawler.html), [AWS Glue Schema Registry](https://docs.aws.amazon.com/glue/latest/dg/schema-registry.html)
+- Analytics: [Amazon Athena User Guide](https://docs.aws.amazon.com/athena/latest/ug/), [Amazon Redshift](https://docs.aws.amazon.com/redshift/latest/dg/), [Amazon QuickSight](https://docs.aws.amazon.com/quicksight/latest/user/)
+- Orchestration: [AWS Step Functions Developer Guide](https://docs.aws.amazon.com/step-functions/latest/dg/)
+- Security: [AWS IAM User Guide](https://docs.aws.amazon.com/IAM/latest/UserGuide/), [AWS KMS Developer Guide](https://docs.aws.amazon.com/kms/latest/developerguide/)
+- Cross-domain: [AWS Well-Architected Data Analytics Lens](https://docs.aws.amazon.com/wellarchitected/latest/analytics-lens/)
+- Mock exams: See [mock_exam_sources.md](./mock_exam_sources.md)

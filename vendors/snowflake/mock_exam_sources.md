@@ -17,18 +17,18 @@
 
 Each of the three official PDFs ends with a **"Sample Questions"** section (5 questions + answers). These are authoritative and should be worked first.
 
-- *SnowPro Associate: Platform (SOL-C01) Study Guide* — sample questions section, p. 9. File: `../../../snowflake_eng/SnowProPlatformStudyGuide.pdf`
-- *SnowPro Core (COF-C02) Study Guide* — sample questions section, p. 13. File: `../../../snowflake_eng/SnowProCoreStudyGuide.pdf`
-- *SnowPro Advanced: Data Engineer (DEA-C02) Study Guide* — sample questions section, p. 12. File: `../../../snowflake_eng/SnowProDataEngineerStudyGuide.pdf`
+- *SnowPro Associate: Platform (SOL-C01) Study Guide* — sample questions section, p. 9. Download from [Snowflake certification study guides](https://www.snowflake.com/certifications/).
+- *SnowPro Core (COF-C02) Study Guide* — sample questions section, p. 13. Download from [Snowflake certification study guides](https://www.snowflake.com/certifications/).
+- *SnowPro Advanced: Data Engineer (DEA-C02) Study Guide* — sample questions section, p. 12. Download from [Snowflake certification study guides](https://www.snowflake.com/certifications/).
 
 ## Sibling repo quick-check questions
 
 The Phase 1 Platform study notes include "Quick Check" questions at the end of each objective. These are written by the sibling curriculum author and map 1:1 to SOL-C01 and partially to COF-C02 topics.
 
-- Architecture Quick Checks — `../../../snowflake_eng/phase1_platform/study_notes/domain_1_0_architecture.md` (look for `### Quick Check`)
-- Identity Quick Checks — `../../../snowflake_eng/phase1_platform/study_notes/domain_2_0_identity.md:L115-L122, L236-L245`
-- Data Loading Quick Checks — `../../../snowflake_eng/phase1_platform/study_notes/domain_3_0_data_loading.md` (per objective)
-- Data Protection Quick Checks — `../../../snowflake_eng/phase1_platform/study_notes/domain_4_0_data_protection.md:L123-L130, L238-L245`
+- Architecture Quick Checks — see [Snowflake Architecture](https://docs.snowflake.com/en/user-guide/intro-key-concepts) and module `01_architecture/quiz.md`
+- Identity Quick Checks — see [Snowflake Access Control](https://docs.snowflake.com/en/user-guide/security-access-control-overview) and module `03_access/quiz.md`
+- Data Loading Quick Checks — see [Snowflake Data Loading](https://docs.snowflake.com/en/user-guide/data-load-overview) and module `02_loading/quiz.md`
+- Data Protection Quick Checks — see [Snowflake Data Protection](https://docs.snowflake.com/en/user-guide/data-time-travel) and module `04_protection/quiz.md`
 
 ## Module quizzes in this branch
 
@@ -45,7 +45,7 @@ Every question cites either (a) an official Snowflake PDF study guide section, (
 
 ## Readiness gates
 
-From `../../../snowflake_eng/STUDY_PLAN.md:L695-L701`:
+Recommended readiness gates per the [Snowflake certification guide](https://www.snowflake.com/certifications/):
 
 | Phase | Gate |
 |---|---|

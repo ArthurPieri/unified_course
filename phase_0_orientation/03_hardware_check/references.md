@@ -6,4 +6,4 @@
 - [Docker Desktop WSL2 backend](https://docs.docker.com/desktop/features/wsl/) — Windows setup
 - [Compose v1 → v2 migration](https://docs.docker.com/compose/migrate/) — why `docker compose` (space) not `docker-compose`
 - [`docker info` reference](https://docs.docker.com/reference/cli/docker/system/info/) — fields used by `check.sh`
-- Phase 3 stack reference: [`../../references/sibling_sources.md`](../../references/sibling_sources.md) (row: `../dataeng/docker-compose.yml`)
+- Content provenance: [`../../references/sibling_sources.md`](../../references/sibling_sources.md)

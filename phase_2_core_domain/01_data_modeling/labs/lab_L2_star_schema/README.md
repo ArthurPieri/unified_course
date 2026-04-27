@@ -56,7 +56,7 @@ CREATE TABLE fct_orders (
     revenue       numeric(12,2) NOT NULL CHECK (revenue >= 0)
 );
 ```
-Reference star-schema shape: `../../../../../dataeng/dbt_project/models/marts/dim_zones.sql:L7-L18` (denormalized dimension) and `../../../../../dataeng/dbt_project/models/marts/fct_trip_metrics.sql:L9-L23` (fact with declared grain).
+Reference star-schema shape: a denormalized dimension selects all attributes into one flat table; a fact table declares a grain (e.g., date x borough) and stores only additive or semi-additive measures. See *Kimball DW Toolkit, Ch. 1*.
 
 **2. Seed `dim_date` and an initial customer row.**
 
@@ -100,7 +100,7 @@ VALUES (42, 'Ada Lovelace', '10 Downing St, London', 'EMEA',
 COMMIT;
 ```
 
-SCD2 trade-offs and the `valid_from`/`valid_to`/`is_current` pattern: *Kimball DW Toolkit, Ch. 5*. dbt's `snapshot` with `strategy='timestamp'` does the same thing automatically — see `../../../../../dataeng/dbt_project/snapshots/snap_taxi_zones.sql:L1-L25`.
+SCD2 trade-offs and the `valid_from`/`valid_to`/`is_current` pattern: *Kimball DW Toolkit, Ch. 5*. dbt's `snapshot` with `strategy='timestamp'` does the same thing automatically — see [dbt — Snapshots](https://docs.getdbt.com/docs/build/snapshots).
 
 **5. Insert a post-move order. It must reference the new surrogate key.**
 

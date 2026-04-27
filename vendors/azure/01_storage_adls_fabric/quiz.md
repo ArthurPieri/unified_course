@@ -65,12 +65,12 @@
 ## Answer key
 
 1. **B** — [ADLS Gen2 introduction](https://learn.microsoft.com/en-us/azure/storage/blobs/data-lake-storage-introduction).
-2. **C** — Irreversible HNS upgrade; [ADLS Gen2 upgrade](https://learn.microsoft.com/en-us/azure/storage/blobs/upgrade-to-data-lake-storage-gen2-how-to) and `../../../../azure_certified/IMPLEMENTATION-PLAN.md:L178-L185`.
+2. **C** — Irreversible HNS upgrade; [ADLS Gen2 upgrade](https://learn.microsoft.com/en-us/azure/storage/blobs/upgrade-to-data-lake-storage-gen2-how-to).
 3. **C** — [OneLake shortcuts](https://learn.microsoft.com/en-us/fabric/onelake/onelake-shortcuts).
 4. **B** — [Fabric mirroring](https://learn.microsoft.com/en-us/fabric/database/mirrored-database/overview).
 5. **B** — [Delta optimization and V-Order](https://learn.microsoft.com/en-us/fabric/data-engineering/delta-optimization-and-v-order).
 6. **B** — [Fabric Warehouse](https://learn.microsoft.com/en-us/fabric/data-warehouse/data-warehousing) and [Fabric Lakehouse](https://learn.microsoft.com/en-us/fabric/data-engineering/lakehouse-overview).
-7. **C** — [Delta Lake VACUUM](https://learn.microsoft.com/en-us/fabric/data-engineering/lakehouse-table-maintenance); `../../../../azure_certified/IMPLEMENTATION-PLAN.md:L197-L220`.
-8. **B** — Over-partitioning anti-pattern; `../../../../azure_certified/IMPLEMENTATION-PLAN.md:L210-L235`.
+7. **C** — [Delta Lake VACUUM](https://learn.microsoft.com/en-us/fabric/data-engineering/lakehouse-table-maintenance); see [Delta Lake table maintenance](https://learn.microsoft.com/en-us/fabric/data-engineering/lakehouse-table-maintenance) for VACUUM retention and file cleanup details.
+8. **B** — Over-partitioning anti-pattern; see [Delta optimization and V-Order](https://learn.microsoft.com/en-us/fabric/data-engineering/delta-optimization-and-v-order) for partitioning guidance.
 9. **B** — Shortcuts + mirroring replace external tables in Fabric ([OneLake shortcuts](https://learn.microsoft.com/en-us/fabric/onelake/onelake-shortcuts)).
 10. **B** — [Delta optimization](https://learn.microsoft.com/en-us/fabric/data-engineering/delta-optimization-and-v-order).

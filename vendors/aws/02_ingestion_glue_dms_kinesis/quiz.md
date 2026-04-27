@@ -80,11 +80,11 @@
 
 1. **B** — KDS with enhanced fan-out gives per-consumer 2 MiB/s and sub-second latency with configurable retention up to 365 days. [KDS enhanced fan-out](https://docs.aws.amazon.com/streams/latest/dev/enhanced-consumers.html).
 2. **B** — Firehose supports record format conversion from JSON to Parquet/ORC via a Glue table reference. [Firehose record format conversion](https://docs.aws.amazon.com/firehose/latest/dev/record-format-conversion.html).
-3. **B** — `PutRecords` can partially fail; always inspect `FailedRecordCount` and retry. `../../../aws_certified/labs/week-02-lab-streaming.md:209-215`; [PutRecords API](https://docs.aws.amazon.com/kinesis/latest/APIReference/API_PutRecords.html).
+3. **B** — `PutRecords` can partially fail; always inspect `FailedRecordCount` and retry. [PutRecords API](https://docs.aws.amazon.com/kinesis/latest/APIReference/API_PutRecords.html).
 4. **B** — Offline Snowball Edge for 800 TB over a saturated 1 Gbps link. [Snow Family](https://docs.aws.amazon.com/snowball/latest/ug/whatisdevice.html).
 5. **C** — DMS full load + CDC. [DMS CDC](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Task.CDC.html).
 6. **B** — 60 seconds (minimum buffer interval; minimum buffer size 1 MiB). [Firehose buffering](https://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html).
-7. **B** — DynamicFrame `ResolveChoice`. `../../../aws_certified/labs/week-03-lab-transformation.md:229-244`; [DynamicFrame ResolveChoice](https://docs.aws.amazon.com/glue/latest/dg/aws-glue-api-crawler-pyspark-extensions-dynamic-frame.html).
+7. **B** — DynamicFrame `ResolveChoice`. [DynamicFrame ResolveChoice](https://docs.aws.amazon.com/glue/latest/dg/aws-glue-api-crawler-pyspark-extensions-dynamic-frame.html).
 8. **C** — MSK Serverless supports IAM access control only. [MSK Serverless](https://docs.aws.amazon.com/msk/latest/developerguide/serverless.html).
 9. **A** — Job bookmarks. [Glue job bookmarks](https://docs.aws.amazon.com/glue/latest/dg/monitor-continuations.html).
 10. **B** — Hot partition key. [KDS partition keys](https://docs.aws.amazon.com/streams/latest/dev/key-concepts.html).

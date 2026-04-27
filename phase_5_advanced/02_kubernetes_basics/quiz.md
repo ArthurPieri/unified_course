@@ -46,7 +46,7 @@ Ten multiple-choice questions. Answer key at the bottom.
 - C. Pulls an image from a private registry.
 - D. Builds a new image from a Dockerfile.
 
-**8.** In the dataeng repo, `kind-config.yaml` maps host port `8180` to container port `30080`. Why `30080`?
+**8.** A `kind-config.yaml` maps host port `8180` to container port `30080`. Why `30080`?
 - A. It's the default Kubernetes API port.
 - B. It matches the NodePort configured in `trino-values.yaml` for the Trino coordinator Service.
 - C. It's a random choice with no meaning.

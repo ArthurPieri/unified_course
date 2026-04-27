@@ -28,7 +28,7 @@ Ten multiple-choice questions. Answer key at the bottom.
 - C. OIDC avoids paying for GitHub minutes.
 - D. OIDC works without IAM policies.
 
-**5.** In `../dataeng/.github/workflows/dbt-ci.yml`, what does the `paths:` filter under `pull_request` do?
+**5.** In a GitHub Actions workflow, what does the `paths:` filter under `pull_request` do?
 - A. Restricts which directories dbt will compile.
 - B. Skips the workflow unless one of the listed paths changed.
 - C. Deletes files outside the listed paths.

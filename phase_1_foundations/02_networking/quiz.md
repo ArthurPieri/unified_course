@@ -58,7 +58,7 @@ D) DNS queries always use TCP
 
 **Q1 — D.** `169.254.0.0/16` is link-local, defined in RFC 3927, not RFC 1918 private space. Ref: [RFC 1918](https://datatracker.ietf.org/doc/html/rfc1918).
 
-**Q2 — B (254).** `/24` = 256 addresses minus network (`.0`) and broadcast (`.255`) = 254 usable. Ref: [RFC 1878: Variable Length Subnet Table](https://datatracker.ietf.org/doc/html/rfc1878) · `../linux_fundamentals/course/02-system-administration.md:L951-L958`.
+**Q2 — B (254).** `/24` = 256 addresses minus network (`.0`) and broadcast (`.255`) = 254 usable. Ref: [RFC 1878: Variable Length Subnet Table](https://datatracker.ietf.org/doc/html/rfc1878).
 
 **Q3 — B.** DNS → TCP handshake → TLS handshake → HTTP request/response. Ref: [RFC 9112: HTTP/1.1](https://datatracker.ietf.org/doc/html/rfc9112) · [RFC 8446: TLS 1.3](https://datatracker.ietf.org/doc/html/rfc8446).
 

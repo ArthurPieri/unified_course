@@ -30,7 +30,7 @@ The three-layer model maps cleanly to responsibilities.
 - A **resource** is a Python generator decorated with `@dlt.resource` that yields records for one logical table. It owns the write disposition, primary key, and column hints.
 - A **source** is a `@dlt.source`-decorated function that groups related resources (e.g. `users` + `orders` from one API) and shares auth.
 - A **pipeline** is the runtime object: `dlt.pipeline(pipeline_name=..., destination=..., dataset_name=...)`. Calling `pipeline.run(source)` extracts, normalises, and loads.
-See `../dataeng/dlt_pipelines/taxi_pipeline.py:L52-L110` for the resource pattern and `:L118-L132` for the source wrapper.
+See the lab's `pipeline.py` for the resource pattern and the source wrapper.
 Ref: [dlt — Sources & resources](https://dlthub.com/docs/general-usage/source)
 
 ### Write dispositions
@@ -42,7 +42,7 @@ Ref: [dlt — Write dispositions](https://dlthub.com/docs/general-usage/incremen
 
 ### Incremental loading
 `dlt.sources.incremental("tpep_pickup_datetime")` wraps a cursor column. On the first run it stores `max(column)` as state; on subsequent runs it passes that value back into the resource so you can filter the source (or, as in `taxi_pipeline.py:L66-L110`, hand dlt an Arrow batch and let it drop already-seen rows). State lives under `~/.dlt/pipelines/<pipeline_name>/state.json` and in the destination's `_dlt_pipeline_state` table, so state survives a wiped local dir. Reset it with `pipeline.drop()` or by passing `--reset-state`.
-Primary reuse: `../dataeng/dlt_pipelines/taxi_pipeline.py:L52-L110` — the canonical incremental-append pattern used by this phase.
+Primary pattern: the canonical incremental-append pattern used by this phase is in the lab's `pipeline.py`.
 Ref: [dlt — Incremental loading](https://dlthub.com/docs/general-usage/incremental-loading)
 
 ### Destinations: filesystem and Iceberg
@@ -69,7 +69,7 @@ Choose dlt when: you have ten sources and don't want to write ten loaders; the s
 | `botocore ... InvalidAccessKeyId` | MinIO creds missing from `.dlt/secrets.toml` | Export `DESTINATION__FILESYSTEM__CREDENTIALS__AWS_ACCESS_KEY_ID` and `..._AWS_SECRET_ACCESS_KEY` | [dlt — Filesystem credentials](https://dlthub.com/docs/dlt-ecosystem/destinations/filesystem#setup-credentials) |
 | Incremental run reloads everything | `pipeline.drop()` called or `~/.dlt/pipelines/<name>` deleted | State is the source of truth — keep it or accept the full reload | [dlt — Incremental state](https://dlthub.com/docs/general-usage/incremental-loading) |
 | `merge` fails with "no primary key" | `write_disposition="merge"` without `primary_key=` | Add `primary_key="id"` on the resource | [dlt — Merge](https://dlthub.com/docs/general-usage/incremental-loading#merge-incremental-loading) |
-| Endpoint URL ignored | Using `s3://` against MinIO without `endpoint_url` | Set `[destination.filesystem.credentials]` → `endpoint_url = "http://minio:9000"` | `../dataeng/dlt_pipelines/.dlt/config.toml` |
+| Endpoint URL ignored | Using `s3://` against MinIO without `endpoint_url` | Set `[destination.filesystem.credentials]` → `endpoint_url = "http://minio:9000"` | [dlt — Filesystem credentials](https://dlthub.com/docs/dlt-ecosystem/destinations/filesystem#setup-credentials) |
 
 ## References
 See [references.md](./references.md).

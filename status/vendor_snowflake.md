@@ -18,7 +18,7 @@ Target certifications: **SOL-C01** → **COF-C02** → **DEA-C02**
 - [x] vendors/snowflake/mock_exam_sources.md (first-party links only; explicit no-fabricated-questions notice)
 
 ## Decisions recorded
-- Primary source: `../snowflake_eng/` phase1_platform (cited with line ranges); phases 2-3 do not exist in sibling dir — flagged in `05_performance` and `06_dea_advanced` `references.md`
+- Primary source: Snowflake official documentation and certification study guides
 - Tri-cert structure: Platform → Core → DEA Advanced (overlap Platform→Core ~85%, Core→DEA ~50-75%)
 - SOL-C01: 65 Q / 85 min / 750/1000 / weights 35-15-40-10 verified from *Platform Guide p. 4*
 - COF-C02 and DEA-C02 duration/Q count flagged "verify on cert page" where not in the PDF

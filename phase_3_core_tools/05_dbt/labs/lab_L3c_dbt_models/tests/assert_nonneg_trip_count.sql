@@ -1,6 +1,6 @@
 -- Singular data test: fails if any fct_taxi_hourly row has a negative trip_count.
 -- dbt treats any returned row as a failure.
--- Pattern reference: ../dataeng/dbt_project/tests/assert_positive_revenue.sql:L1-L9
+-- Pattern based on the companion lakehouse project's singular test pattern.
 
 select
     pickup_hour,

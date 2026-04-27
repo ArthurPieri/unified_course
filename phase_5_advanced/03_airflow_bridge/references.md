@@ -23,10 +23,10 @@
 - [AWS MWAA — What is Amazon MWAA](https://docs.aws.amazon.com/mwaa/latest/userguide/what-is-mwaa.html) — managed Airflow on AWS
 - [Google Cloud Composer overview](https://cloud.google.com/composer/docs/concepts/overview) — managed Airflow on GCP
 
-## Sibling reuse
-- `../../../dataeng/dagster/lakehouse/assets/ingestion.py:L1-L58` — dlt taxi ingestion as a Dagster asset; Lab L5b ports this to an Airflow `@task`
-- `../../../dataeng/dagster/lakehouse/assets/transformation.py:L1-L42` — dbt build as a Dagster asset; Lab L5b ports this to an Airflow `@task`
-- `../../../dataeng/dagster/lakehouse/assets/quality.py` — Dagster asset checks; cite in the comparison writeup as the thing Airflow has no direct equivalent for
+## Internal course references
+- Phase 3 Dagster module (`../../phase_3_core_tools/06_dagster/`) — covers the Dagster asset graph (ingestion, transformation, quality) that Lab L5b ports to Airflow
+- [Dagster — Software-defined assets](https://docs.dagster.io/concepts/assets/software-defined-assets) — dlt ingestion and dbt build as Dagster assets
+- [Dagster — Asset checks](https://docs.dagster.io/concepts/assets/asset-checks) — Dagster quality checks; the thing Airflow has no direct equivalent for
 
 ## Books
 - *Fundamentals of Data Engineering*, Reis & Housley, Ch. 8 — orchestration chapter contrasts DAG-of-tasks vs asset-oriented systems

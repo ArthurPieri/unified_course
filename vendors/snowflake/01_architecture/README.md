@@ -14,8 +14,8 @@ Snowflake's three-layer architecture is the single highest-yield topic across al
 
 ## Reading order
 1. This README
-2. `../../../../snowflake_eng/phase1_platform/study_notes/domain_1_0_architecture.md:L16-L94` (layers, key facts, traps)
-3. `../../../../snowflake_eng/phase1_platform/labs/lab_01_architecture_and_ui.sql:L316-L385` (Section 6 — observe the three layers in practice)
+2. [Snowflake Architecture](https://docs.snowflake.com/en/user-guide/intro-key-concepts) (layers, key facts)
+3. [Snowflake Quickstarts](https://quickstarts.snowflake.com/) — hands-on architecture labs
 4. `quiz.md`
 
 ## Concepts
@@ -23,12 +23,12 @@ Snowflake's three-layer architecture is the single highest-yield topic across al
 ### The three layers (HIGH-YIELD)
 Snowflake decomposes into **Database Storage**, **Query Processing (Virtual Warehouses)**, and **Cloud Services**. Storage is compressed columnar files in cloud object storage (S3, Azure Blob, or GCS) that Snowflake manages internally — users never touch the raw files. Query Processing is one or more virtual warehouses (MPP clusters of cloud VMs) that can start, stop, resize, and clone without affecting stored data. Cloud Services is the always-on control plane that handles authentication, metadata, query parsing and optimization, and transactions.
 
-Ref: *SnowPro Associate: Platform Study Guide, §1.1 "Outline key features", p. 5* · `../../../../snowflake_eng/phase1_platform/study_notes/domain_1_0_architecture.md:L28-L66`.
+Ref: *SnowPro Associate: Platform Study Guide, §1.1 "Outline key features", p. 5* · [Snowflake Architecture](https://docs.snowflake.com/en/user-guide/intro-key-concepts).
 
 ### Separation of storage and compute
 Legacy warehouses couple storage and compute; scaling one requires scaling the other. Snowflake decouples them, so multiple warehouses can read the same storage concurrently without contention — this is **workload isolation**. Suspending a warehouse stops billing on that compute cluster without affecting stored data. Cloud Services is always on and cannot be suspended.
 
-Ref: [Snowflake key concepts](https://docs.snowflake.com/en/user-guide/intro-key-concepts) · `../../../../snowflake_eng/phase1_platform/study_notes/domain_1_0_architecture.md:L22-L27, L80-L86`.
+Ref: [Snowflake key concepts](https://docs.snowflake.com/en/user-guide/intro-key-concepts).
 
 ### Micro-partitions and metadata
 Snowflake stores tables as immutable **micro-partitions**, each typically 50-500 MB of uncompressed data (~16 MB compressed). For every micro-partition Snowflake records column min/max, distinct counts, null counts, and the range of values — this metadata drives **static pruning** during query planning. You cannot read or write micro-partitions directly; they are managed internally and rewritten when you run DML that touches them.
@@ -46,17 +46,17 @@ Ref: [Using persisted query results](https://docs.snowflake.com/en/user-guide/qu
 ### Object hierarchy
 Account -> Database -> Schema -> object (table, view, stage, pipe, stream, task, UDF, stored proc, sequence, file format). Every object's fully qualified name is `database.schema.object`. Privileges cascade along this hierarchy and are evaluated with **future grants**.
 
-Ref: *SnowPro Associate: Platform Study Guide, §1.5 "Snowflake objects and hierarchy", p. 5* · `../../../../snowflake_eng/phase1_platform/study_notes/domain_1_0_architecture.md` object-hierarchy subsection.
+Ref: *SnowPro Associate: Platform Study Guide, §1.5 "Snowflake objects and hierarchy", p. 5* · [Snowflake Architecture](https://docs.snowflake.com/en/user-guide/intro-key-concepts).
 
 ## Hands-on drills
 
 | # | Drill | Est. time | Source |
 |---|---|---|---|
-| D1 | Create database/schema/warehouse, observe the three layers in Snowsight Admin. | 20 min | `../../../../snowflake_eng/phase1_platform/labs/lab_01_architecture_and_ui.sql:L23-L104` |
-| D2 | Explore the SNOWFLAKE_SAMPLE_DATA TPCH database and inspect a table's micro-partition count via `SYSTEM$CLUSTERING_INFORMATION`. | 20 min | `../../../../snowflake_eng/phase1_platform/labs/lab_01_architecture_and_ui.sql:L261-L315` |
+| D1 | Create database/schema/warehouse, observe the three layers in Snowsight Admin. | 20 min | [Snowflake Quickstarts](https://quickstarts.snowflake.com/) |
+| D2 | Explore the SNOWFLAKE_SAMPLE_DATA TPCH database and inspect a table's micro-partition count via `SYSTEM$CLUSTERING_INFORMATION`. | 20 min | [Snowflake Quickstarts](https://quickstarts.snowflake.com/) |
 | D3 | Run the same `SELECT` twice and confirm the second hits the result cache (Query Profile shows no bytes scanned from storage). | 15 min | [Using persisted query results](https://docs.snowflake.com/en/user-guide/querying-persisted-results) |
 | D4 | Suspend and resize a warehouse, re-run D3, confirm the warehouse (SSD) cache was cleared. | 15 min | *SnowPro Core Study Guide, Domain 3.0, p. 8* |
-| D5 | Create a view and a secure view over `SNOWFLAKE_SAMPLE_DATA.TPCH_SF1.CUSTOMER`; confirm secure views do not expose underlying data lineage to unprivileged roles. | 20 min | `../../../../snowflake_eng/phase1_platform/labs/lab_01_architecture_and_ui.sql:L199-L260` |
+| D5 | Create a view and a secure view over `SNOWFLAKE_SAMPLE_DATA.TPCH_SF1.CUSTOMER`; confirm secure views do not expose underlying data lineage to unprivileged roles. | 20 min | [Snowflake Quickstarts](https://quickstarts.snowflake.com/) |
 
 ## Common failures (exam gotchas)
 

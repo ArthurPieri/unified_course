@@ -20,15 +20,13 @@
 - [Top 10 performance tuning tips for Athena](https://docs.aws.amazon.com/athena/latest/ug/performance-tuning.html)
 - [DynamoDB Time to Live](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/TTL.html)
 
-## Sibling course
+## Additional AWS references
 
-- `../../../../aws_certified/docs/week-06-cataloging-data-lakes.md:9-332`
-- `../../../../aws_certified/docs/week-07-lifecycle-schema.md:22-800`
-- `../../../../aws_certified/docs/week-05-data-store-selection.md:63-509`
-- `../../../../aws_certified/labs/week-01-lab-ingestion.md:83-258`
-- `../../../../aws_certified/labs/week-06-lab-datalake.md`
-- `../../../../aws_certified/labs/week-07-lab-lifecycle.md`
-- `../../../../aws_certified/labs/week-10-lab-security.md`
+- [AWS Glue Data Catalog](https://docs.aws.amazon.com/glue/latest/dg/catalog-and-crawler.html) — cataloging and data lakes
+- [AWS Glue Schema Registry](https://docs.aws.amazon.com/glue/latest/dg/schema-registry.html) — lifecycle and schema management
+- [S3 Lifecycle](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lifecycle-mgmt.html) — lifecycle rules and transitions
+- [AWS Lake Formation Developer Guide](https://docs.aws.amazon.com/lake-formation/latest/dg/what-is-lake-formation.html) — security and governance
+- [AWS IAM User Guide](https://docs.aws.amazon.com/IAM/latest/UserGuide/) — security lab context
 
 ## Exam guide
 

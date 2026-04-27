@@ -18,10 +18,10 @@ Target certification: **DEA-C01** (AWS Certified Data Engineer – Associate)
 - [x] vendors/aws/mock_exam_sources.md (links only; no fabricated questions)
 
 ## Decisions recorded
-- Primary source: `../aws_certified/` (week-02 through week-12 sibling docs cited with line ranges)
+- Primary source: AWS official documentation (replaced sibling citations with doc links)
 - Exam guide PDF revision reads © 2026; newer in-scope services include SageMaker Catalog, Bedrock knowledge bases, HNSW/IVF vector indexes
 - Exam duration not in exam guide PDF — flagged for AWS Certification product page re-verify
-- `vendors/aws/labs/` directory left empty — labs live inline per-module; sibling `../aws_certified/labs/` is the lab backbone
+- `vendors/aws/labs/` directory left empty — labs live inline per-module; AWS official docs and tutorials are the reference
 
 ## Blockers
 none

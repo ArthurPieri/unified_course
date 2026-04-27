@@ -14,8 +14,8 @@
 - [MinIO — mc client reference](https://min.io/docs/minio/linux/reference/minio-mc.html) — `mc alias set`, `mc mb`.
 - [MinIO — using AWS CLI with MinIO](https://min.io/docs/minio/linux/integrations/aws-cli-with-minio.html) — path-style endpoint configuration for S3 clients.
 
-## Sibling sources
-- `../dataeng/docker-compose.yml:L26-L43` — canonical MinIO service block this module's compose file is adapted from (image pin, console port, env vars, healthcheck pattern).
+## Compose patterns (based on the companion lakehouse project)
+- Canonical MinIO service block this module's compose file is adapted from (image pin, console port, env vars, healthcheck pattern). See [MinIO — documentation root](https://min.io/docs/minio/linux/index.html).
 - `../../references/glossary.md` — entries for Parquet, Iceberg, Lakehouse, DuckDB.
 - `../../references/sibling_sources.md:L192` — sibling mapping for Phase 2 · 06_lakehouse_bridge → duckdb.org/docs.
 

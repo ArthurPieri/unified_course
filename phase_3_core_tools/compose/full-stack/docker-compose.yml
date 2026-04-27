@@ -1,5 +1,5 @@
 # Phase 3 — Full-stack lakehouse compose
-# Topology mirrors ../../../../dataeng/docker-compose.yml (L1-L243).
+# Full lakehouse stack: MinIO + HMS + Trino + Spark + Dagster + Metabase.
 # Usage: copy .env.example to .env, then `docker compose up -d`.
 # RAM budget: ~14-16 GB. For 8 GB machines use ../light-profile/.
 #

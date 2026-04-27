@@ -20,12 +20,12 @@
 ### Azure Monitor and Log Analytics
 
 Azure Monitor is the umbrella: **metrics** (numeric, near real-time, 93-day retention) and **logs** (structured, KQL-queryable via Log Analytics). Per-resource **diagnostic settings** route platform logs to a Log Analytics workspace, Storage account, or Event Hub. Default retention varies by table (commonly 30 days; interactive retention up to 730 days, archive up to 12 years). Foundational KQL operators: `where`, `summarize`, `project`, `extend`, `ago()`, `bin()`, `render timechart`, `join kind=`.
-Ref: [Azure Monitor](https://learn.microsoft.com/en-us/azure/azure-monitor/overview) · [Log Analytics](https://learn.microsoft.com/en-us/azure/azure-monitor/logs/log-analytics-overview) · `../../../azure_certified/IMPLEMENTATION-PLAN.md:L632-L645`
+Ref: [Azure Monitor](https://learn.microsoft.com/en-us/azure/azure-monitor/overview) · [Log Analytics](https://learn.microsoft.com/en-us/azure/azure-monitor/logs/log-analytics-overview)
 
 ### Pipeline monitoring
 
 ADF/Synapse/Fabric pipelines emit runs visible in the service's Monitor blade (45-day retention) and, when diagnostic settings are configured, stream to Log Analytics tables `ADFPipelineRun`, `ADFActivityRun`, `ADFTriggerRun`. Copy Activity exposes DIUs used, parallel copies, throughput (MB/s), and a duration breakdown (queue / transfer / post-copy). Fabric pipeline runs land in the **Fabric monitoring hub**, which unifies pipeline, notebook, dataflow, and semantic model refresh runs.
-Ref: [Monitor ADF pipelines](https://learn.microsoft.com/en-us/azure/data-factory/monitor-visually) · [Fabric monitoring hub](https://learn.microsoft.com/en-us/fabric/admin/monitoring-hub) · `../../../azure_certified/labs/07-kql-exercises.md:L28-L471`
+Ref: [Monitor ADF pipelines](https://learn.microsoft.com/en-us/azure/data-factory/monitor-visually) · [Fabric monitoring hub](https://learn.microsoft.com/en-us/fabric/admin/monitoring-hub)
 
 ### Service-specific tables
 
@@ -35,7 +35,7 @@ Ref: [Monitor ADF pipelines](https://learn.microsoft.com/en-us/azure/data-factor
 - **Event Hubs**: `AzureMetrics`, `ArchiveLogs`.
 - **Fabric capacity metrics app**: separate Power BI app installed per capacity, shows background CU seconds, throttling, smoothing.
 
-Ref: `../../../azure_certified/IMPLEMENTATION-PLAN.md:L647-L655` · [Fabric capacity metrics app](https://learn.microsoft.com/en-us/fabric/enterprise/metrics-app)
+Ref: [Fabric capacity metrics app](https://learn.microsoft.com/en-us/fabric/enterprise/metrics-app)
 
 ### Small-file compaction and layout
 
@@ -45,17 +45,17 @@ Ref: `../../../azure_certified/IMPLEMENTATION-PLAN.md:L647-L655` · [Fabric capa
 - **`delta.autoOptimize.optimizeWrite`** and **`autoCompact`** (Databricks) automate compaction on write.
 - **Spark coalesce / repartition**: `coalesce(n)` no shuffle, reduce only; `repartition(n)` full shuffle, can increase or decrease.
 
-Ref: [Delta optimization and V-Order](https://learn.microsoft.com/en-us/fabric/data-engineering/delta-optimization-and-v-order) · `../../../azure_certified/IMPLEMENTATION-PLAN.md:L685-L693` · `../../../azure_certified/flashcards/top-33-flashcards.md` Card 11
+Ref: [Delta optimization and V-Order](https://learn.microsoft.com/en-us/fabric/data-engineering/delta-optimization-and-v-order)
 
 ### Data skew
 
 **Symptom**: one Spark task takes 10–100× longer than others in the Spark UI. **Fixes**: enable Adaptive Query Execution (`spark.sql.adaptive.enabled=true`) and skew join handling (`spark.sql.adaptive.skewJoin.enabled=true`); manually **salt** the skewed key (append a random suffix and post-join reduce); **broadcast** the small side if one table fits. In Synapse dedicated pools, use `DBCC PDW_SHOWSPACEUSED` to detect distribution skew and re-hash on a higher-cardinality column.
-Ref: `../../../azure_certified/IMPLEMENTATION-PLAN.md:L693-L700`
+Ref: [Adaptive Query Execution](https://learn.microsoft.com/en-us/azure/databricks/optimizations/aqe)
 
 ### Data spill and memory issues
 
 **Spill (memory)** and **Spill (disk)** show up in Spark UI stage details when executor memory is insufficient. Fixes: increase `spark.executor.memory`, increase `spark.sql.shuffle.partitions` (default 200, raise to 400–800 for large jobs), filter earlier to reduce shuffle volume. **Driver OOM** is usually caused by `.collect()` / `.toPandas()` or too-large broadcast threshold.
-Ref: `../../../azure_certified/IMPLEMENTATION-PLAN.md:L703-L713`
+Ref: [Azure Databricks Spark](https://learn.microsoft.com/en-us/azure/databricks/getting-started/spark/)
 
 ### Query tuning — Fabric Warehouse and Synapse
 
@@ -63,12 +63,12 @@ Ref: `../../../azure_certified/IMPLEMENTATION-PLAN.md:L703-L713`
 - **Synapse dedicated pool**: CCI rowgroup health (`sys.dm_pdw_nodes_column_store_row_groups`), DMVs (`sys.dm_pdw_exec_requests`, `sys.dm_pdw_request_steps`), look for `ShuffleMove` / `BroadcastMove` operations indicating data movement. Use `OPTION (LABEL = 'name')` to tag queries for later analysis.
 - **Result set caching**: Synapse `ALTER DATABASE db SET RESULT_SET_CACHING ON`, auto-invalidated on data change or after 48 h. Materialized views precomputed and auto-used by the optimizer.
 
-Ref: `../../../azure_certified/IMPLEMENTATION-PLAN.md:L652-L680` · [Fabric Warehouse query insights](https://learn.microsoft.com/en-us/fabric/data-warehouse/query-insights)
+Ref: [Synapse DMVs](https://learn.microsoft.com/en-us/azure/synapse-analytics/sql-data-warehouse/sql-data-warehouse-manage-monitor) · [Fabric Warehouse query insights](https://learn.microsoft.com/en-us/fabric/data-warehouse/query-insights)
 
 ### Stream monitoring
 
 **Watermark delay** is the single most important ASA metric — growing delay means the job is falling behind. Other key metrics: **SU% Utilization**, **Backlogged Events**, **Out-of-Order Events**. For Spark Structured Streaming, compare input rate vs processing rate in the query monitor; if batch duration > trigger interval, the job is falling behind. In Fabric Real-Time Intelligence, Eventstream state and KQL database ingestion latency are visible in the monitoring hub.
-Ref: `../../../azure_certified/IMPLEMENTATION-PLAN.md:L663-L669`
+Ref: [Stream Analytics monitoring](https://learn.microsoft.com/en-us/azure/stream-analytics/stream-analytics-monitoring)
 
 ### Alerts and action groups
 
@@ -78,24 +78,24 @@ Ref: `../../../azure_certified/IMPLEMENTATION-PLAN.md:L663-L669`
 - **Dynamic thresholds**: ML-based baselines for metrics with regular patterns.
 - **Fabric activator**: data-driven alerts reacting to values inside Power BI reports or Eventstreams.
 
-Ref: [Azure alerts overview](https://learn.microsoft.com/en-us/azure/azure-monitor/alerts/alerts-overview) · `../../../azure_certified/IMPLEMENTATION-PLAN.md:L667-L674`
+Ref: [Azure alerts overview](https://learn.microsoft.com/en-us/azure/azure-monitor/alerts/alerts-overview)
 
 ## Labs
 
 | Lab | Goal | Est. time | Source |
 |---|---|---|---|
-| L06.1 KQL pipeline monitoring | Write KQL queries for failed runs, slowest queries, throughput anomalies | 60 m | `../../../azure_certified/labs/07-kql-exercises.md:L28-L471` |
-| L06.2 Data skew fix | Reproduce skew, observe in Spark UI, fix with AQE + salting | 45 m | `../../../azure_certified/labs/05-security-monitoring-optimization.md:L1312-L2051` |
-| L06.3 OPTIMIZE + ZORDER | Measure query time before and after `OPTIMIZE ZORDER BY (col)` | 30 m | `../../../azure_certified/labs/01-delta-lake-fundamentals.ipynb` |
+| L06.1 KQL pipeline monitoring | Write KQL queries for failed runs, slowest queries, throughput anomalies | 60 m | [KQL tutorial](https://learn.microsoft.com/en-us/kusto/query/tutorial) |
+| L06.2 Data skew fix | Reproduce skew, observe in Spark UI, fix with AQE + salting | 45 m | [Adaptive Query Execution](https://learn.microsoft.com/en-us/azure/databricks/optimizations/aqe) |
+| L06.3 OPTIMIZE + ZORDER | Measure query time before and after `OPTIMIZE ZORDER BY (col)` | 30 m | [Microsoft Learn: Delta Lake](https://learn.microsoft.com/en-us/azure/databricks/delta/) |
 | L06.4 Alert setup | Configure a metric alert on pipeline failures with an action group | 30 m | [Create metric alert](https://learn.microsoft.com/en-us/azure/azure-monitor/alerts/alerts-metric) |
 
 ## Common failures
 
 | Symptom | Cause | Fix | Source |
 |---|---|---|---|
-| "Pipeline succeeded" in ADF Monitor but downstream data wrong | External activity (Databricks, stored proc) reported success even though the external job failed | Parse activity output, check notebook logs, build explicit validation step | `../../../azure_certified/IMPLEMENTATION-PLAN.md:L740-L745` |
-| Growing ASA watermark delay | Under-provisioned SUs or hot partition | Scale SUs up; repartition input by a higher-cardinality key | `../../../azure_certified/IMPLEMENTATION-PLAN.md:L663-L667` |
-| Delta table has 50 k small files, queries slow | Micro-batch writers without compaction | Run `OPTIMIZE`; enable auto-optimize write/compact | `../../../azure_certified/flashcards/top-33-flashcards.md` Card 11 |
+| "Pipeline succeeded" in ADF Monitor but downstream data wrong | External activity (Databricks, stored proc) reported success even though the external job failed | Parse activity output, check notebook logs, build explicit validation step | [Monitor ADF pipelines](https://learn.microsoft.com/en-us/azure/data-factory/monitor-visually) |
+| Growing ASA watermark delay | Under-provisioned SUs or hot partition | Scale SUs up; repartition input by a higher-cardinality key | [Stream Analytics monitoring](https://learn.microsoft.com/en-us/azure/stream-analytics/stream-analytics-monitoring) |
+| Delta table has 50 k small files, queries slow | Micro-batch writers without compaction | Run `OPTIMIZE`; enable auto-optimize write/compact | [Delta optimization and V-Order](https://learn.microsoft.com/en-us/fabric/data-engineering/delta-optimization-and-v-order) |
 | Fabric capacity throttled | Background CU usage exceeded capacity | Identify offending item in capacity metrics app; schedule heavy jobs off-peak or upsize the capacity | [Fabric capacity metrics](https://learn.microsoft.com/en-us/fabric/enterprise/metrics-app) |
 
 ## References

@@ -38,6 +38,6 @@
 ## Validation
 - [Pydantic — Models](https://docs.pydantic.dev/latest/concepts/models/)
 
-## Sibling sources
-- `../dataeng/pyproject.toml:L1-L33` — real `[project]`, optional-dependencies groups, `[tool.ruff]`, `[tool.pytest.ini_options]`
-- `../dataeng/tests/conftest.py:L1-L37` — real pytest fixtures (`monkeypatch`-based env setup, `tmp_path`-based pipeline dir)
+## Real-world examples (based on the companion lakehouse project)
+- A production `pyproject.toml` with `[project]`, optional-dependencies groups (`dev`/`dlt`/`dbt`), `[tool.ruff]`, and `[tool.pytest.ini_options]`. See [PEP 621](https://peps.python.org/pep-0621/) for the schema.
+- A production `conftest.py` with `monkeypatch`-based env setup and `tmp_path`-based pipeline dir fixtures. See [pytest — conftest.py](https://docs.pytest.org/en/stable/reference/fixtures.html#conftest-py-sharing-fixtures-across-multiple-files).

@@ -18,12 +18,12 @@
 - [docker compose ps](https://docs.docker.com/reference/cli/docker/compose/ps/)
 - [docker compose down](https://docs.docker.com/reference/cli/docker/compose/down/)
 
-## Sibling reuse
-- `../../../dataeng/docker-compose.yml:L8-L23` — baseline Postgres service with `.env`, `mem_limit`, `pg_isready` healthcheck
-- `../../../dataeng/docker-compose.yml:L26-L43` — MinIO with profile + HTTP healthcheck
-- `../../../dataeng/docker-compose.yml:L62-L88` — Hive metastore with long-form `depends_on: service_healthy` + `start_period`
-- `../../../dataeng/docker-compose.yml:L91-L112` — Trino with `mem_limit`, `JAVA_TOOL_OPTIONS`, `curl`-based healthcheck
-- `../../../dataeng/docker-compose.yml:L236-L243` — named-volume declarations
+## Compose patterns (based on the companion lakehouse project)
+- Baseline Postgres service: `.env` for credentials, `mem_limit: 512m`, `pg_isready` healthcheck
+- MinIO with `profiles:` + HTTP healthcheck (`curl -f http://localhost:9000/minio/health/live`)
+- Hive metastore with long-form `depends_on: service_healthy` + `start_period`
+- Trino with `mem_limit: 5g`, `JAVA_TOOL_OPTIONS`, `curl`-based healthcheck
+- Named-volume declarations for persistent data across `docker compose down`
 
 ## Port facts
 - [IANA Service Name and Transport Protocol Port Number Registry](https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml) — Postgres `5432/tcp`, HTTP `80/tcp`, HTTPS `443/tcp`

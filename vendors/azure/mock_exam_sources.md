@@ -19,11 +19,10 @@
 
 ## Sibling practice material (format reference only)
 
-- `../../../azure_certified/practice-questions/practice-exam.md`
-  - **Status:** non-authoritative practice questions authored for DP-203 transition study.
-  - **Usage rule:** scan for question *format* (stems, multi-select patterns, case studies). **Do not reuse** any item whose answer cannot be verified against a primary Microsoft Learn doc. Many items are fabricated; treat as a writing exercise, not ground truth.
-- `../../../azure_certified/flashcards/top-33-flashcards.md`
-  - Concept-level review; each card carries a DP-700 transfer flag. Use for spaced recall, not as exam questions.
+- [Microsoft DP-700 practice assessment](https://learn.microsoft.com/en-us/credentials/certifications/fabric-data-engineer-associate/)
+  - **Status:** Use the official Microsoft Learn practice assessment (listed above in section 1) as the authoritative practice source. For question *format* examples (stems, multi-select patterns, case studies), refer to the [exam formats and question types](https://learn.microsoft.com/en-us/credentials/certifications/certification-exams) page.
+- [DP-700 Study Guide](https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/dp-700)
+  - Concept-level review aligned to exam domains. Use for spaced recall alongside per-module `quiz.md` files.
 
 ## Prohibited sources
 
@@ -34,6 +33,6 @@
 ## Recommended practice workflow
 
 1. Complete the official Microsoft Learn practice assessment twice: once blind after finishing modules 00–06, and once the week before your exam slot.
-2. For every missed item, open the Microsoft Learn doc cited in the explanation and re-read the relevant section; add a flashcard to `../../../azure_certified/flashcards/top-33-flashcards.md` personal copy.
+2. For every missed item, open the Microsoft Learn doc cited in the explanation and re-read the relevant section; add a personal flashcard based on the concept tested.
 3. Use the per-module `quiz.md` files (each 8–10 MCQs with primary-source citations) as topic-specific drill.
 4. Book the exam only when you consistently score 80%+ on the Microsoft Learn practice assessment.

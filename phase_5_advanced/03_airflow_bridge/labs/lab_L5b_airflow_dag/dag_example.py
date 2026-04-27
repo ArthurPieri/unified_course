@@ -1,10 +1,10 @@
 """Lab L5b — Airflow port of the Dagster lakehouse asset graph.
 
-Ports the Dagster assets in
-    ../../../../../dataeng/dagster/lakehouse/assets/ingestion.py       (dlt taxi ingest)
-    ../../../../../dataeng/dagster/lakehouse/assets/transformation.py  (dbt build)
-    ../../../../../dataeng/dagster/lakehouse/assets/quality.py         (asset checks)
-to an Airflow TaskFlow DAG with three tasks: ingest -> transform -> quality_check.
+Ports the Dagster lakehouse assets (ingestion, transformation, quality checks)
+to an Airflow TaskFlow DAG with three tasks:
+ingest -> transform -> quality_check.
+
+Reference Dagster assets: see Phase 3 Dagster module (phase_3_core_tools/06_dagster/).
 
 Docs:
     TaskFlow API:  https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/taskflow.html

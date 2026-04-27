@@ -62,7 +62,7 @@ Domain 3 — Monitor and optimize an analytics solution:
 
 | Week | Modules | Sibling + MS Learn anchors |
 |---|---|---|
-| 1 | 00 + start 01 | `../../../azure_certified/IMPLEMENTATION-PLAN.md:L175-L270` (storage), Fabric overview MS Learn |
+| 1 | 00 + start 01 | [ADLS Gen2 introduction](https://learn.microsoft.com/en-us/azure/storage/blobs/data-lake-storage-introduction) (storage), Fabric overview MS Learn |
 | 2 | 01 finish | `labs/01-delta-lake-fundamentals.ipynb`, OneLake docs |
 | 3 | 02 | `labs/04-batch-and-pipeline-patterns.md:L7-L450`, Dataflow Gen2 docs |
 | 4–5 | 03 | `labs/02-spark-transformations.ipynb`, `labs/06-tsql-exercises.md:L7-L560` |
@@ -70,7 +70,7 @@ Domain 3 — Monitor and optimize an analytics solution:
 | 7 | 05 | `labs/05-security-monitoring-optimization.md:L11-L750` |
 | 8 | 06 | `labs/05-security-monitoring-optimization.md:L750-L2051`, `labs/07-kql-exercises.md` |
 | 9 | Review + first Microsoft Learn practice assessment | `../mock_exam_sources.md` |
-| 10 | Gap fixes, flashcards | `../../../azure_certified/flashcards/top-33-flashcards.md` |
+| 10 | Gap fixes, flashcards | [DP-700 Study Guide](https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/dp-700) + per-module `quiz.md` files |
 | 11 | Second practice assessment, book exam | Exam page |
 
 Fast-track (if you already hold DP-203 skills + current Azure experience): weeks 1–6 compressed to weeks 1–3, then go straight to weeks 9–11. Budget ~50 h.

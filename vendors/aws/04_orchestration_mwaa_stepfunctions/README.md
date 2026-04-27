@@ -34,30 +34,32 @@ Orchestration is small by word count in the guide but appears frequently because
 - **EventBridge** — event routing and scheduling. Rules match events from AWS services or custom sources to targets (Lambda, Step Functions, SQS, Kinesis, API destinations). EventBridge Scheduler replaces CloudWatch Events scheduled rules for cron workloads at scale.
 - **Glue workflows** — lightweight Glue-only DAG (crawlers + jobs). Use inside Glue-only pipelines; prefer Step Functions when multiple services are involved.
 
-Depth: `../../../aws_certified/docs/week-04-orchestration.md:526-559`.
+Primary: [Step Functions Developer Guide](https://docs.aws.amazon.com/step-functions/latest/dg/), [MWAA User Guide](https://docs.aws.amazon.com/mwaa/latest/userguide/), [EventBridge User Guide](https://docs.aws.amazon.com/eventbridge/latest/userguide/).
 
 ### Step Functions Retry and Catch
-`Retry` re-runs the same state with `IntervalSeconds`, `MaxAttempts`, `BackoffRate`. `Catch` routes specific errors to a fallback state. Together they give you fine-grained error handling without custom code. Depth: `../../../aws_certified/docs/week-04-orchestration.md:20-227`. Lab: `../../../aws_certified/labs/week-04-lab-orchestration.md:128-520`.
+`Retry` re-runs the same state with `IntervalSeconds`, `MaxAttempts`, `BackoffRate`. `Catch` routes specific errors to a fallback state. Together they give you fine-grained error handling without custom code. Primary: [Step Functions error handling (Retry/Catch)](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-error-handling.html). See the hands-on labs in this module's labs/ directory.
 
 ### Parallel and Map (including distributed Map)
-`Parallel` runs branches concurrently. `Map` iterates over an array. Distributed Map handles up to 10,000 child executions from an S3 inventory — the exam answer for "fan out Lambda over millions of S3 objects". Depth: `../../../aws_certified/docs/week-04-orchestration.md:20-227`. Primary: [Distributed Map](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-asl-use-map-state-distributed.html).
+`Parallel` runs branches concurrently. `Map` iterates over an array. Distributed Map handles up to 10,000 child executions from an S3 inventory — the exam answer for "fan out Lambda over millions of S3 objects". Primary: [Distributed Map](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-asl-use-map-state-distributed.html), [Step Functions Developer Guide](https://docs.aws.amazon.com/step-functions/latest/dg/).
 
 ### EventBridge rule patterns and Scheduler
-Rules use a JSON event pattern to match. Schedules use cron or rate expressions. EventBridge Scheduler adds one-time schedules, flexible time windows, and higher scale than legacy scheduled rules. Depth: `../../../aws_certified/docs/week-04-orchestration.md:362-525`.
+Rules use a JSON event pattern to match. Schedules use cron or rate expressions. EventBridge Scheduler adds one-time schedules, flexible time windows, and higher scale than legacy scheduled rules. Primary: [Amazon EventBridge Scheduler](https://docs.aws.amazon.com/scheduler/latest/UserGuide/what-is-scheduler.html), [EventBridge User Guide](https://docs.aws.amazon.com/eventbridge/latest/userguide/).
 
 ### MWAA basics
-Configure via S3 (`dags/`, `plugins.zip`, `requirements.txt`). Sensors wait on external conditions (S3 prefix, Glue job state). Connections and variables live in the Airflow metastore; prefer Secrets Manager for credentials. Depth: `../../../aws_certified/docs/week-04-orchestration.md:228-361`.
+Configure via S3 (`dags/`, `plugins.zip`, `requirements.txt`). Sensors wait on external conditions (S3 prefix, Glue job state). Connections and variables live in the Airflow metastore; prefer Secrets Manager for credentials. Primary: [MWAA User Guide](https://docs.aws.amazon.com/mwaa/latest/userguide/what-is-mwaa.html), [MWAA environment classes](https://docs.aws.amazon.com/mwaa/latest/userguide/best-practices-env-class.html).
 
 ### SNS + SQS patterns
-Fan-out = SNS topic with multiple SQS subscribers. DLQ = SQS queue attached as a redrive target; SFN, Lambda, and EventBridge all support DLQs. Depth: `../../../aws_certified/labs/week-04-lab-orchestration.md:59-127`.
+Fan-out = SNS topic with multiple SQS subscribers. DLQ = SQS queue attached as a redrive target; SFN, Lambda, and EventBridge all support DLQs. Primary: [Amazon SNS Developer Guide](https://docs.aws.amazon.com/sns/latest/dg/), [SQS dead-letter queues](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dead-letter-queues.html).
 
-## Labs (from sibling `../../../aws_certified/labs/`)
+## Labs
 
-| Lab | Goal | Sibling anchor |
+See the hands-on labs in this module's labs/ directory. Key exercises:
+
+| Lab | Goal | AWS reference |
 |---|---|---|
-| Week 4 Lab — SFN + EventBridge + SQS DLQ | State machine with Retry/Catch and SNS notifications | `../../../aws_certified/labs/week-04-lab-orchestration.md:1-600` |
-| Week 11 Capstone | MWAA DAG driving an end-to-end pipeline | `../../../aws_certified/labs/week-11-lab-capstone.md:1-800` |
-| Week 9 Lab — CloudWatch alarms | Pipeline monitoring + SNS alert | `../../../aws_certified/labs/week-09-lab-monitoring.md:9-360` |
+| SFN + EventBridge + SQS DLQ | State machine with Retry/Catch and SNS notifications | [Step Functions Developer Guide](https://docs.aws.amazon.com/step-functions/latest/dg/) |
+| Capstone | MWAA DAG driving an end-to-end pipeline | [AWS Well-Architected Data Analytics Lens](https://docs.aws.amazon.com/wellarchitected/latest/analytics-lens/) |
+| CloudWatch alarms | Pipeline monitoring + SNS alert | [Amazon CloudWatch User Guide](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/) |
 
 ## Common exam gotchas
 

@@ -17,24 +17,18 @@ Citation list for the capstone scaffolding in this directory. Follows `../docs/R
 
 ## Sibling reference implementations
 
-All of these are in `../dataeng/` (the working lakehouse stack that seeds Phase 3 and the capstone). Index: `../references/sibling_sources.md`.
+The capstone builds on Phase 3 content in this repo and official tool documentation.
 
-- `../dataeng/docker-compose.yml` — reference compose stack; starting point for the capstone
-- `../dataeng/dagster/lakehouse/assets/ingestion.py` — Dagster ingestion asset pattern
-- `../dataeng/dagster/lakehouse/assets/transformation.py` — dbt-to-asset bridge
-- `../dataeng/dagster/lakehouse/assets/quality.py` — quality-check asset pattern
-- `../dataeng/dagster/lakehouse/assets/maintenance.py` — Iceberg compaction pattern
-- `../dataeng/dagster/lakehouse/schedules/daily_pipeline.py` — schedule pattern
-- `../dataeng/dagster/lakehouse/sensors/minio_sensor.py` — object-landing sensor pattern
-- `../dataeng/dbt_project/models/staging/` — staging model layout
-- `../dataeng/dbt_project/models/marts/fct_trip_metrics.sql` — fact table pattern
-- `../dataeng/dbt_project/tests/assert_positive_revenue.sql` — singular test pattern
-- `../dataeng/dbt_project/unit_tests/test_revenue_calculation.yml` — unit test pattern (for fast-track Deliverable 1)
-- `../dataeng/dlt_pipelines/taxi_pipeline.py` — end-to-end dlt pipeline
-- `../dataeng/prometheus/prometheus.yml` — Prometheus scrape config (for fast-track Deliverable 5)
-- `../dataeng/grafana/provisioning/` — Grafana datasource + dashboard provisioning
-- `../dataeng/.github/workflows/dbt-ci.yml` — dbt CI workflow (for fast-track Deliverable 6)
-- `../dataeng/.github/workflows/pipeline-validation.yml` — full pipeline CI
+- `../phase_3_core_tools/compose/full-stack/docker-compose.yml` -- reference compose stack; starting point for the capstone
+- [Dagster documentation](https://docs.dagster.io/) -- Dagster asset patterns (ingestion, transformation, quality checks, maintenance, schedules, sensors)
+- [Dagster project structure](https://docs.dagster.io/getting-started/create-new-project) -- project layout reference
+- [dbt documentation](https://docs.getdbt.com/) -- staging model layout, mart patterns, tests
+- [dbt model contracts](https://docs.getdbt.com/docs/collaborate/govern/model-contracts) -- schema contracts for Silver/Gold layers
+- [dbt unit tests](https://docs.getdbt.com/docs/build/unit-tests) -- unit test pattern (for fast-track Deliverable 1)
+- [dlt documentation](https://dlthub.com/docs) -- end-to-end pipeline patterns
+- [Prometheus configuration](https://prometheus.io/docs/prometheus/latest/configuration/configuration/) -- Prometheus scrape config (for fast-track Deliverable 5)
+- [Grafana provisioning](https://grafana.com/docs/grafana/latest/administration/provisioning/) -- datasource and dashboard provisioning
+- [GitHub Actions documentation](https://docs.github.com/en/actions) -- CI/CD workflow patterns (for fast-track Deliverable 6); see also `../phase_5_advanced/01_cicd/`
 - `../phase_3_core_tools/compose/full-stack/docker-compose.yml` — unified course variant of the compose stack
 
 ## Primary tool documentation
@@ -75,6 +69,6 @@ Cited per `../docs/REUSE_POLICY.md` priority 3.
 
 ## Sibling vendor references (for post-capstone context)
 
-- `../aws_certified/labs/week-11-lab-capstone.md` — AWS capstone lab, used as the AWS-branch port target referenced in `../UNIFIED_COURSE_PLAN.md` L638
-- `../azure_certified/labs/04-batch-and-pipeline-patterns.md` — Azure port reference, `../UNIFIED_COURSE_PLAN.md` L729
-- `../snowflake_eng/STUDY_PLAN.md` — Snowflake port reference, `../UNIFIED_COURSE_PLAN.md` L824
+- AWS capstone lab -- used as the AWS-branch port target (see `../UNIFIED_COURSE_PLAN.md` L638 and [AWS Glue documentation](https://docs.aws.amazon.com/glue/latest/dg/what-is-glue.html))
+- Azure batch and pipeline patterns -- Azure port reference (see `../UNIFIED_COURSE_PLAN.md` L729 and [Azure Data Factory documentation](https://learn.microsoft.com/en-us/azure/data-factory/introduction))
+- Snowflake engineering study plan -- Snowflake port reference (see `../UNIFIED_COURSE_PLAN.md` L824 and [Snowflake documentation](https://docs.snowflake.com/))

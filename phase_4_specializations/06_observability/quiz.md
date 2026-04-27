@@ -82,7 +82,7 @@ D. A Grafana panel only.
 2. **B** — RED = Rate/Errors/Duration (request-centric); USE = Utilization/Saturation/Errors (resource-centric); both referenced in SRE book Ch. 6's golden-signals framing. ([SRE book Ch. 6](https://sre.google/sre-book/monitoring-distributed-systems/))
 3. **B** — Pull model; scrape failures are observable. ([Prometheus overview](https://prometheus.io/docs/introduction/overview/))
 4. **B** — Monotonic counts belong in a counter; `rate()` is defined on counters. ([Prometheus metric types](https://prometheus.io/docs/concepts/metric_types/))
-5. **A** — Provisioned resources are pinned to file; UI changes would drift from git. ([Grafana provisioning](https://grafana.com/docs/grafana/latest/administration/provisioning/)) · `../dataeng/grafana/provisioning/datasources/datasources.yml:L12-L13`
+5. **A** — Provisioned resources are pinned to file; UI changes would drift from git. ([Grafana provisioning](https://grafana.com/docs/grafana/latest/administration/provisioning/))
 6. **C** — Freshness is the canonical data-pipeline SLI; generic monitoring misses it because it requires joining orchestrator state with source event time. ([Dagster freshness checks](https://docs.dagster.io/concepts/assets/asset-checks))
 7. **B** — Symptoms, not causes. ([SRE Book Ch. 6 — Symptoms vs. Causes](https://sre.google/sre-book/monitoring-distributed-systems/#symptoms-versus-causes))
 8. **A** — Dagster freshness checks on assets. ([Dagster asset checks](https://docs.dagster.io/concepts/assets/asset-checks))

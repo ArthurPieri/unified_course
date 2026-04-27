@@ -36,40 +36,42 @@ Task 1.1 (Perform data ingestion) and Task 1.2 (Transform and process data) toge
 - **KDS**: you manage shards (or use on-demand), pay per shard-hour + PUT payload units, get sub-second latency, 1-365 day retention, and write custom consumers (KCL, Lambda, enhanced fan-out). Use when you need replay or multiple independent consumers at low latency.
 - **Firehose**: fully managed, near-real-time (60s+ buffering), buffers to S3/Redshift/OpenSearch/Splunk, can convert JSON->Parquet using a Glue table, and supports Lambda record transforms. Use when your destination is one of those four and you do not need sub-second latency.
 - **MSK**: managed Apache Kafka. Choose over KDS when you need Kafka APIs, long-lived consumer groups across partitions, exactly-once via Kafka transactions, or ecosystem integrations (Kafka Connect, Debezium, ksqlDB).
-Depth: `../../../aws_certified/docs/week-02-streaming-ingestion.md:341-426`.
+Primary: [Amazon Kinesis Developer Guide](https://docs.aws.amazon.com/kinesis/latest/dev/), [Amazon Data Firehose](https://docs.aws.amazon.com/firehose/latest/dev/what-is-this-service.html), [Amazon MSK Developer Guide](https://docs.aws.amazon.com/msk/latest/developerguide/).
 
 ### Shards, partition keys, throttling
-KDS shards cap at 1 MiB/s or 1000 records/s writes and 2 MiB/s reads (shared) or per-consumer with Enhanced Fan-Out. Hot-key skew = one shard throttles while others idle; fix with a higher-cardinality partition key. DynamoDB hot partitions throttle similarly — use adaptive capacity + better partition key design. Depth: `../../../aws_certified/docs/week-02-streaming-ingestion.md:7-104`.
+KDS shards cap at 1 MiB/s or 1000 records/s writes and 2 MiB/s reads (shared) or per-consumer with Enhanced Fan-Out. Hot-key skew = one shard throttles while others idle; fix with a higher-cardinality partition key. DynamoDB hot partitions throttle similarly — use adaptive capacity + better partition key design. Primary: [KDS key concepts](https://docs.aws.amazon.com/streams/latest/dev/key-concepts.html), [KDS enhanced fan-out](https://docs.aws.amazon.com/streams/latest/dev/enhanced-consumers.html).
 
 ### DMS full load + CDC
-DMS runs a full load then switches to CDC reading the source WAL/binlog. To S3 target, DMS lands CDC as a "cdc" file stream that you post-process (Glue/EMR) into a Bronze table. DMS Schema Conversion / SCT is the exam answer for heterogeneous migrations. *Skill 2.4.3*. Depth: `../../../aws_certified/docs/week-01-ingestion-fundamentals.md:129-203`.
+DMS runs a full load then switches to CDC reading the source WAL/binlog. To S3 target, DMS lands CDC as a "cdc" file stream that you post-process (Glue/EMR) into a Bronze table. DMS Schema Conversion / SCT is the exam answer for heterogeneous migrations. *Skill 2.4.3*. Primary: [AWS DMS User Guide](https://docs.aws.amazon.com/dms/latest/userguide/), [DMS CDC](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Task.CDC.html).
 
 ### DataSync vs. Snow Family
-DataSync is online (network-bound), one-time or scheduled, handles NFS/SMB/HDFS/S3/EFS/FSx. Snow Family is offline (ship a device) — use it when you have petabytes or no link. Depth: `../../../aws_certified/docs/week-01-ingestion-fundamentals.md:204-315`.
+DataSync is online (network-bound), one-time or scheduled, handles NFS/SMB/HDFS/S3/EFS/FSx. Snow Family is offline (ship a device) — use it when you have petabytes or no link. Primary: [AWS DataSync User Guide](https://docs.aws.amazon.com/datasync/latest/userguide/), [AWS Snow Family](https://docs.aws.amazon.com/snowball/latest/ug/whatisdevice.html).
 
 ### AppFlow
-Bidirectional managed connectors between SaaS apps and AWS (S3, Redshift). Supports schedule-based and event-based triggers, field-level filtering and masking. Depth: `../../../aws_certified/docs/week-01-ingestion-fundamentals.md:316-367`.
+Bidirectional managed connectors between SaaS apps and AWS (S3, Redshift). Supports schedule-based and event-based triggers, field-level filtering and masking. Primary: [Amazon AppFlow User Guide](https://docs.aws.amazon.com/appflow/latest/userguide/what-is-appflow.html).
 
 ### Glue ETL job primitives
-DynamicFrame handles schema inconsistencies that break DataFrames. Job bookmarks provide incremental processing by tracking processed paths. Worker types (G.1X, G.2X, G.025X, Flex) trade cost vs. runtime. Depth: `../../../aws_certified/docs/week-03-data-transformation.md:20-273`.
+DynamicFrame handles schema inconsistencies that break DataFrames. Job bookmarks provide incremental processing by tracking processed paths. Worker types (G.1X, G.2X, G.025X, Flex) trade cost vs. runtime. Primary: [AWS Glue Developer Guide](https://docs.aws.amazon.com/glue/latest/dg/), [Glue DynamicFrames](https://docs.aws.amazon.com/glue/latest/dg/aws-glue-api-crawler-pyspark-extensions-dynamic-frame.html), [Glue job bookmarks](https://docs.aws.amazon.com/glue/latest/dg/monitor-continuations.html).
 
 ### Replayability and stateful/stateless
 Replayability = the ability to re-read historical events (KDS retention window, Firehose destination backup, MSK log retention). Stateful transactions require windowing and checkpointing (Flink, Spark Structured Streaming). Stateless = map/filter only. *Skill 1.1.11-1.1.12*.
 
-## Labs (from sibling `../../../aws_certified/labs/`)
+## Labs
 
-| Lab | Goal | Sibling anchor |
+See the hands-on labs in this module's labs/ directory. Key exercises:
+
+| Lab | Goal | AWS reference |
 |---|---|---|
-| Week 1 Lab — Ingestion fundamentals | Buckets, DMS-style workflow on LocalStack | `../../../aws_certified/labs/week-01-lab-ingestion.md:1-258` |
-| Week 2 Lab — Streaming | KDS produce/consume, Firehose to S3, PutRecords partial failure handling | `../../../aws_certified/labs/week-02-lab-streaming.md:74-322` |
-| Week 3 Lab — Glue ETL | JSON->Parquet, DynamicFrame, ResolveChoice, job bookmarks | `../../../aws_certified/labs/week-03-lab-transformation.md:167-500` |
+| Ingestion fundamentals | Buckets, DMS-style workflow on LocalStack | [AWS DMS User Guide](https://docs.aws.amazon.com/dms/latest/userguide/), [AWS Glue Developer Guide](https://docs.aws.amazon.com/glue/latest/dg/) |
+| Streaming | KDS produce/consume, Firehose to S3, PutRecords partial failure handling | [Amazon Kinesis Developer Guide](https://docs.aws.amazon.com/kinesis/latest/dev/), [Amazon Data Firehose](https://docs.aws.amazon.com/firehose/latest/dev/what-is-this-service.html) |
+| Glue ETL | JSON->Parquet, DynamicFrame, ResolveChoice, job bookmarks | [AWS Glue ETL](https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl.html), [Glue DynamicFrames](https://docs.aws.amazon.com/glue/latest/dg/aws-glue-api-crawler-pyspark-extensions-dynamic-frame.html) |
 
 ## Common exam gotchas
 
 | Gotcha | Why it trips people | Reference |
 |---|---|---|
 | Firehose "real-time" | Minimum buffer is 60s (S3) / 0s special cases — not sub-second | [Firehose delivery stream settings](https://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html) |
-| `PutRecords` partial failure | API returns 200 even when some records fail; always check `FailedRecordCount` and retry | `../../../aws_certified/labs/week-02-lab-streaming.md:209-215` |
+| `PutRecords` partial failure | API returns 200 even when some records fail; always check `FailedRecordCount` and retry | [PutRecords API](https://docs.aws.amazon.com/kinesis/latest/APIReference/API_PutRecords.html) |
 | KDS hot shard | Partition key skew, not total throughput, is usually the culprit | [KDS partition keys](https://docs.aws.amazon.com/streams/latest/dev/key-concepts.html) |
 | DMS CDC on S3 target | Produces change-event files; not a query-ready Iceberg table by itself | [DMS S3 target](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.S3.html) |
 | MSK vs. MSK Serverless IAM | Serverless only supports IAM auth; Provisioned supports IAM, SASL/SCRAM, mTLS | [MSK authentication](https://docs.aws.amazon.com/msk/latest/developerguide/iam-access-control.html) |

@@ -97,8 +97,8 @@ docker compose down
 
 ## Stretch goals
 - Swap the filesystem destination for `destination="iceberg"` and configure a PyIceberg catalog against the lab HMS at `thrift://localhost:9083`. See [dlt — Iceberg destination](https://dlthub.com/docs/dlt-ecosystem/destinations/iceberg).
-- Add a second resource for `../dataeng/dlt_pipelines/taxi_pipeline.py`-style taxi zones lookup and group both under one `@dlt.source`.
-- Wire the pipeline as a Dagster asset (forward reference to Module 06) using `../dataeng/dagster/lakehouse/resources/dlt_resource.py` as a template.
+- Add a second resource for a taxi zones lookup and group both under one `@dlt.source`. See [dlt — Sources](https://dlthub.com/docs/general-usage/source).
+- Wire the pipeline as a Dagster asset (forward reference to Module 06) using the `dagster-dlt` integration. See [Dagster — dagster-dlt](https://docs.dagster.io/integrations/dlt).
 
 ## References
 See `../../references.md` (module-level).

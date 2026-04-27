@@ -15,12 +15,12 @@
 - [Fabric KQL database](https://learn.microsoft.com/en-us/fabric/real-time-intelligence/create-database)
 - [Activator in Fabric](https://learn.microsoft.com/en-us/fabric/real-time-intelligence/data-activator/data-activator-introduction)
 
-## Sibling reuse
+## Additional resources
 
-- `../../../../azure_certified/IMPLEMENTATION-PLAN.md:L236-L245` — Event Hubs partitions and parallelism.
-- `../../../../azure_certified/IMPLEMENTATION-PLAN.md:L352-L505` — ASA windowing, Event Hubs, Structured Streaming, checkpoints, replay.
-- `../../../../azure_certified/labs/03-structured-streaming.ipynb` — Structured Streaming hands-on.
-- `../../../../azure_certified/flashcards/top-33-flashcards.md` — Card 3 (windowing), Card 10 (streaming output modes).
+- [Event Hubs features](https://learn.microsoft.com/en-us/azure/event-hubs/event-hubs-features) — Event Hubs partitions and parallelism.
+- [ASA windowing](https://learn.microsoft.com/en-us/azure/stream-analytics/stream-analytics-window-functions) — ASA windowing, Event Hubs, Structured Streaming, checkpoints, replay.
+- [Structured Streaming in Fabric/Databricks](https://learn.microsoft.com/en-us/azure/databricks/structured-streaming/) — Structured Streaming hands-on.
+- [ASA windowing](https://learn.microsoft.com/en-us/azure/stream-analytics/stream-analytics-window-functions) — windowing types and streaming output modes.
 
 ## Books
 

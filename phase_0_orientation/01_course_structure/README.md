@@ -41,11 +41,11 @@ Pick one first. The core track is the prerequisite that makes any vendor branch 
 - `phase_N_*/NN_<name>/labs/lab_NN_*/` — labs live beside the module
 - `phase_N_*/NN_<name>/quiz.md` — exit quiz (answers at bottom)
 - `phase_N_*/NN_<name>/references.md` — links into the central `references/` index
-- `references/` — single source of truth for docs, books, tools, glossary, sibling sources
+- `references/` — single source of truth for docs, books, tools, glossary, content provenance
 - `status/phase_N.md` — build state (so work can resume after interruptions)
 
 ### Reuse-first + cite-everything
-Every module is either (a) built by lifting content from a sibling directory (`../dataeng/`, `../linux_fundamentals/`, `../aws_certified/`, `../azure_certified/`, `../snowflake_eng/`) and citing the source file with a line range, or (b) a gap module written from scratch citing primary docs / specs / canonical books only.
+Every module is either (a) built by adapting content from the original source curricula (see `references/sibling_sources.md` for provenance) and citing the source, or (b) a gap module written from scratch citing official documentation, specs, and canonical books only.
 
 **Rejected sources:** blog posts, Medium, Stack Overflow, AI-generated secondary content. When the primary source is unavailable, the claim is omitted — not tagged `[UNVERIFIED]`.
 

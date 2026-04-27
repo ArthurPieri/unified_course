@@ -22,15 +22,13 @@
 - [Managed Service for Apache Flink](https://docs.aws.amazon.com/managed-flink/latest/java/what-is.html)
 - [Amazon QuickSight User Guide](https://docs.aws.amazon.com/quicksight/latest/user/welcome.html)
 
-## Sibling course
+## Additional AWS references
 
-- `../../../../aws_certified/docs/week-03-data-transformation.md:20-865`
-- `../../../../aws_certified/docs/week-05-data-store-selection.md:242-509`
-- `../../../../aws_certified/docs/week-08-automation-analysis.md:208-802`
-- `../../../../aws_certified/labs/week-03-lab-transformation.md`
-- `../../../../aws_certified/labs/week-05-lab-datastores.md`
-- `../../../../aws_certified/labs/week-08-lab-automation.md`
-- `../../../../aws_certified/labs/week-11-lab-capstone.md`
+- [AWS Glue ETL programming](https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl.html) — data transformation
+- [Amazon Redshift Developer Guide](https://docs.aws.amazon.com/redshift/latest/dg/) — data store selection and analytics
+- [Amazon Athena User Guide](https://docs.aws.amazon.com/athena/latest/ug/) — automation and analysis
+- [Amazon EMR Management Guide](https://docs.aws.amazon.com/emr/latest/ManagementGuide/) — compute and cluster management
+- [AWS Well-Architected Data Analytics Lens](https://docs.aws.amazon.com/wellarchitected/latest/analytics-lens/) — capstone architecture patterns
 
 ## Exam guide
 

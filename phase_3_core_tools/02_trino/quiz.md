@@ -79,7 +79,7 @@ D. You must quote the value differently
 ## Answer key
 
 1. **B** — Trino is a distributed SQL engine; storage lives in connectors' underlying systems. [Trino concepts](https://trino.io/docs/current/overview/concepts.html) · [Use cases](https://trino.io/docs/current/overview/use-cases.html)
-2. **B** — `coordinator=true` plus `node-scheduler.include-coordinator=true` lets one node serve both roles, as in `../../../../dataeng/trino/config.properties:L1-L2`. [Deployment](https://trino.io/docs/current/installation/deployment.html)
+2. **B** — `coordinator=true` plus `node-scheduler.include-coordinator=true` lets one node serve both roles, as in `../compose/full-stack/conf/trino/config.properties`. [Deployment](https://trino.io/docs/current/installation/deployment.html)
 3. **C** — Identifiers are `catalog.schema.table`; the catalog is a configured connector instance. [Trino concepts — catalog](https://trino.io/docs/current/overview/concepts.html#catalog)
 4. **B** — The Iceberg connector asks HMS for the table's current `metadata.json` pointer, then reads the snapshot itself. [Trino Iceberg connector](https://trino.io/docs/current/connector/iceberg.html) · [Iceberg Hive catalog](https://iceberg.apache.org/docs/latest/hive/)
 5. **B** — Joining across connectors in one SQL statement is Trino's federation model. [Connectors](https://trino.io/docs/current/connector.html)

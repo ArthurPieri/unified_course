@@ -10,13 +10,13 @@
 - [FinOps Framework — Capability: Workload Optimization](https://www.finops.org/framework/capabilities/workload-optimization/) — rightsizing, auto-suspend, idle detection.
 - [FinOps Framework — Capability: Anomaly Management](https://www.finops.org/framework/capabilities/anomaly-management/) — anomaly detection vs. static thresholds.
 
-## Sibling sources
-- `../aws_certified/docs/week-11-cross-domain.md:L489-L497` — EMR vs. Glue cost model, spot savings up to ~90%, cost-optimize signals.
-- `../aws_certified/docs/week-11-cross-domain.md:L510-L542` — Kinesis/Firehose/MSK retention and per-query Athena/Redshift cost lines.
-- `../aws_certified/docs/week-11-cross-domain.md:L574-L580` — S3 vs. EBS vs. EFS per-GB storage cost comparison.
-- `../aws_certified/docs/week-11-cross-domain.md:L661-L680` — compute engine cost models (Lambda, Glue, Batch, ECS) and Athena vs. CloudWatch Logs Insights cost signals.
-- `../aws_certified/docs/week-11-cross-domain.md:L717-L754` — exam-signal phrasing for cost-effective / small-files / query-cost optimisation.
-- `../aws_certified/docs/week-11-cross-domain.md:L919-L933` — worked example: 500 GB / 500,000 files Glue job fixed with `groupFiles=inPartition`.
+## AWS cost and optimization docs
+- [AWS EMR — Instance purchasing options](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-instance-purchasing-options.html) — EMR vs. Glue cost model, spot savings up to ~90%.
+- [AWS Kinesis Data Streams — Pricing](https://aws.amazon.com/kinesis/data-streams/pricing/) — Kinesis/Firehose/MSK retention and per-shard cost lines.
+- [AWS — EBS pricing](https://aws.amazon.com/ebs/pricing/) — S3 vs. EBS vs. EFS per-GB storage cost comparison.
+- [AWS Glue — Pricing](https://aws.amazon.com/glue/pricing/) — compute engine cost models (Lambda, Glue, Batch, ECS).
+- [AWS — Savings Plans](https://docs.aws.amazon.com/savingsplans/latest/userguide/what-is-savings-plans.html) — cost-effective reservation strategies.
+- [AWS Glue — Reading input files in larger groups](https://docs.aws.amazon.com/glue/latest/dg/grouping-input-files.html) — `groupFiles=inPartition` fix for the small-files problem.
 
 ## Canonical book
 - *Fundamentals of Data Engineering*, Reis & Housley, Ch. 4 — cost and the data engineering lifecycle; TCO vs. TVO framing.

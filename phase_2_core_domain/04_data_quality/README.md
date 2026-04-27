@@ -1,6 +1,6 @@
 # Module 04: Data Quality — Tests, Contracts, and Checks (8h)
 
-> Partial-reuse module. Reuses three working artifacts from `../dataeng/`: a dbt singular test, a dbt unit test, and Dagster asset checks. Concept scaffolding is written from primary docs (dbt, Dagster, Great Expectations) and *Fundamentals of Data Engineering* framing.
+> Partial-reuse module. References three working artifacts from the companion lakehouse project: a dbt singular test, a dbt unit test, and Dagster asset checks. Concept scaffolding is written from primary docs (dbt, Dagster, Great Expectations) and *Fundamentals of Data Engineering* framing.
 
 ## Learning goals
 - Name the six classic classes of data-quality issues and give one concrete test for each
@@ -16,9 +16,9 @@
 
 ## Reading order
 1. This README
-2. `../dataeng/dbt_project/tests/assert_positive_revenue.sql` — a real singular test
-3. `../dataeng/dbt_project/unit_tests/test_revenue_calculation.yml` — a real unit test
-4. `../dataeng/dagster/lakehouse/assets/quality.py` — real Dagster asset checks
+2. A dbt singular test that asserts positive revenue (pattern described below)
+3. A dbt unit test that validates revenue calculation logic with fixture rows (pattern described below)
+4. Dagster asset checks that verify data quality post-materialization (pattern described below)
 5. [`quiz.md`](quiz.md)
 
 ## Concepts
@@ -63,21 +63,21 @@ A generic test compiles to a `SELECT` that should return **zero rows** if the as
 ### Singular tests
 When a generic test is not enough, dbt lets you drop a SQL file under `tests/` that returns the offending rows. This is a **singular test**. Ref: [dbt — Singular data tests](https://docs.getdbt.com/docs/build/data-tests#singular-data-tests).
 
-The working example in this stack is `../dataeng/dbt_project/tests/assert_positive_revenue.sql:L1-L10` — it selects rows from `fct_daily_revenue` where `total_revenue < 0`. Any row returned fails the test, halting the run before the mart is exposed downstream.
+A working example: a singular test file `assert_positive_revenue.sql` selects rows from `fct_daily_revenue` where `total_revenue < 0`. Any row returned fails the test, halting the run before the mart is exposed downstream.
 
 ### Unit tests — CI-time, on fixture rows
 dbt **unit tests** (added in dbt Core 1.8) test transformation logic against **static input rows** defined in YAML, not against whatever happens to be in the warehouse today. They answer "does the SQL correctly transform this input into that output?" and they run in CI before deployment. Ref: [dbt — Unit tests](https://docs.getdbt.com/docs/build/unit-tests).
 
-The working example: `../dataeng/dbt_project/unit_tests/test_revenue_calculation.yml:L1-L81` feeds three fixture rows of `int_trips_enriched` into `fct_daily_revenue` and asserts two aggregated output rows. Because inputs and outputs are inline, this test is deterministic and fast — it belongs in CI.
+A working example: a unit test file `test_revenue_calculation.yml` feeds three fixture rows of `int_trips_enriched` into `fct_daily_revenue` and asserts two aggregated output rows. Because inputs and outputs are inline, this test is deterministic and fast — it belongs in CI.
 
 A data test answers "is today's data OK?"; a unit test answers "does the SQL still compute the right thing?". You need both.
 
 ### Dagster asset checks
 Dagster models quality as **asset checks**: functions decorated with `@dg.asset_check(asset=...)` that run against a declared asset and emit an `AssetCheckResult(passed=...)` with metadata. Asset checks are first-class in the UI and can block downstream materialization. Ref: [Dagster — Asset checks](https://docs.dagster.io/concepts/assets/asset-checks).
 
-The working example is `../dataeng/dagster/lakehouse/assets/quality.py:L18-L71`. Two checks run against the `dbt_lakehouse` multi-asset:
-- `check_revenue_positive` (`:L18-L42`) queries Trino for rows with `total_revenue <= 0` and passes iff the count is zero — the exact same assertion as the dbt singular test, but expressed at the orchestrator layer so the UI shows pass/fail per run.
-- `check_row_counts` (`:L45-L71`) loops over three silver tables and fails if any is empty.
+A working example has two checks running against a `dbt_lakehouse` multi-asset:
+- `check_revenue_positive` queries Trino for rows with `total_revenue <= 0` and passes iff the count is zero — the exact same assertion as the dbt singular test, but expressed at the orchestrator layer so the UI shows pass/fail per run.
+- `check_row_counts` loops over three silver tables and fails if any is empty.
 
 Dagster also provides **freshness checks**: `build_last_update_freshness_checks` and `build_time_partition_freshness_checks` produce asset checks that fail when an asset has not been materialized within an SLA. Ref: [Dagster — Freshness checks](https://docs.dagster.io/concepts/assets/asset-checks/checking-for-data-freshness). Use them to catch **silent staleness** — the pipeline "succeeded" but the source stopped sending data.
 
@@ -134,7 +134,7 @@ The rule of thumb: **if a human needs to take action before the next consumer re
 | Unit test passes locally, data test fails in prod | Fixture rows don't cover a real edge case | Add the offending row as a new `given:` case | [dbt unit tests](https://docs.getdbt.com/docs/build/unit-tests) |
 | Every PR triggers a full `dbt test` against prod | CI is running data tests instead of unit tests | Split CI: unit tests + `dbt build --select state:modified` on a slim dataset | [dbt — Best practices for CI](https://docs.getdbt.com/best-practices/best-practice-workflows) |
 | Contract change silently breaks a downstream mart | Producer ignored the contract; no `enforced: true` | Set `contract: { enforced: true }` on the model | [dbt model contracts](https://docs.getdbt.com/docs/collaborate/govern/model-contracts) |
-| Asset check reports pass but Trino query returns rows | Wrong asset attached to `@asset_check(asset=...)` | Point the check at the materializing asset, not an upstream one | `../dataeng/dagster/lakehouse/assets/quality.py:L18-L42` |
+| Asset check reports pass but Trino query returns rows | Wrong asset attached to `@asset_check(asset=...)` | Point the check at the materializing asset, not an upstream one | [Dagster — Asset checks](https://docs.dagster.io/concepts/assets/asset-checks) |
 
 ## References
 See [references.md](./references.md).
@@ -145,6 +145,6 @@ Before moving on, you can:
 - [ ] Write a `schema.yml` block with `unique`, `not_null`, `accepted_values`, and `relationships` tests
 - [ ] Explain when to reach for a singular test vs. a generic test
 - [ ] Contrast a dbt data test and a dbt unit test in one sentence each
-- [ ] Read `../dataeng/dagster/lakehouse/assets/quality.py:L18-L71` and describe what each check asserts
+- [ ] Describe what `check_revenue_positive` and `check_row_counts` asset checks assert (see the patterns described above)
 - [ ] Justify enforcing a dbt contract instead of adding another runtime test
 - [ ] Place a given assertion at CI-time, runtime, or post-deployment and defend the choice

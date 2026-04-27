@@ -16,12 +16,12 @@
 - [Delta optimization and V-Order in Fabric](https://learn.microsoft.com/en-us/fabric/data-engineering/delta-optimization-and-v-order)
 - [Delta Lake table maintenance in Fabric](https://learn.microsoft.com/en-us/fabric/data-engineering/lakehouse-table-maintenance)
 
-## Sibling reuse
+## Supplementary Microsoft Learn resources
 
-- `../../../../azure_certified/IMPLEMENTATION-PLAN.md:L175-L270` — ADLS Gen2, Delta format, partitioning, Synapse pool types (legacy context).
-- `../../../../azure_certified/labs/01-delta-lake-fundamentals.ipynb` — Delta MERGE, time travel, history.
-- `../../../../azure_certified/labs/04-batch-and-pipeline-patterns.md:L451-L842` — medallion architecture as applied to lakehouse storage.
-- `../../../../azure_certified/flashcards/top-33-flashcards.md` — Card 1 (MERGE), Card 11 (OPTIMIZE/ZORDER/VACUUM), Card 5 (distributions, legacy).
+- [ADLS Gen2 introduction](https://learn.microsoft.com/en-us/azure/storage/blobs/data-lake-storage-introduction) — ADLS Gen2, HNS, partitioning.
+- [Microsoft Learn: Delta Lake](https://learn.microsoft.com/en-us/azure/databricks/delta/) — Delta MERGE, time travel, history.
+- [Azure Data Factory pipelines](https://learn.microsoft.com/en-us/azure/data-factory/concepts-pipelines-activities) — medallion architecture as applied to lakehouse storage.
+- [DP-700 Study Guide](https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/dp-700) — key concepts: MERGE, OPTIMIZE/ZORDER/VACUUM, distributions (legacy).
 
 ## Books
 

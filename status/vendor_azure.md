@@ -18,7 +18,7 @@ Target certification: **DP-700** (Fabric Data Engineer Associate)
 - [x] vendors/azure/mock_exam_sources.md (Microsoft Learn links only; explicit no-fabricated-questions note)
 
 ## Decisions recorded
-- Primary source: `../azure_certified/` (IMPLEMENTATION-PLAN.md + labs 01-07 with line ranges)
+- Primary source: Microsoft Learn documentation (replaced sibling citations with doc links)
 - DP-203 is retired (March 2025) — course targets DP-700 only
 - Module directory names match the task spec (e.g. `01_storage_adls_fabric`), replacing the generic scaffold names from Stage 0 — placeholder empty dirs removed during commit
 - No blogs, Medium, or SO — only learn.microsoft.com + official MS exam pages

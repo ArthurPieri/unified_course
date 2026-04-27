@@ -95,7 +95,7 @@ When a streaming pipeline is genuinely required, the typical industry stack is *
 |---|---|---|---|
 | `lab_05_streaming_read` (Phase 4) | Run a single-broker Kafka, publish and consume a topic, inspect partitions | 60m | covered in Phase 4 · Kafka module |
 
-> This module is conceptual. Hands-on Kafka and CDC labs live in Phase 4, where the full-stack compose from `../dataeng/` is introduced.
+> This module is conceptual. Hands-on Kafka and CDC labs live in Phase 4, where the full-stack compose is introduced.
 
 ## Common failures
 | Symptom | Cause | Fix | Source |

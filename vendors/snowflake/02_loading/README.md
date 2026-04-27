@@ -14,8 +14,8 @@ Loading is the heaviest domain on Platform (40%, Domain 3.0) and remains first-c
 
 ## Reading order
 1. This README
-2. `../../../../snowflake_eng/phase1_platform/study_notes/domain_3_0_data_loading.md:L16-L100` (structured + semi-structured + stages)
-3. `../../../../snowflake_eng/phase1_platform/labs/lab_02_data_loading.sql` (end-to-end)
+2. [Snowflake Data Loading](https://docs.snowflake.com/en/user-guide/data-load-overview) (structured + semi-structured + stages)
+3. [Snowflake Quickstarts](https://quickstarts.snowflake.com/) — hands-on data loading labs
 4. `quiz.md`
 
 ## Concepts
@@ -28,12 +28,12 @@ Loading is the heaviest domain on Platform (40%, Domain 3.0) and remains first-c
 | Internal table | `@%table` | Per table | Auto-created; cannot be altered or dropped. |
 | External | `@ext_stage` | Account-wide | Points at S3, GCS, or Azure Blob; uses a storage integration. |
 
-Ref: *SnowPro Associate: Platform Study Guide, §3.1, p. 7* · `../../../../snowflake_eng/phase1_platform/study_notes/domain_3_0_data_loading.md:L29-L50`.
+Ref: *SnowPro Associate: Platform Study Guide, §3.1, p. 7* · [Snowflake Data Loading](https://docs.snowflake.com/en/user-guide/data-load-overview).
 
 ### File formats and COPY INTO (table)
 A **file format object** (`CREATE FILE FORMAT`) captures parse rules (delimiter, header, compression, null representation, etc.) once and is then referenced by name from `COPY INTO`. Inline file format options are allowed but brittle. `COPY INTO` tracks which files have been loaded via **load metadata** retained for **64 days** — it will skip already-loaded files automatically. `PURGE = TRUE` removes source files after a successful load.
 
-Ref: [COPY INTO <table>](https://docs.snowflake.com/en/sql-reference/sql/copy-into-table) · `../../../../snowflake_eng/phase1_platform/study_notes/domain_3_0_data_loading.md:L38-L50` · `../../../../snowflake_eng/phase1_platform/labs/lab_02_data_loading.sql:L14-L30`.
+Ref: [COPY INTO <table>](https://docs.snowflake.com/en/sql-reference/sql/copy-into-table) · [Snowflake Data Loading](https://docs.snowflake.com/en/user-guide/data-load-overview).
 
 ### Semi-structured data
 JSON, Avro, Parquet, ORC, and XML land in a `VARIANT` column. Navigate with `:` (top-level), `.` or `[]` (nested). Use `FLATTEN` / `LATERAL FLATTEN` to unnest arrays. `STRIP_OUTER_ARRAY = TRUE` is the usual trick when a JSON file is a top-level array. Snowflake supports **schema-on-read** for these formats — no table schema required to land data.
@@ -64,8 +64,8 @@ Ref: [CREATE STORAGE INTEGRATION](https://docs.snowflake.com/en/sql-reference/sq
 
 | # | Drill | Est. time | Source |
 |---|---|---|---|
-| D1 | Create a named file format for CSV and load a file from an internal named stage with `COPY INTO`. | 25 min | `../../../../snowflake_eng/phase1_platform/labs/lab_02_data_loading.sql:L14-L100` |
-| D2 | Load a JSON file into a `VARIANT` column and write a `LATERAL FLATTEN` query to extract nested array elements. | 30 min | `../../../../snowflake_eng/phase1_platform/labs/lab_02_data_loading.sql` (semi-structured section) |
+| D1 | Create a named file format for CSV and load a file from an internal named stage with `COPY INTO`. | 25 min | [Snowflake Quickstarts](https://quickstarts.snowflake.com/) |
+| D2 | Load a JSON file into a `VARIANT` column and write a `LATERAL FLATTEN` query to extract nested array elements. | 30 min | [Snowflake Quickstarts](https://quickstarts.snowflake.com/) |
 | D3 | Use `INFER_SCHEMA` against a staged Parquet file and `CREATE TABLE ... USING TEMPLATE`. | 25 min | [INFER_SCHEMA docs](https://docs.snowflake.com/en/sql-reference/functions/infer_schema) |
 | D4 | Create an external stage backed by a storage integration and a Snowpipe with `AUTO_INGEST = TRUE`; drop a file and confirm it loads. | 45 min | [Snowpipe](https://docs.snowflake.com/en/user-guide/data-load-snowpipe-intro) |
 | D5 | Run `SYSTEM$PIPE_STATUS` and `VALIDATE_PIPE_LOAD` to diagnose a load failure. | 20 min | *DEA Study Guide §1.3, p. 5* |

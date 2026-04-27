@@ -18,8 +18,8 @@
 - [Delta Change Data Feed (Databricks docs)](https://learn.microsoft.com/en-us/azure/databricks/delta/delta-change-data-feed)
 - [SQL Server CDC in ADF](https://learn.microsoft.com/en-us/azure/data-factory/connector-sql-server-change-data-capture)
 
-## Sibling reuse
+## Additional resources
 
-- `../../../../azure_certified/IMPLEMENTATION-PLAN.md:L304-L395` — ADF, Data Flows, incremental loads, IR types.
-- `../../../../azure_certified/labs/04-batch-and-pipeline-patterns.md:L7-L1850` — full ADF lab text (Copy, Data Flow, medallion, batch, triggers).
-- `../../../../azure_certified/flashcards/top-33-flashcards.md` — Card 4 (ADF design), Card 8 (watermark), Card 12 (triggers).
+- [Azure Data Factory introduction](https://learn.microsoft.com/en-us/azure/data-factory/introduction) — ADF concepts, Data Flows, incremental loads, IR types.
+- [Azure Data Factory pipelines](https://learn.microsoft.com/en-us/azure/data-factory/concepts-pipelines-activities) — Copy, Data Flow, medallion, batch, and trigger patterns.
+- [Azure Data Factory incremental copy](https://learn.microsoft.com/en-us/azure/data-factory/tutorial-incremental-copy-overview) — watermark pattern and trigger configuration.

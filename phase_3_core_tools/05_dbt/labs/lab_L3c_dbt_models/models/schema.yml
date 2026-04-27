@@ -1,7 +1,7 @@
 version: 2
 
 # Source declaration — the edge of the project. Lab L3b (dlt) lands this table.
-# Pattern reference: ../dataeng/dbt_project/models/sources.yml:L1-L27
+# dbt source and model definitions for the lakehouse lab.
 sources:
   - name: raw_taxi
     database: iceberg       # Trino catalog

@@ -16,10 +16,10 @@
 - [Unit tests](https://docs.getdbt.com/docs/build/unit-tests) — mocked-input tests that run without a warehouse.
 - [profiles.yml](https://docs.getdbt.com/docs/core/connect-data-platform/profiles.yml) — connection config for CI environments.
 
-## Sibling repo (primary reuse source)
-- `../dataeng/.github/workflows/dbt-ci.yml:L1-L70` — full dbt PR workflow: compile, lint, unit tests, Python tests.
-- `../dataeng/.github/workflows/pipeline-validation.yml:L1-L57` — full-stack integration workflow with compose, health polling, cleanup guard.
-- `../linux_fundamentals/course/05-devops-fundamentals.md` — CI/CD fundamentals and DevOps lifecycle background.
+## Additional CI/CD resources
+- See the CI/CD examples in this repo's `phase_5_advanced/01_cicd/` for dbt PR workflow and full-stack integration workflow patterns.
+- [GitHub Actions — Workflow syntax](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions) — authoritative workflow reference.
+- [Linux Foundation — DevOps and CI/CD overview](https://training.linuxfoundation.org/resources/free-courses-overview/) — CI/CD fundamentals and DevOps lifecycle background.
 
 ## Books
 - *Fundamentals of Data Engineering*, Reis & Housley, Ch. 2 (data engineering lifecycle) and Ch. 6 (ingestion → serving as a controlled release path).

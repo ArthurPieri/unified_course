@@ -68,15 +68,15 @@ D) Because `xargs` requires it on all GNU systems
 
 ## Answer key
 
-**Q1 — C (754).** `rwx` = 7, `r-x` = 5, `r--` = 4. Ref: [GNU coreutils: chmod](https://www.gnu.org/software/coreutils/manual/html_node/chmod-invocation.html) · `../linux_fundamentals/course/01-linux-fundamentals.md:L680-L699`.
+**Q1 — C (754).** `rwx` = 7, `r-x` = 5, `r--` = 4. Ref: [GNU coreutils: chmod](https://www.gnu.org/software/coreutils/manual/html_node/chmod-invocation.html).
 
-**Q2 — B (SIGTERM).** Default `kill` signal is 15 / SIGTERM, which the process can trap. Ref: [signal(7)](https://man7.org/linux/man-pages/man7/signal.7.html) · `../linux_fundamentals/course/01-linux-fundamentals.md:L965-L974`.
+**Q2 — B (SIGTERM).** Default `kill` signal is 15 / SIGTERM, which the process can trap. Ref: [signal(7)](https://man7.org/linux/man-pages/man7/signal.7.html).
 
 **Q3 — B.** `-e` exits on error, `-u` errors on unset, `-o pipefail` propagates pipeline failures. Ref: [Bash Reference Manual: The Set Builtin](https://www.gnu.org/software/bash/manual/html_node/The-Set-Builtin.html).
 
-**Q4 — B (`ss -tlnp`).** `-t` TCP, `-l` listening, `-n` numeric, `-p` show process. Ref: [Linux man-pages: ss(8)](https://man7.org/linux/man-pages/man8/ss.8.html) · `../linux_fundamentals/course/02-system-administration.md:L1141-L1166`.
+**Q4 — B (`ss -tlnp`).** `-t` TCP, `-l` listening, `-n` numeric, `-p` show process. Ref: [Linux man-pages: ss(8)](https://man7.org/linux/man-pages/man8/ss.8.html).
 
-**Q5 — C (every 15 minutes).** The `*/N` step value in the minute field. Ref: [Linux man-pages: crontab(5)](https://man7.org/linux/man-pages/man5/crontab.5.html) · `../linux_fundamentals/course/02-system-administration.md:L542-L572`.
+**Q5 — C (every 15 minutes).** The `*/N` step value in the minute field. Ref: [Linux man-pages: crontab(5)](https://man7.org/linux/man-pages/man5/crontab.5.html).
 
 **Q6 — B.** Without `pipefail`, only the last command's exit status is reported. Ref: [Bash Reference Manual: The Set Builtin](https://www.gnu.org/software/bash/manual/html_node/The-Set-Builtin.html).
 
@@ -84,6 +84,6 @@ D) Because `xargs` requires it on all GNU systems
 
 **Q8 — B.** `export` marks the variable for inheritance by child processes. Ref: [Bash Reference Manual: Bourne Shell Builtins (export)](https://www.gnu.org/software/bash/manual/html_node/Bourne-Shell-Builtins.html).
 
-**Q9 — B (`/tmp`).** `/tmp` is cleared on reboot; `/var/tmp` persists. Ref: [Linux man-pages: hier(7)](https://man7.org/linux/man-pages/man7/hier.7.html) · `../linux_fundamentals/course/01-linux-fundamentals.md:L219-L221`.
+**Q9 — B (`/tmp`).** `/tmp` is cleared on reboot; `/var/tmp` persists. Ref: [Linux man-pages: hier(7)](https://man7.org/linux/man-pages/man7/hier.7.html).
 
 **Q10 — B.** NUL (`\0`) is the only byte that cannot appear in a filename, so `-print0`/`-0` is the safe separator. Ref: [Linux man-pages: xargs(1)](https://man7.org/linux/man-pages/man1/xargs.1.html) · [Linux man-pages: find(1)](https://man7.org/linux/man-pages/man1/find.1.html).

@@ -7,8 +7,7 @@ Enforced across every module and lab. Agents building content MUST follow these 
 1. **Official tool documentation** at canonical domains — `iceberg.apache.org`, `trino.io`, `spark.apache.org`, `kafka.apache.org`, `airflow.apache.org`, `kubernetes.io`, `docs.getdbt.com`, `docs.dagster.io`, `dlthub.com`, `duckdb.org`, `postgresql.org`, `docs.docker.com`, `git-scm.com`, `python.org`, `debezium.io`, `min.io`, `metabase.com`, `prometheus.io`, `grafana.com`, `localstack.cloud`
 2. **Official specifications** — Apache Iceberg spec, Parquet spec, Avro spec, RFCs
 3. **Canonical books** — *Designing Data-Intensive Applications* (Kleppmann), *The Data Warehouse Toolkit* (Kimball), *Building the Data Warehouse* (Inmon), *Fundamentals of Data Engineering* (Reis/Housley). Cite as `*Title, Author, Ch. N*`. No URL unless a publisher page is verified. No copyrighted prose quoted.
-4. **Existing sibling-dir files** — `../dataeng/`, `../linux_fundamentals/`, `../aws_certified/`, `../azure_certified/`, `../snowflake_eng/`. Cite as `../<sibling>/<path>:L<start>-L<end>`.
-5. **Vendor certification pages** — AWS Certification, Microsoft Learn, Snowflake University (exam outlines, skill domains).
+4. **Vendor certification pages** — AWS Certification, Microsoft Learn, Snowflake University (exam outlines, skill domains).
 
 ## Rejected sources
 
@@ -23,16 +22,15 @@ Enforced across every module and lab. Agents building content MUST follow these 
 Inline in prose:
 - Link: `[Iceberg table spec](https://iceberg.apache.org/spec/)`
 - Book: `*Designing Data-Intensive Applications*, Kleppmann, Ch. 5`
-- Sibling file: `../dataeng/notes/iceberg_catalog.md:L42-L67`
 
 At the bottom of each module, a `references.md` lists all sources with one-line context.
 
 ## Reuse-first rule
 
 Before writing any new module content, the agent must:
-1. Search the sibling dirs for existing content on the same topic (Grep the topic keywords)
-2. If found, lift it verbatim or lightly adapt — do not rewrite
-3. If not found, write new content from primary docs
+1. Search the existing course modules for content on the same topic
+2. If found, reference it rather than duplicating — do not rewrite
+3. If not found, write new content from official documentation and canonical books
 4. Either way, cite the source
 
 ## Factual-only rule

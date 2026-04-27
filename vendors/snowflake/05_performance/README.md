@@ -15,7 +15,7 @@ Performance and cost are Core Domain 3.0 (16%) and DEA Domain 2.0 (19%). At the 
 
 ## Reading order
 1. This README
-2. `../../../../snowflake_eng/phase1_platform/labs/lab_03_warehouses.sql` (sizing, auto-suspend, multi-cluster, Cortex)
+2. [Snowflake Quickstarts](https://quickstarts.snowflake.com/) — warehouse sizing, auto-suspend, multi-cluster, Cortex
 3. `quiz.md`
 
 ## Concepts
@@ -23,7 +23,7 @@ Performance and cost are Core Domain 3.0 (16%) and DEA Domain 2.0 (19%). At the 
 ### Virtual warehouses — sizing and scaling
 Warehouse sizes are XS, S, M, L, XL, 2XL, 3XL, 4XL, 5XL, 6XL. Each size roughly **doubles** compute (and credit burn per second) from the previous. **Scaling up** (increase size) helps a single large query that is compute-bound or spilling. **Scaling out** (multi-cluster warehouses) helps concurrency: Snowflake spins up additional clusters of the same size when the queue grows past the scaling policy threshold. Multi-cluster is Enterprise+.
 
-Ref: [Warehouses overview](https://docs.snowflake.com/en/user-guide/warehouses) · *SnowPro Core Study Guide, Domain 3.0, p. 8* · `../../../../snowflake_eng/phase1_platform/labs/lab_03_warehouses.sql:L17-L203`.
+Ref: [Warehouses overview](https://docs.snowflake.com/en/user-guide/warehouses) · *SnowPro Core Study Guide, Domain 3.0, p. 8* · [Snowflake Quickstarts](https://quickstarts.snowflake.com/).
 
 ### Auto-suspend, auto-resume, and policies
 `AUTO_SUSPEND` (seconds) stops the warehouse after idle time. `AUTO_RESUME = TRUE` restarts it on the next query. Multi-cluster warehouses add `SCALING_POLICY = STANDARD | ECONOMY` — STANDARD spins up clusters eagerly to minimize queueing, ECONOMY delays to maximize utilization.

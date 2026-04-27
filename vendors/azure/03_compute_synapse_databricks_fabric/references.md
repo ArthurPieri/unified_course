@@ -18,15 +18,15 @@
 - [Azure Databricks](https://learn.microsoft.com/en-us/azure/databricks/)
 - [T-SQL language reference](https://learn.microsoft.com/en-us/sql/t-sql/language-reference)
 
-## Sibling reuse
+## Additional resources
 
-- `../../../../azure_certified/IMPLEMENTATION-PLAN.md:L186-L295` — Synapse pool types, Spark, T-SQL, Delta MERGE.
-- `../../../../azure_certified/IMPLEMENTATION-PLAN.md:L683-L745` — performance and tuning.
-- `../../../../azure_certified/labs/01-delta-lake-fundamentals.ipynb` — Delta MERGE, history, time travel.
-- `../../../../azure_certified/labs/02-spark-transformations.ipynb` — DataFrame ops, broadcast, repartition, explain plans.
-- `../../../../azure_certified/labs/06-tsql-exercises.md:L7-L1266` — OPENROWSET, external tables, CTAS, COPY INTO, JSON, RLS, DDM.
-- `../../../../azure_certified/labs/07-kql-exercises.md:L9-L473` — KQL exercises for pipeline monitoring and throughput.
-- `../../../../azure_certified/flashcards/top-33-flashcards.md` — Card 1 (MERGE), Card 2 (Spark lazy), Card 5 (distributions), Card 9 (COPY INTO), Card 11 (OPTIMIZE).
+- [Azure Synapse Analytics](https://learn.microsoft.com/en-us/azure/synapse-analytics/overview-what-is) — Synapse pool types, Spark, T-SQL, Delta MERGE.
+- [Azure Databricks Spark](https://learn.microsoft.com/en-us/azure/databricks/getting-started/spark/) — performance and tuning.
+- [Microsoft Learn: Delta Lake](https://learn.microsoft.com/en-us/azure/databricks/delta/) — Delta MERGE, history, time travel.
+- [Azure Databricks Spark](https://learn.microsoft.com/en-us/azure/databricks/getting-started/spark/) — DataFrame ops, broadcast, repartition, explain plans.
+- [Fabric Warehouse T-SQL surface area](https://learn.microsoft.com/en-us/fabric/data-warehouse/tsql-surface-area) — OPENROWSET, external tables, CTAS, COPY INTO, JSON, RLS, DDM.
+- [KQL reference](https://learn.microsoft.com/en-us/kusto/query/) — KQL exercises for pipeline monitoring and throughput.
+- [Delta optimization and V-Order](https://learn.microsoft.com/en-us/fabric/data-engineering/delta-optimization-and-v-order) — MERGE, Spark lazy evaluation, distributions, COPY INTO, OPTIMIZE.
 
 ## Books
 

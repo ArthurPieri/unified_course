@@ -1,6 +1,6 @@
 # Full-stack lakehouse compose
 
-Complete Phase 3 reference stack: MinIO, Hive Metastore (with its Postgres backend), Trino, Spark, Dagster (webserver + daemon + Postgres), and Metabase. Topology mirrors `../../../../dataeng/docker-compose.yml:L1-L243`, with the monitoring services stripped out and Spark promoted to a first-class service for the PySpark labs.
+Complete Phase 3 reference stack: MinIO, Hive Metastore (with its Postgres backend), Trino, Spark, Dagster (webserver + daemon + Postgres), and Metabase. Based on the companion lakehouse project, with the monitoring services stripped out and Spark promoted to a first-class service for the PySpark labs.
 
 ## Requirements
 

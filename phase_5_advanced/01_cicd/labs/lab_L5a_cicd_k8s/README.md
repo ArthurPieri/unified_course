@@ -5,7 +5,7 @@ Build a GitHub Actions workflow that lints and tests a Python package on every p
 
 ## Prerequisites
 - Docker Desktop running
-- `kind`, `kubectl`, `helm` installed locally (see `../dataeng/k8s/README.md:L5-L11`)
+- `kind`, `kubectl`, `helm` installed locally (see [kind Quick Start](https://kind.sigs.k8s.io/docs/user/quick-start/), [kubectl install](https://kubernetes.io/docs/tasks/tools/), [Helm install](https://helm.sh/docs/intro/install/))
 - A GitHub repo you can push to
 - Completed module `README.md`
 
@@ -15,8 +15,9 @@ mkdir lab_l5a && cd lab_l5a
 git init -b main
 uv init --package .
 mkdir -p .github/workflows k8s tests
-cp ../../../../../dataeng/k8s/kind-config.yaml k8s/kind-config.yaml
-cp ../../../../../dataeng/k8s/trino-values.yaml k8s/trino-values.yaml
+# Create kind-config.yaml and trino-values.yaml in k8s/ directory.
+# See kind configuration docs: https://kind.sigs.k8s.io/docs/user/configuration/
+# See Trino Helm chart values: https://github.com/trinodb/charts
 ```
 
 Add a trivial module and test:
@@ -47,7 +48,7 @@ EOF
    - name: Load image into kind
      run: kind load docker-image lab-l5a:${{ github.sha }} --name lakehouse-dev
    ```
-   The kind cluster name `lakehouse-dev` comes from `../dataeng/k8s/kind-config.yaml:L5`. `kind load docker-image` is the canonical way to make a locally built image available to the cluster without pushing to a registry — see [kind — Loading an image](https://kind.sigs.k8s.io/docs/user/quick-start/#loading-an-image-into-your-cluster).
+   The kind cluster name `lakehouse-dev` is defined in `k8s/kind-config.yaml`. `kind load docker-image` is the canonical way to make a locally built image available to the cluster without pushing to a registry — see [kind — Loading an image](https://kind.sigs.k8s.io/docs/user/quick-start/#loading-an-image-into-your-cluster).
 
 3. **Install Trino via Helm** in a following step:
    ```bash
@@ -58,7 +59,7 @@ EOF
      --values k8s/trino-values.yaml \
      --wait --timeout 10m
    ```
-   The chart repo URL is the canonical one published by the Trino project at [github.com/trinodb/charts](https://github.com/trinodb/charts). The values file pins `image.tag: "470"` and sets a single worker — see `../dataeng/k8s/trino-values.yaml:L5-L32`.
+   The chart repo URL is the canonical one published by the Trino project at [github.com/trinodb/charts](https://github.com/trinodb/charts). The values file pins `image.tag: "470"` and sets a single worker — see the `k8s/trino-values.yaml` you created in the setup step and the [Trino Helm chart documentation](https://github.com/trinodb/charts).
 
 4. **Verify Trino is healthy** in a final step:
    ```bash

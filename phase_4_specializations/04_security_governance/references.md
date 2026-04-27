@@ -20,12 +20,12 @@
 - [AWS IAM User Guide — Attribute-based access control (ABAC)](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction_attribute-based-access-control.html) — ABAC mental model, used here for concepts only (not AWS-specific).
 - [AWS IAM User Guide — Policy evaluation logic](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html) — explicit deny > allow, useful framing for any policy engine.
 
-## Sibling reuse source
-- `../../../aws_certified/docs/week-10-security-governance.md:L9-L223` — IAM, policy evaluation, RBAC/ABAC framing.
-- `../../../aws_certified/docs/week-10-security-governance.md:L274-L325` — column-level, row-level, and cell-level security patterns.
-- `../../../aws_certified/docs/week-10-security-governance.md:L664-L728` — masking vs tokenization vs hashing vs encryption comparison.
-- `../../../aws_certified/docs/week-10-security-governance.md:L731-L826` — audit logging and the centralized audit pattern.
-- `../../../aws_certified/docs/week-10-security-governance.md:L828-L920` — data privacy, classification, GDPR framing, secrets.
+## Canonical documentation sources
+- [AWS IAM User Guide — Policy evaluation logic](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html) — IAM, policy evaluation, RBAC/ABAC framing.
+- [AWS Lake Formation — Fine-grained access control](https://docs.aws.amazon.com/lake-formation/latest/dg/access-control-overview.html) — column-level, row-level, and cell-level security patterns.
+- [AWS — Data masking best practices](https://docs.aws.amazon.com/prescriptive-guidance/latest/strategy-data-masking/welcome.html) — masking vs tokenization vs hashing vs encryption comparison.
+- [AWS CloudTrail User Guide](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html) — audit logging and the centralized audit pattern.
+- [AWS — Data classification](https://docs.aws.amazon.com/whitepapers/latest/data-classification/data-classification.html) — data privacy, classification, GDPR framing, secrets management.
 
 ## Book
 - *Designing Data-Intensive Applications*, Kleppmann, Ch. 10 — batch processing, immutability, and consequences for deletion.

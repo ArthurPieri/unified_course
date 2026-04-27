@@ -16,12 +16,12 @@
 - [Amazon SQS Developer Guide](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/welcome.html)
 - [SQS dead-letter queues](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dead-letter-queues.html)
 
-## Sibling course
+## Additional AWS references
 
-- `../../../../aws_certified/docs/week-04-orchestration.md:1-985`
-- `../../../../aws_certified/labs/week-04-lab-orchestration.md`
-- `../../../../aws_certified/labs/week-09-lab-monitoring.md:9-360`
-- `../../../../aws_certified/labs/week-11-lab-capstone.md`
+- [AWS Step Functions Developer Guide](https://docs.aws.amazon.com/step-functions/latest/dg/) — orchestration patterns
+- [Amazon MWAA User Guide](https://docs.aws.amazon.com/mwaa/latest/userguide/) — managed Airflow
+- [Amazon CloudWatch User Guide](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/) — monitoring and alarms
+- [AWS Well-Architected Data Analytics Lens](https://docs.aws.amazon.com/wellarchitected/latest/analytics-lens/) — capstone patterns
 
 ## Exam guide
 

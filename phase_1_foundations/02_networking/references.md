@@ -28,6 +28,6 @@
 - [dig(1)](https://man7.org/linux/man-pages/man1/dig.1.html)
 - [curl(1)](https://curl.se/docs/manpage.html)
 
-## Sibling source (reuse-first)
-- `../linux_fundamentals/course/02-system-administration.md` — LFCA networking, firewalls, SSH (Parts C and D).
-- `../linux_fundamentals/course/04-security-fundamentals.md` — firewall types, TLS/SSL, SSH security.
+## Related topics
+- Networking, firewalls, SSH: see [LFCA — Linux Networking Fundamentals](https://training.linuxfoundation.org/training/linux-fundamentals-lfca/) and [iptables(8)](https://man7.org/linux/man-pages/man8/iptables.8.html)
+- Firewall types, TLS/SSL, SSH security: see [RFC 8446: TLS 1.3](https://datatracker.ietf.org/doc/html/rfc8446) and [OpenSSH manual](https://www.openssh.com/manual.html)

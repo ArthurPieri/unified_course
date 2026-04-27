@@ -81,7 +81,7 @@
 1. **C** — Standard-IA has a 30-day minimum after transition; Deep Archive fits the 7-year cold tail. Direct Glacier from day 1 (A) loses hot access and violates the 30-day requirement; Deep Archive cannot be targeted at day 15 (B is invalid because Standard-IA must be >=30d before further transitions and Instant Retrieval is pricier than Deep Archive for 6+ years). [S3 storage classes](https://docs.aws.amazon.com/AmazonS3/latest/userguide/storage-class-intro.html).
 2. **B** — 30 days minimum. [Using Amazon S3 storage classes](https://docs.aws.amazon.com/AmazonS3/latest/userguide/storage-class-intro.html).
 3. **C** — Lake Formation. *AWS DEA-C01 Exam Guide, Skill 4.2.4*. [Lake Formation permissions reference](https://docs.aws.amazon.com/lake-formation/latest/dg/lf-permissions-reference.html).
-4. **C** — TTL deletions are asynchronous and can take up to 48 hours. [DynamoDB TTL](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/TTL.html); `../../../aws_certified/labs/week-07-lab-lifecycle.md:411-413`.
+4. **C** — TTL deletions are asynchronous and can take up to 48 hours. [DynamoDB TTL](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/TTL.html).
 5. **B** — `OPTIMIZE ... REWRITE DATA USING BIN_PACK` bin-packs small files. [Athena OPTIMIZE](https://docs.aws.amazon.com/athena/latest/ug/optimize-statement.html).
 6. **B** — S3 Access Points. [S3 Access Points](https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-points.html).
 7. **A** — `NoncurrentVersionExpiration` in a lifecycle rule. [Lifecycle configuration elements](https://docs.aws.amazon.com/AmazonS3/latest/userguide/intro-lifecycle-rules.html).

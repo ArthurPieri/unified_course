@@ -31,7 +31,7 @@ B) Run light profile locally
 C) Run light profile in cloud fallback
 D) Upgrade hardware before Phase 1
 
-**Q9.** The central glossary, docs index, and sibling-source index all live under:
+**Q9.** The central glossary, docs index, and content provenance record all live under:
 A) `docs/` B) `references/` C) `status/` D) `phase_0_orientation/`
 
 **Q10.** Before Phase 3, a learner must have completed:

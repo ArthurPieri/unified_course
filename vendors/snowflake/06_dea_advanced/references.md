@@ -1,6 +1,6 @@
 # Module 06 — References
 
-> **Sibling gap notice:** Phases 2 and 3 of `../../../../snowflake_eng/` (Core and DEA deep content) do **not** exist. This module has **no** sibling-notes citations and relies entirely on the DEA + Core PDF study guides and docs.snowflake.com. See `../../../references/sibling_sources.md:L158-L178`.
+> This module relies entirely on the [Snowflake certification study guides](https://www.snowflake.com/certifications/) and [Snowflake documentation](https://docs.snowflake.com/).
 
 ## Snowflake docs (primary)
 - [Streams intro](https://docs.snowflake.com/en/user-guide/streams-intro)

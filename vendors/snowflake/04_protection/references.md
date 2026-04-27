@@ -15,6 +15,6 @@
 - *SnowPro Core Study Guide*, Domain 6.0 "Data Protection and Data Sharing", p. 12 — Fail-safe, encryption, cloning, replication, failover.
 - *SnowPro Advanced: Data Engineer Study Guide*, Domain 3.0 "Storage and Data Protection", p. 8 — recovery, cloning for dev, clustering interaction with Time Travel.
 
-## Sibling reuse
-- `../../../../snowflake_eng/phase1_platform/study_notes/domain_4_0_data_protection.md:L7-L250` — CDP, Time Travel, Fail-safe, cloning, Marketplace.
-- `../../../../snowflake_eng/phase1_platform/labs/lab_05_data_protection.sql:L19-L330` — sections 1-9: retention, history, Time Travel, UNDROP, cloning, per-object retention, Marketplace, data share DDL.
+## Additional resources
+- [Snowflake Data Protection](https://docs.snowflake.com/en/user-guide/data-time-travel) — CDP, Time Travel, Fail-safe, cloning, Marketplace.
+- [Snowflake Quickstarts](https://quickstarts.snowflake.com/) — hands-on labs covering retention, history, Time Travel, UNDROP, cloning, per-object retention, Marketplace, data share DDL.

@@ -30,7 +30,7 @@ Ref: [Docs title](https://url) · *Book, Author, Ch. N*
 ## Common failures
 | Symptom | Cause | Fix | Source |
 |---|---|---|---|
-| ... | ... | ... | [link or sibling path] |
+| ... | ... | ... | [link to official docs] |
 
 ## References
 See [references.md](./references.md).
