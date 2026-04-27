@@ -44,7 +44,7 @@ services:
       STATUS_STORAGE_TOPIC: "connect-status"
     ports: ["8083:8083"]
   trino:
-    image: trinodb/trino:latest
+    image: trinodb/trino:470
     ports: ["8080:8080"]
     volumes:
       - ./trino/catalog:/etc/trino/catalog

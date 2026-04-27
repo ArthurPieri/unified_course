@@ -96,3 +96,38 @@ Ref: [FinOps Framework](https://www.finops.org/framework/)
 
 **IAM (Identity and Access Management)** — cloud service model defining principals (users, roles), actions, resources, and conditions that together determine who can do what.
 Ref: [AWS IAM user guide](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html)
+
+**RBAC (Role-Based Access Control)** — access control model where permissions are assigned to roles, and users assume roles. Simplifies management by grouping permissions into logical job functions.
+Ref: Sandhu, R. et al. (1996). "Role-Based Access Control Models." *IEEE Computer* 29(2), pp. 38–47. · [NIST RBAC](https://csrc.nist.gov/projects/role-based-access-control)
+
+**ABAC (Attribute-Based Access Control)** — access control model where authorization decisions use attributes of the subject, resource, action, and environment (e.g., IP range, time of day). More flexible than RBAC but harder to audit.
+Ref: [NIST SP 800-162: Guide to ABAC](https://csrc.nist.gov/pubs/sp/800/162/final)
+
+## Data engineering concepts
+
+**ETL / ELT** — ETL (Extract–Transform–Load) transforms data before loading into the target; ELT (Extract–Load–Transform) loads raw data first, then transforms in the target warehouse. ELT dominates cloud warehouses because storage is cheap and compute is elastic.
+Ref: *Fundamentals of Data Engineering*, Reis & Housley, Ch. 8
+
+**Backfill** — retroactively loading or reprocessing historical data through a pipeline that normally handles only new increments. Common after schema changes, bug fixes, or new source onboarding.
+Ref: *Fundamentals of Data Engineering*, Reis & Housley, Ch. 8
+
+**Idempotency** — property of an operation where running it multiple times produces the same result as running it once. Critical for pipeline retries — if a task fails and restarts, idempotent writes prevent duplicates.
+Ref: *Designing Data-Intensive Applications*, Kleppmann, Ch. 11
+
+**Schema-on-read vs. schema-on-write** — schema-on-write enforces structure at write time (RDBMS, Iceberg); schema-on-read defers interpretation to query time (raw data lakes, JSON blobs). Lakehouse formats bring schema-on-write to the data lake.
+Ref: *Designing Data-Intensive Applications*, Kleppmann, Ch. 4
+
+**Materialized view** — a precomputed query result stored as a table and refreshed on demand or on a schedule. Trades storage and freshness for query speed.
+Ref: [PostgreSQL: materialized views](https://www.postgresql.org/docs/current/rules-materializedviews.html)
+
+**Compaction** — background process that merges many small files into fewer, larger files. In Iceberg, compaction rewrites data files and updates metadata without changing table contents.
+Ref: [Iceberg maintenance — compaction](https://iceberg.apache.org/docs/latest/maintenance/#compact-data-files)
+
+**DLQ (Dead Letter Queue)** — a queue where messages that cannot be processed after a configured number of retries are diverted. Prevents poison messages from blocking the main pipeline.
+Ref: [AWS SQS DLQ docs](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dead-letter-queues.html) · [Kafka error handling patterns](https://kafka.apache.org/documentation/#connect_errantrecordreporter)
+
+**SLO / SLI** — an SLI (Service Level Indicator) is a quantitative measure of a service aspect (e.g., latency p99, freshness lag). An SLO (Service Level Objective) is a target value for an SLI (e.g., "freshness lag < 15 min, 99.5% of the time"). SLAs are contractual commitments built on SLOs.
+Ref: Beyer, B. et al. (2016). *Site Reliability Engineering*, O'Reilly, Ch. 4. · [Google SRE Book — Service Level Objectives](https://sre.google/sre-book/service-level-objectives/)
+
+**ADR (Architecture Decision Record)** — a short document capturing one architecture decision: context, decision, and consequences. Accumulated ADRs form a decision log that explains *why* the system looks the way it does.
+Ref: Nygard, M. (2011). "Documenting Architecture Decisions." · [adr.github.io](https://adr.github.io/)

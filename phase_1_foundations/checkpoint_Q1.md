@@ -117,7 +117,7 @@ D) `pyproject.toml`
 |---|---|---|---|
 | 1 | D | 01_linux_bash | [GNU bash manual — set](https://www.gnu.org/software/bash/manual/bash.html#The-Set-Builtin) |
 | 2 | B | 01_linux_bash | `kill(1)` — default signal is SIGTERM (man7.org) |
-| 3 | C | 01_linux_bash | GNU coreutils `chmod` — octal mode |
+| 3 | A | 01_linux_bash | GNU coreutils `chmod` — octal mode: 6 = rw-, 4 = r--, 0 = --- so owner gets rw- and other gets no access |
 | 4 | A | 02_networking | [RFC 1918 §3](https://www.rfc-editor.org/rfc/rfc1918) |
 | 5 | B | 02_networking | [dig(1)](https://linux.die.net/man/1/dig) — `+trace` |
 | 6 | B | 02_networking | [RFC 9110 §7](https://www.rfc-editor.org/rfc/rfc9110); TLS 1.3 RFC 8446 |

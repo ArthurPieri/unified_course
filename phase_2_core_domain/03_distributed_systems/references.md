@@ -9,9 +9,10 @@ GAP module — primary source is *Designing Data-Intensive Applications*, Kleppm
 - *Designing Data-Intensive Applications*, Kleppmann, Ch. 9 — Consistency and consensus (linearizability, CAP, 2PC, Paxos/Raft at overview level)
 - *Designing Data-Intensive Applications*, Kleppmann, Ch. 11 — Stream processing (context for Kafka at-least-once delivery and consumer rebalances)
 
-## Consensus protocol papers (cited by name only per sibling_sources.md GAP note)
-- Raft consensus protocol — "In Search of an Understandable Consensus Algorithm" (Ongaro & Ousterhout)
-- Paxos — "The Part-Time Parliament" (Lamport); "Paxos Made Simple" (Lamport)
+## Consensus protocol papers
+- Ongaro, D. & Ousterhout, J. (2014). "In Search of an Understandable Consensus Algorithm." USENIX ATC '14. https://raft.github.io/raft.pdf
+- Lamport, L. (1998). "The Part-Time Parliament." ACM Transactions on Computer Systems 16(2), pp. 133–169.
+- Lamport, L. (2001). "Paxos Made Simple." ACM SIGACT News 32(4), pp. 51–58.
 
 ## Official docs
 - [PostgreSQL streaming replication / warm standby](https://www.postgresql.org/docs/current/warm-standby.html) — canonical single-leader async replication

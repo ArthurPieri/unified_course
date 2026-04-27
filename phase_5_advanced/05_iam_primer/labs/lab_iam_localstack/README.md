@@ -12,7 +12,7 @@ Write an IAM policy that grants read-only access to the `public/` prefix of an S
 ```bash
 docker run -d --name ls-iam -p 4566:4566 \
   -e SERVICES=iam,s3,sts \
-  localstack/localstack:latest
+  localstack/localstack:3.8
 
 # Create a bucket with two prefixes
 awslocal s3 mb s3://lab-iam-demo

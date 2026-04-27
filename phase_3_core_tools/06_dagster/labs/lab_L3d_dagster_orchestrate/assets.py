@@ -38,10 +38,16 @@ DBT_MANIFEST = DBT_PROJECT_DIR / "target" / "manifest.json"
 # Pattern: ../dataeng/dagster/lakehouse/assets/ingestion.py:L1-L58
 # We import the dlt source + pipeline builders from the Phase 3 lab L3b module.
 # ---------------------------------------------------------------------------
-from phase_3_core_tools._04_dlt.labs.lab_L3b_dlt_ingest.pipeline import (  # type: ignore
-    build_pipeline as build_taxi_pipeline,
-    taxi_source,
+import importlib
+
+# The dlt lab directory starts with a digit (04_dlt), which is not a valid
+# Python identifier.  Use importlib so the import works regardless.
+# Requires the repo root on PYTHONPATH — see lab README "Setup".
+_pipeline_mod = importlib.import_module(
+    "phase_3_core_tools.04_dlt.labs.lab_L3b_dlt_ingest.pipeline"
 )
+build_taxi_pipeline = _pipeline_mod.build_pipeline
+taxi_source = _pipeline_mod.taxi_source
 
 
 @dlt_assets(

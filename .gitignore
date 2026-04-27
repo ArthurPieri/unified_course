@@ -1,0 +1,36 @@
+# Secrets
+.env
+*.pem
+*.key
+
+# Data files
+*.csv
+*.parquet
+*.avro
+
+# Python
+__pycache__/
+*.pyc
+*.egg-info/
+.venv/
+venv/
+
+# IDE
+.vscode/
+.idea/
+.DS_Store
+
+# Docker / runtime
+dagster_home/storage/
+dagster_home/logs/
+dagster_home/history/
+
+# dbt
+target/
+dbt_packages/
+logs/
+
+# Temp
+*.tmp
+*.swp
+.claude-edited-files.log

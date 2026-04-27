@@ -17,6 +17,7 @@ Enough networking to troubleshoot a data pipeline: why does `trino` resolve `hiv
 ## Reading order
 1. This README
 2. [`quiz.md`](quiz.md)
+3. [`labs/lab_L1b_network_diagnostics/`](labs/lab_L1b_network_diagnostics/) — hands-on: diagnose connectivity issues in a Docker Compose stack
 
 ## Concepts
 

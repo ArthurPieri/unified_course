@@ -51,6 +51,6 @@ D) A vendor branch
 5. HMS (Hive Metastore) and Spark. Ref: [01_course_structure](01_course_structure/README.md) §Full vs. light Phase 3 profile
 6. B. Ref: [03_hardware_check/check.sh](03_hardware_check/check.sh)
 7. B — Compose v2, invoked as `docker compose` (space). Ref: [Docker Compose migrate guide](https://docs.docker.com/compose/migrate/)
-8. B — 6 GB meets the light profile local floor; cloud fallback is only mandatory under 8 GB **or** when Docker won't run locally. Ref: [03_hardware_check](03_hardware_check/README.md)
+8. C — 6 GB is below the 8 GB threshold; machines with <8 GB RAM should use cloud fallback (Codespaces or Gitpod). Ref: [03_hardware_check](03_hardware_check/README.md) — "8 GB machines run light only; <8 GB use cloud fallback"
 9. B. Ref: [../README.md](../README.md)
 10. B — Phase 3 only requires Phases 0–2 complete. Phases 4–5 build on Phase 3. Vendor branches need Phases 0–5. Ref: [../UNIFIED_COURSE_PLAN.md](../UNIFIED_COURSE_PLAN.md) §Phase prerequisites

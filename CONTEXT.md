@@ -1,3 +1,9 @@
+> **Historical document.** This file preserves the original course brief used
+> during initial planning. The authoritative plan is
+> [`UNIFIED_COURSE_PLAN.md`](UNIFIED_COURSE_PLAN.md), which incorporates
+> revisions from two rounds of adversarial analysis. Do not rely on CONTEXT.md
+> for current scope, hour estimates, or outcome claims.
+
 # Context: Unified Data Engineering Course Plan — Enhancement Project
 
 This file consolidates all source material needed to execute the `IMPLEMENTATION_PLAN.md`. It contains:

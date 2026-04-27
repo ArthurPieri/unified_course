@@ -11,9 +11,9 @@
 - Decide when Airflow is still the right answer (MWAA, Astronomer, existing Airflow at a large shop)
 
 ## Prerequisites
-- [../../phase_3_core_tools/05_dagster/](../../phase_3_core_tools/05_dagster/) — asset-based orchestration with Dagster (the "before" side of Lab L5b)
+- [../../phase_3_core_tools/06_dagster/](../../phase_3_core_tools/06_dagster/) — asset-based orchestration with Dagster (the "before" side of Lab L5b)
 - [../../phase_1_foundations/04_docker/](../../phase_1_foundations/04_docker/) — Compose, for the standalone Airflow container
-- [../../phase_3_core_tools/03_dbt/](../../phase_3_core_tools/03_dbt/) — dbt CLI invocation (the `transform` task calls it)
+- [../../phase_3_core_tools/05_dbt/](../../phase_3_core_tools/05_dbt/) — dbt CLI invocation (the `transform` task calls it)
 
 ## Reading order
 1. This README

@@ -70,9 +70,9 @@ Docker itself + the host OS pushes the floor higher. On a 16 GB laptop, expect s
 
 On 8 GB machines use `../light-profile/` instead.
 
-## Mounted config (you must provide)
+## Mounted config
 
-This compose references files under `./conf/` that are **not included** with the scaffold — they are wired up when Stage 4+ builds the `01_minio_iceberg_hms`, `02_trino`, and `03_pyspark` modules:
+This compose references config files under `./conf/` that are included with the scaffold:
 
 - `./conf/metastore-site.xml` — HMS JDBC + S3A settings
 - `./conf/trino/catalog/iceberg.properties` — Iceberg catalog pointing at `thrift://hive-metastore:9083`
@@ -80,7 +80,7 @@ This compose references files under `./conf/` that are **not included** with the
 - `./notebooks/` — mounted read-write into the Spark container work-dir
 - `./dagster_home/` — persisted Dagster instance home
 
-The container will fail to start until these are in place. That's intentional: each module delivers the config alongside the lessons that explain it.
+Each config file is explained in its corresponding Phase 3 module (`01_minio_iceberg_hms`, `02_trino`, `03_pyspark`).
 
 ## Version pinning
 

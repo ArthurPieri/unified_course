@@ -5,14 +5,7 @@ Phase-level index. Each module carries its own `references.md`; this file points
 ## Module-level references
 
 - `00_stack_overview/references.md`
-- `01_minio_iceberg_hms/references.md` *(pending)*
-- `02_trino/references.md` *(pending)*
-- `03_pyspark/references.md` *(pending)*
-- `04_dlt/references.md` *(pending)*
-- `05_dbt/references.md` *(pending)*
-- `06_dagster/references.md` *(pending)*
-- `07_metabase/references.md` *(pending)*
-
+- `01_minio_iceberg_hms/references.md` - `02_trino/references.md` - `03_pyspark/references.md` - `04_dlt/references.md` - `05_dbt/references.md` - `06_dagster/references.md` - `07_metabase/references.md` 
 ## Phase-wide primary docs
 
 ### Storage and table format

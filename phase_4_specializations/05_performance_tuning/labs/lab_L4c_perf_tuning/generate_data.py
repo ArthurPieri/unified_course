@@ -100,8 +100,8 @@ def main() -> int:
         default=os.environ.get("MINIO_ENDPOINT", "localhost:9000"),
         help="MinIO host:port (no scheme)",
     )
-    p.add_argument("--access-key", default=os.environ.get("MINIO_ACCESS_KEY", "minio"))
-    p.add_argument("--secret-key", default=os.environ.get("MINIO_SECRET_KEY", "minio123"))
+    p.add_argument("--access-key", default=os.environ.get("MINIO_ACCESS_KEY", "minioadmin"))
+    p.add_argument("--secret-key", default=os.environ.get("MINIO_SECRET_KEY", "minioadmin"))
     p.add_argument("--region", default=os.environ.get("MINIO_REGION", "us-east-1"))
     p.add_argument("--skew", action="store_true", help="concentrate user_id distribution")
     args = p.parse_args()

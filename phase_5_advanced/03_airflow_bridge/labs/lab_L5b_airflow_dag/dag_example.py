@@ -43,15 +43,21 @@ def lakehouse_taxi_daily():
     def ingest(data_interval_start=None) -> dict:
         """Run the dlt taxi pipeline. Mirrors ingestion.py::taxi_ingestion_assets."""
         import dlt  # local import — keeps DAG parse fast
+        from dlt.sources import incremental
+        import pyarrow.parquet as pq
 
-        from taxi_pipeline import taxi_trips_source  # type: ignore[import-not-found]
+        @dlt.resource(name="yellow_taxi_trips", write_disposition="append")
+        def _taxi_source():
+            url = "https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2024-01.parquet"
+            table = pq.read_table(url)
+            yield table
 
         pipeline = dlt.pipeline(
             pipeline_name="taxi_ingestion",
             destination="filesystem",
             dataset_name="raw_taxi",
         )
-        info = pipeline.run(taxi_trips_source())
+        info = pipeline.run(_taxi_source())
         # Return a small pointer payload — NOT the data itself. XComs are for small values.
         # https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/xcoms.html
         return {

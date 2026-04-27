@@ -14,9 +14,9 @@ Pick the dataset you find most interesting. All three are large enough to stress
 
 | Dataset | Why it works | PII / sensitivity angle |
 |---|---|---|
-| **NYC Taxi (TLC) trip records** | Canonical. Clean schema, large volume, natural time partitioning. Already used in Phase 3 labs (`../phase_3_core_tools/05_dbt/`), so you can lift the dbt models. | Pickup/dropoff coordinates → quasi-identifier; license numbers → direct identifier |
-| **GitHub Archive (gharchive.org)** | JSON event stream, nested schemas, natural for CDC-style append. Good stress test for schema evolution. | Actor logins + emails in some event types |
-| **Wikipedia pageviews** | Hourly batch dumps, massive cardinality, strong aggregation story. | Low PII — use it only if you plan to synthesize a "user profile" table on the side to exercise masking |
+| [**NYC Taxi (TLC) trip records**](https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page) | Canonical. Clean schema, large volume, natural time partitioning. Already used in Phase 3 labs (`../phase_3_core_tools/05_dbt/`), so you can lift the dbt models. | Pickup/dropoff coordinates → quasi-identifier; license numbers → direct identifier |
+| [**GitHub Archive (gharchive.org)**](https://www.gharchive.org/) | JSON event stream, nested schemas, natural for CDC-style append. Good stress test for schema evolution. | Actor logins + emails in some event types |
+| [**Wikipedia pageviews**](https://dumps.wikimedia.org/other/pageviews/) | Hourly batch dumps, massive cardinality, strong aggregation story. | Low PII — use it only if you plan to synthesize a "user profile" table on the side to exercise masking |
 
 Choose one. Do not mix datasets. If you picked NYC Taxi because it reuses Phase 3 code, that is fine — the integration work is still non-trivial.
 
@@ -34,6 +34,8 @@ All twelve of these are called out in `../UNIFIED_COURSE_PLAN.md` L537–L548. D
 8. **Architecture diagram.** One page, readable, labeled. ASCII in the README is acceptable; a PNG rendered from diagrams.net is better. It must match reality.
 9. **ADR folder.** At least three ADRs using a minimal template (context / decision / consequences). Suggested topics: why Iceberg over Delta, why dbt over Spark SQL scripts, why Dagster over Airflow for this project.
 10. **README sufficient for onboarding.** Someone who has never seen your repo must be able to clone, run, and query in under 30 minutes following only the README. Prerequisites, `docker compose up`, bootstrap commands, where to click in Dagster and Metabase, how to rerun a failed asset.
+11. **Data quality gates.** At least one pipeline stage must enforce a hard quality gate: if a check fails, downstream processing halts. This can be a dbt test wired as a Dagster asset check, a Great Expectations suite, or a custom assertion in a dlt resource — the mechanism does not matter, but the gate must be demonstrably load-bearing (not a warning that is ignored).
+12. **Error handling and idempotency.** Every write operation in the pipeline must be idempotent — safe to retry without producing duplicates or corrupting state. Document the idempotency strategy per layer (Bronze: append with dedup key; Silver/Gold: MERGE or overwrite partition). At least one asset must demonstrate graceful failure handling: log the error, send a metric, and leave the table in a consistent state.
 
 ## Time budget
 

@@ -7,7 +7,18 @@ Load a NYC TLC Yellow Taxi sample into PostgreSQL, write five window-function qu
 - Lab L1 completed — `postgres` from `04_docker/labs/lab_L1_compose_healthcheck` is running and healthy
 - `psql` client (installed on the host or accessed via `docker exec`)
 - ~50 MB free disk
-- A NYC TLC Yellow Taxi CSV sample of ~50k rows. The NYC TLC publishes monthly trip-record files; the canonical landing page is [NYC TLC Trip Record Data](https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page). Recent months are distributed as Parquet; for a lab CSV, either convert a Parquet file with DuckDB or ship a local `yellow_sample.csv` with the columns used below.
+- ~50 MB free disk
+
+## Data setup
+
+Run the included generator to create the sample dataset:
+
+```bash
+python generate_sample.py
+```
+
+This creates `yellow_sample.csv` (50 000 rows of synthetic NYC taxi data) in this directory.
+The file is git-ignored; regenerate it on any new machine.
 
 ## Setup
 

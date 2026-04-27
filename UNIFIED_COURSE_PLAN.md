@@ -491,7 +491,7 @@ By the end of this course, the learner will design, build, deploy, monitor, and 
 - Lab: build a FastAPI endpoint serving Gold-layer analytics
 
 *Architecture Design (6h):*
-- Architecture decision records (ADRs): documenting why, not just what
+- Architecture decision records (ADRs): documenting why, not just what — covered in Appendix A (`appendix_a_architecture/`) and exercised in the capstone ADR deliverable (Phase 6 §Dimension 12)
 - Trade-off analysis: latency vs. cost vs. complexity vs. operational burden
 - When to choose: Medallion vs. Data Mesh vs. Data Fabric
 - Scaling the lakehouse: adding workers, adding storage, adding catalogs
@@ -954,9 +954,9 @@ Build an end-to-end data lakehouse processing a realistic dataset:
    - **9c. Snowflake** — Architecture, warehouses, Snowpipe, Snowpark, governance (15-22 weeks) -> SOL-C01 -> COF-C02 -> DEA-C02 certs
 10. **Certification preparation** — Practice exams, weak-area remediation, exam scheduling (2-4 weeks)
 
-**Standard timeline (one vendor path, with capstone):** ~42-64 weeks at 10-12h/week (~475-628 hours total, plus 2-4 weeks certification prep)
+**Standard timeline (one vendor path, with capstone):** ~45-70 weeks at 10-12h/week (~475-700 hours total, plus 2-4 weeks certification prep)
 
-**Fast-track timeline (skip capstone):** ~36-56 weeks at 10-12h/week (~425-558 hours total, plus 2-4 weeks certification prep)
+**Fast-track timeline (skip capstone):** ~39-58 weeks at 10-12h/week (~425-580 hours total, plus 2-4 weeks certification prep)
 
 ---
 

@@ -70,12 +70,21 @@ def taxi_source(year: int = 2024, months: tuple[int, ...] = (1,)):
     return yellow_taxi_trips(year=year, months=months)
 
 
-def main(year: int, months: tuple[int, ...]) -> None:
-    pipeline = dlt.pipeline(
+def build_pipeline() -> dlt.Pipeline:
+    """Return a configured dlt Pipeline without running it.
+
+    Useful when another tool (e.g. dagster-dlt) needs to own the
+    ``pipeline.run()`` call itself.
+    """
+    return dlt.pipeline(
         pipeline_name="nyc_taxi_lab",
         destination="filesystem",
         dataset_name="yellow_taxi",
     )
+
+
+def main(year: int, months: tuple[int, ...]) -> None:
+    pipeline = build_pipeline()
     load_info = pipeline.run(taxi_source(year=year, months=months))
     print(load_info)
 

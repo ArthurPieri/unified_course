@@ -1,0 +1,14 @@
+FROM python:3.11-slim
+
+RUN pip install --no-cache-dir \
+    "dagster>=1.9,<1.10" \
+    "dagster-webserver>=1.9,<1.10" \
+    "dagster-postgres>=0.25,<0.26" \
+    "dagster-dbt>=0.25,<0.26" \
+    "dagster-dlt>=0.25,<0.26" \
+    "dbt-trino>=1.8,<1.9" \
+    "dlt[filesystem]>=1.4" \
+    "trino>=0.328" \
+    "pyarrow>=16"
+
+WORKDIR /opt/dagster

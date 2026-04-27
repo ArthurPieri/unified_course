@@ -18,6 +18,7 @@
 ## Reading order
 1. This README
 2. `quiz.md`
+3. [`labs/lab_L5c_fastapi_serving/`](labs/lab_L5c_fastapi_serving/) — hands-on: build a read-only FastAPI endpoint over Trino Gold tables
 
 ## Concepts
 

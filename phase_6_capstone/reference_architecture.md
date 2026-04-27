@@ -89,7 +89,7 @@ You are free to deviate from this reference. If you do, write an ADR explaining 
 | Transformations | Staging → intermediate → marts with contracts and tests | dbt-trino (`docs.getdbt.com`) | SQLMesh, hand-written Spark SQL |
 | Orchestration | DAG, schedules, sensors, retries, asset checks | Dagster (`docs.dagster.io`) | Airflow — see Phase 5 · 03_airflow_bridge |
 | BI | Dashboards for Gold marts | Metabase (`metabase.com`) | Superset, Lightdash |
-| Programmatic serving | Read API over Gold | FastAPI → Trino | gRPC, direct Trino JDBC |
+| Programmatic serving | Read API over Gold (optional stretch) | FastAPI → Trino | gRPC, direct Trino JDBC |
 | Metrics | Time-series collection | Prometheus (`prometheus.io`) | OpenTelemetry collector |
 | Dashboards + alerts | Visualization and alert routing | Grafana (`grafana.com`) | Grafana Cloud, Datadog (managed) |
 | Secrets | Credentials outside git | `.env` file + docker secrets | Vault, AWS Secrets Manager, Doppler |
